@@ -3,42 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <title>Low Poly Background</title>
+<link href="https://fonts.googleapis.com/css?family=Lato:200,300,400,600,700,900" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
 
-<h1>Low Poly Background</h1>
-
-<div class="wrap">
-	<div id="loader" class="loader"><div class="circle"></div>
-	<div class="circle"></div>
-	<div class="circle"></div>
-	<div class="circle"></div></div>
-	<canvas id="canvas" class="grid" width="1280" height="720"></canvas>
+<div class="topbar">
+	<h1>Low Poly Background</h1>	
 </div>
-<canvas id="canvas2" class="grid" width="1280" height="720"></canvas>
+
+<section class="display">
+	<div class="wrap">
+		<div id="loader" class="loader">
+			<div class="circle"></div>
+			<div class="circle"></div>
+			<div class="circle"></div>
+			<div class="circle"></div>
+		</div>
+	<canvas id="canvas" class="canvas1" width="1280" height="720"></canvas>
+	</div>
+	<canvas id="canvas2" class="canvas2" width="1280" height="720"></canvas>
+</section>
 
 <section class="controls">
-	<label for="width">W:</label>
+	<h3>Dimensions</h3>
+	<label for="width">Width</label>
 	<input type="number" id="width">
 	<br>
-	<label for="height">H:</label>
+	<label for="height">Height</label>
 	<input type="number" id="height">
 	<br>
-	<button id="size-btn">Set Size</button>
+	<button id="size-btn">Set</button>
+
+	<h3>Geometry</h3>
 	<label for="variance">Variance</label>
 	<input type="range" id="variance" value="40">
 	<br>
 	<label for="cell-size">Cell Size</label>
 	<input type="range" id="cell-size" value="40">
 	<br>
-	<label for="oamount">3D Effect</label>
-	<input type="range" id="oamount" value="10"><br>
+	<label for="oamount">Depth</label>
+	<input type="range" id="oamount" value="10">
+
 	<h3>Colour</h3>
-	<label for="numColours">No. of colours</label>
+	<label for="numColours">No. of colours: <span id="num-colours"></span></label>
 	<input type="range" id="numColours" value="2" max="4" min="1" step="1"><br>
 	<div id="colour-div"></div>
-	<a id="save" download="lowpoly.png">Download Image</a>
+	<a id="save" class="button" download="lowpoly.png">Download Image</a>
 </section>
 
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1">

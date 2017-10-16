@@ -54,6 +54,7 @@ function init () {
 			temp.id = "colour" +(i+1);
 
 			document.getElementById("colour-div").appendChild(temp);
+			document.getElementById("num-colours").innerHTML = numColours.value;
 			temp.value = colours[i];
 			temp.addEventListener("change",function () {
 				//document.getElementById("colour-div").innerHTML = "";
