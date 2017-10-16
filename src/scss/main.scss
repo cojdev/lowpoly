@@ -15,28 +15,40 @@ canvas {
 #save {
   display: inline-block;
   text-decoration: none;
-  background: #eee;
+  background: #28d;
   padding: 0.6rem;
-  color: #000;
+  color: #fff;
   border-radius: 2px;
+  &:hover {
+    background: #ccc;
+  }
 }
-#save:hover {
-  background: #ccc;
+
+.display {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
 }
 
 .controls {
   position: fixed;
+  color: #fff;
   top: 0;
   right: 0;
-  background: #fff;
+  bottom: 0;
+  background: rgba(#000,.8);
   padding: 1rem;
   box-shadow:  0 5px 20px rgba(0,0,0,0.1);
-  opacity: 0.5;
+  opacity: 0.4;
   transition: opacity 150ms ease;
+  &:hover {
+    opacity: 1;
+  }
 }
 
-.controls:hover {
-  opacity: 1;
+label {
+  color: #ddd;
 }
 
 .wrap {

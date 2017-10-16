@@ -1,0 +1,39 @@
+{
+  "name": "lowpoly",
+  "version": "1.0.0",
+  "description": "Low Poly Background Generator",
+  "main": "gulpfile.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cojdev/lowpoly.git"
+  },
+  "keywords": [
+    "lowpoly",
+    "abstract",
+    "background",
+    "generator"
+  ],
+  "author": "Charles Ojukwu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cojdev/lowpoly/issues"
+  },
+  "homepage": "https://github.com/cojdev/lowpoly#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-filter": "^5.0.1",
+    "gulp-newer": "^1.3.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.1",
+    "gulp-uglify": "^3.0.0"
+  }
+}

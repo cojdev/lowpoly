@@ -13,26 +13,35 @@ canvas {
 #save {
   display: inline-block;
   text-decoration: none;
-  background: #eee;
+  background: #28d;
   padding: 0.6rem;
-  color: #000;
+  color: #fff;
   border-radius: 2px; }
+  #save:hover {
+    background: #ccc; }
 
-#save:hover {
-  background: #ccc; }
+.display {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0; }
 
 .controls {
   position: fixed;
+  color: #fff;
   top: 0;
   right: 0;
-  background: #fff;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
   padding: 1rem;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  opacity: 0.5;
+  opacity: 0.4;
   transition: opacity 150ms ease; }
+  .controls:hover {
+    opacity: 1; }
 
-.controls:hover {
-  opacity: 1; }
+label {
+  color: #ddd; }
 
 .wrap {
   position: relative;
@@ -71,60 +80,63 @@ canvas {
     transform: translateX(0); }
   6% {
     transform: translateX(-3.75px) scale(0.75); }
-  24%,30% {
+  24%, 30% {
     transform: translateX(-15px) scale(0.65); }
   36% {
     transform: translateX(-15px) scale(0.5); }
-  60%,70% {
+  60%, 70% {
     transform: translateX(-15px) scale(0.4); }
   85% {
     transform: translateX(-3.75px) scale(0.9); }
   90% {
     transform: translateX(0); } }
+
 @keyframes a2 {
   0% {
     transform: translateX(0); }
   6% {
     transform: translateX(-3.75px) scale(0.75); }
-  24%,30% {
+  24%, 30% {
     transform: translateX(-15px) scale(0.65); }
   36% {
     transform: translateX(-22.5px) scale(0.5); }
-  60%,70% {
+  60%, 70% {
     transform: translateX(-45px) scale(0.4); }
   85% {
     transform: translateX(-3.75px) scale(0.9); }
   90% {
     transform: translateX(0); } }
+
 @keyframes a3 {
   0% {
     transform: translateX(0); }
   6% {
     transform: translateX(3.75px) scale(0.75); }
-  24%,30% {
+  24%, 30% {
     transform: translateX(15px) scale(0.65); }
   36% {
     transform: translateX(22.5px) scale(0.5); }
-  60%,70% {
+  60%, 70% {
     transform: translateX(45px) scale(0.4); }
   85% {
     transform: translateX(3.75px) scale(0.9); }
   90% {
     transform: translateX(0); } }
+
 @keyframes a4 {
   0% {
     transform: translateX(0); }
   6% {
     transform: translateX(3.75px) scale(0.75); }
-  24%,30% {
+  24%, 30% {
     transform: translateX(15px) scale(0.65); }
   36% {
     transform: translateX(15px) scale(0.5); }
-  60%,70% {
+  60%, 70% {
     transform: translateX(15px) scale(0.4); }
   85% {
     transform: translateX(3.75px) scale(0.9); }
   90% {
     transform: translateX(0); } }
 
-/*# sourceMappingURL=bg.css.map */
+/*# sourceMappingURL=main.css.map */
