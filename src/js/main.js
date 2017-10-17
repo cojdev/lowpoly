@@ -330,7 +330,7 @@ function pointFun (drawOnly) {
 	if(drawOnly === true){
 		//do nothing
 	}else{
-		cellSize = (cRange.value*2)+10;
+		cellSize = (cRange.value*3)+30;
 		variance = vRange.value/100;
 		gridWidth = cvs.width+cellSize*2;
 		gridHeight = cvs.height+cellSize*2;

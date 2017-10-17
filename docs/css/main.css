@@ -43,14 +43,14 @@ a {
 
 .topbar {
   height: 40px;
-  background: #555;
+  background: #333;
   color: #f8f8f8; }
   .topbar li {
     display: inline; }
   .topbar li:not(:last-child)::after {
-    content: "•";
+    content: " •";
     margin: 0 .5rem;
-    color: #ccc; }
+    color: #888; }
   .topbar h1 {
     display: inline;
     font-size: 1rem;
@@ -68,6 +68,19 @@ a {
   top: 40px;
   bottom: 0; }
 
+.row {
+  margin: 0 -0.5rem; }
+  .row:before, .row:after {
+    content: '';
+    display: table; }
+  .row:after {
+    clear: both; }
+
+._50 {
+  float: left;
+  padding: 0 0.5rem;
+  width: 50%; }
+
 .wrap {
   position: relative;
   display: inline-block;
@@ -80,7 +93,7 @@ a {
 .canvas1 {
   max-width: 95%;
   max-height: 95%;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1); }
 
 .canvas2 {
   display: none; }
@@ -92,10 +105,14 @@ button,
   background: linear-gradient(to bottom right, #D84155, #882963);
   padding: 0.6rem;
   color: #fff;
-  border-radius: 2px; }
+  border-radius: 2px;
+  width: 100%; }
   button:hover,
   .button:hover {
     background: linear-gradient(to bottom right, #e16b7b, #af3580); }
+
+.section {
+  padding: 1rem; }
 
 input[type=text],
 input[type=number],
@@ -121,11 +138,21 @@ select {
   right: 0;
   bottom: 0;
   width: 200px;
-  background: rgba(0, 0, 0, 0.8);
-  padding: 0 1rem;
+  background: #333;
+  padding: 0;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
-  overflow-x: hidden; }
+  overflow-x: hidden;
+  border-top: 1px solid #444; }
+  .controls h3 {
+    padding: .5rem 1rem;
+    margin: 0;
+    border-bottom: 1px solid #444; }
+
+.fieldgroup {
+  padding: 1rem;
+  border-bottom: 1px solid #444;
+  background: #222; }
 
 label {
   color: #ddd;

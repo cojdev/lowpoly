@@ -30,16 +30,16 @@ a {
 
 .topbar {
 	height: $topbar-height;
-	background: #555;
+	background: #333;
 	color: #f8f8f8;
 	li {
 		display: inline;
 	}
 	li:not(:last-child) {
 		&::after {
-			content: "•";
+			content: " •";
 			margin: 0 .5rem;
-			color: #ccc;
+			color: #888;
 		}
 	}
 	h1 {
@@ -62,6 +62,25 @@ a {
 	bottom: 0;
 }
 
+@mixin row($gutter: 1rem) {
+	margin: 0 (0-($gutter / 2));
+	@include clearfix;
+}
+
+@mixin col($width: 100%, $gutter: 1rem) {
+	float: left;
+	padding: 0 ($gutter / 2);
+	width: $width;
+}
+
+.row {
+	@include row;
+}
+
+._50 {
+	@include col(50%);
+}
+
 .wrap {
 	position: relative;
 	display: inline-block;
@@ -75,7 +94,7 @@ a {
 .canvas1 {
 	max-width: 95%;
 	max-height: 95%;
-	box-shadow: 0 2px 10px rgba(#000, .1);
+	box-shadow: 0 2px 20px rgba(#000, .1);
 }
 .canvas2 {
 	display: none;
@@ -89,9 +108,14 @@ button,
 	padding: 0.6rem;
 	color: #fff;
 	border-radius: 2px;
+	width: 100%;
 	&:hover {
 		background: linear-gradient(to bottom right,lighten(#D84155, 10%),lighten(#882963, 10%));
 	}
+}
+
+.section {
+	padding: 1rem;
 }
 
 input[type=text],
@@ -120,11 +144,23 @@ select {
 	right: 0;
 	bottom: 0;
 	width: $control-width;
-	background: rgba(#000,.8);
-	padding: 0 1rem;
+	background: #333;
+	padding: 0;
 	box-shadow:  0 5px 20px rgba(0,0,0,0.1);
 	overflow-y: auto;
 	overflow-x: hidden;
+	border-top: 1px solid #444;
+	h3 {
+		padding: .5rem 1rem;
+		margin: 0;
+		border-bottom: 1px solid #444;
+	}
+}
+
+.fieldgroup {
+	padding: 1rem;
+	border-bottom: 1px solid #444;
+	background: #222;
 }
 
 label {
