@@ -1,3 +1,6 @@
+/**
+ * Author: Charles Ojukwu
+ */
 (function () {
 
 'use strict';
@@ -17,7 +20,8 @@ var cvs,//canvas
 	cvs2,
 	ctx2,
 	loader,
-	numColours;
+	numColours,
+	preset;
 var points = [];
 var cellSize = 50;//size of a single grid square
 var variance = 0.2;
@@ -36,6 +40,17 @@ function init () {
 	ctx2 = cvs2.getContext("2d");
 	numColours = document.getElementById("numColours");
 
+	preset = document.getElementById("preset-size");
+
+	preset.addEventListener("change",function () {
+		var temp5 = preset.value.split("-");
+		console.log(temp5);
+
+		document.getElementById('width').value = parseInt(temp5[0]);
+		document.getElementById('height').value = parseInt(temp5[1]);
+	},false);
+
+
 	var setSize = function(w,h) {
 		cvs.width = w;
 		cvs.height = h;
@@ -45,6 +60,9 @@ function init () {
 
 		cvs2.width = cvs.width;
 		cvs2.height = cvs.height;
+		//Repopulate inputs
+		document.getElementById('width').value = w;
+		document.getElementById('height').value = h;
 	}
 
 	var setCols = function() {
@@ -113,6 +131,7 @@ function init () {
 		var tempw = document.getElementById('width').value;
 		var temph = document.getElementById('height').value;
 		setSize(tempw,temph);
+		drawBG(ctx2,cvs2);
 		console.log(tempw +" : "+ temph)
 		pointFun();
 	})

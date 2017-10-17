@@ -1,3 +1,4 @@
+@charset "UTF-8";
 *, *:before, *:after {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -34,11 +35,24 @@ html {
   background: #ddd;
   font-size: 14px; }
 
+a {
+  color: #48b;
+  text-decoration: none; }
+  a:hover {
+    text-decoration: underline; }
+
 .topbar {
   height: 40px;
   background: #555;
   color: #f8f8f8; }
+  .topbar li {
+    display: inline; }
+  .topbar li:not(:last-child)::after {
+    content: "•";
+    margin: 0 .5rem;
+    color: #ccc; }
   .topbar h1 {
+    display: inline;
     font-size: 1rem;
     font-weight: 900;
     margin: 0;
@@ -46,10 +60,26 @@ html {
     padding-left: 1rem; }
 
 .display {
-  max-width: calc(100% - 200px); }
+  width: calc(100% - 200px);
+  text-align: center;
+  bottom: 0;
+  position: fixed;
+  left: 0;
+  top: 40px;
+  bottom: 0; }
+
+.wrap {
+  position: relative;
+  display: inline-block;
+  height: calc(100vh - 40px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center; }
 
 .canvas1 {
-  max-width: 100%;
+  max-width: 95%;
+  max-height: 95%;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
 
 .canvas2 {
@@ -68,20 +98,21 @@ button,
     background: linear-gradient(to bottom right, #e16b7b, #af3580); }
 
 input[type=text],
-input[type=number] {
+input[type=number],
+input[type=range],
+select {
   display: block;
-  width: 100%;
+  width: 100%; }
+
+input[type=text],
+input[type=number],
+select {
   height: 2rem;
   line-height: 2rem;
   padding: 0 .5rem;
   background: #fff;
-  border: none; }
-
-.display {
-  position: fixed;
-  left: 0;
-  top: 40px;
-  bottom: 0; }
+  border: none;
+  margin-bottom: .75rem; }
 
 .controls {
   position: fixed;
@@ -91,7 +122,7 @@ input[type=number] {
   bottom: 0;
   width: 200px;
   background: rgba(0, 0, 0, 0.8);
-  padding: 1rem;
+  padding: 0 1rem;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
   overflow-x: hidden; }
@@ -99,10 +130,6 @@ input[type=number] {
 label {
   color: #ddd;
   display: block; }
-
-.wrap {
-  position: relative;
-  display: inline-block; }
 
 .loader {
   position: absolute;
