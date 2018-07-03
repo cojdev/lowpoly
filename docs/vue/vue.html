@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Low Poly Background</title>
+<link href="https://fonts.googleapis.com/css?family=Lato:200,300,400,600,700,900" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-60240085-8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-60240085-8');
+</script>
+
+</head>
+<body>
+<!-- Topbar -->
+<header class="topbar">
+	<ul>
+		<li><h1>Low Poly Background</h1></li>
+		<li><a href="https://github.com/cojdev">Github</a></li>
+		<li><a href="https://codepen.io/charleso">CodePen</a></li>
+	</ul>
+</header>
+<div id="app">
+	<section class="display">
+		<div class="wrap">
+			<!-- Loader -->
+			<div id="loader" class="loader" v-if="loading"></div>
+
+			<!-- Canvas Display -->
+			<canvas id="canvas" class="canvas1" :width="width" :height="height"></canvas>
+			<canvas id="canvas2" class="canvas2" :width="width" :height="height"></canvas>
+		</div>
+	</section>
+	
+	<!-- Controls -->
+	<section class="controls">
+
+		<h3>Dimensions</h3>
+		<div class="fieldgroup">
+			<!-- Presets -->
+			{{ width }} {{ height }}
+			<label for="preset-size">Presets</label>
+			<select v-model="activePreset">
+				<option v-for="preset in presets" :value="presets.indexOf(preset)">
+					{{ presetLabel(preset) }}
+				</option>
+			</select>
+
+			<div class="row">
+				<div class="_50">
+					<label for="width">Width</label>
+					<input v-model="selected.w" type="number">
+				</div>
+				<div class="_50">
+					<label for="height">Height</label>
+					<input v-model="selected.h" type="number">
+				</div>
+			</div>
+			<button @click="setSize()">Set</button>
+		</div>
+
+		<!-- Geometry -->
+		<h3>Geometry</h3>
+		<div class="fieldgroup">
+			<label for="variance">Variance</label>
+			<input type="range" v-model="variance">
+
+			<label for="cell-size">Cell Size</label>
+			<input type="range" v-model="cellSize">
+
+			<label for="oamount">Depth</label>
+			<input type="range" v-model="depth">
+		</div>
+		
+		<h3>Colour</h3>
+		<div class="fieldgroup">
+			<label for="numColours">No. of colours: <span id="num-colours"></span></label>
+			<input 
+				type="range" v-model.lazy="totalColours" max="5" min="1" step="1"><br>
+			<!-- Container for dynamically generated color input elememets -->
+			<input 
+				v-for="colour in activePalette"
+				:value="colour"
+				type="color" />
+		</div>
+		<div class="section">
+			<a aria-click="save" class="button" download="lowpoly.png">Download Image</a>
+		</div>
+		
+	</section>
+</div>
+
+<script src="js/vue.js"></script>
+<script src="js/new.js"></script>
+</body>
+</html>

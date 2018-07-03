@@ -20,91 +20,9 @@
 
 </head>
 <body>
-<!-- Topbar -->
-<header class="topbar">
-	<ul>
-		<li><h1>Low Poly Background</h1></li>
-		<li><a href="https://github.com/cojdev">Github</a></li>
-		<li><a href="https://codepen.io/charleso">CodePen</a></li>
-	</ul>
-</header>
-<!-- Canvas Display -->
-<section class="display">
-	<div class="wrap">
-		<div id="loader" class="loader">
-			<div class="circle"></div>
-			<div class="circle"></div>
-			<div class="circle"></div>
-			<div class="circle"></div>
-		</div>
-	<canvas id="canvas" class="canvas1"></canvas>
-	</div>
-	<canvas id="canvas2" class="canvas2"></canvas>
-</section>
-<!-- Controls -->
-<section class="controls">
+    <div id="root"></div>
 
-	<h3>Dimensions</h3>
-	<div class="fieldgroup">
-		<label for="preset-size">Presets</label>
-		<select id="preset-size">
-			<option value="1280-720">1280x720</option>
-			<option value="1366-768">1366x768</option>
-			<option value="1920-1080">1920x1080</option>
-			<option value="3840-2160">3840x2160 (4K)</option>
-			<option value="640-1152">iPhone 5/5s</option>
-			<option value="750-1334">iPhone 6/7/8</option>
-			<option value="1080-1920">iPhone 6+/7+/8+</option>
-		</select>
-		<div class="row">
-			<div class="_50">
-				<label for="width">Width</label>
-				<input type="number" id="width">
-			</div>
-			<div class="_50">
-				<label for="height">Height</label>
-				<input type="number" id="height">
-			</div>
-		</div>
-		<button id="size-btn">Set</button>
-	</div>
-
-	<h3>Geometry</h3>
-	<div class="fieldgroup">
-		<label for="variance">Variance</label>
-		<input type="range" id="variance" value="40">
-
-		<label for="cell-size">Cell Size</label>
-		<input type="range" id="cell-size" value="40">
-
-		<label for="oamount">Depth</label>
-		<input type="range" id="oamount" value="10">
-	</div>
-	
-
-	<h3>Colour</h3>
-	<div class="fieldgroup">
-		<label for="numColours">No. of colours: <span id="num-colours"></span></label>
-		<input type="range" id="numColours" value="2" max="4" min="1" step="1"><br>
-		<!-- Container for dynamically generated color input elememets -->
-		<div id="colour-div"></div>
-	</div>
-	<div class="section">
-		<a id="save" class="button" download="lowpoly.png">Download Image</a>
-	</div>
-	
-</section>
-<!-- Loader -->
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-	<defs>
-	<filter id="goo">
-		<feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
-		<feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
-		<feBlend in="SourceGraphic" in2="goo" />
-	</filter>
-	</defs>
-</svg>
-
-<script src="js/main.js"></script>
+    <!-- Scripts -->
+	<script src="js/bundle.js"></script>
 </body>
 </html>

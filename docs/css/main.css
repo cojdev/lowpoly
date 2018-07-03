@@ -159,95 +159,18 @@ label {
   display: block; }
 
 .loader {
-  position: absolute;
-  top: 50%; }
+  display: flex; }
 
-.loader {
-  position: absolute;
-  filter: url("#goo");
-  top: calc(50% - 15px);
-  left: calc(50% - 45px);
-  height: 30px;
-  width: 90px; }
-
-.circle {
-  width: 30px;
-  height: 30px;
+.spinner {
   border-radius: 50%;
-  background: #fff;
-  position: absolute;
-  left: 30px; }
-  .circle:first-child {
-    animation: a1 1200ms ease-out infinite; }
-  .circle:last-child {
-    animation: a2 1200ms ease-out infinite; }
-  .circle:nth-child(2) {
-    animation: a3 1200ms ease-out infinite; }
-  .circle:nth-child(3) {
-    animation: a4 1200ms ease-out infinite; }
+  height: 40px;
+  width: 40px;
+  animation: spinner 600ms linear infinite; }
 
-@keyframes a1 {
+@keyframes spinner {
   0% {
-    transform: translateX(0); }
-  6% {
-    transform: translateX(-3.75px) scale(0.75); }
-  24%, 30% {
-    transform: translateX(-15px) scale(0.65); }
-  36% {
-    transform: translateX(-15px) scale(0.5); }
-  60%, 70% {
-    transform: translateX(-15px) scale(0.4); }
-  85% {
-    transform: translateX(-3.75px) scale(0.9); }
-  90% {
-    transform: translateX(0); } }
-
-@keyframes a2 {
-  0% {
-    transform: translateX(0); }
-  6% {
-    transform: translateX(-3.75px) scale(0.75); }
-  24%, 30% {
-    transform: translateX(-15px) scale(0.65); }
-  36% {
-    transform: translateX(-22.5px) scale(0.5); }
-  60%, 70% {
-    transform: translateX(-45px) scale(0.4); }
-  85% {
-    transform: translateX(-3.75px) scale(0.9); }
-  90% {
-    transform: translateX(0); } }
-
-@keyframes a3 {
-  0% {
-    transform: translateX(0); }
-  6% {
-    transform: translateX(3.75px) scale(0.75); }
-  24%, 30% {
-    transform: translateX(15px) scale(0.65); }
-  36% {
-    transform: translateX(22.5px) scale(0.5); }
-  60%, 70% {
-    transform: translateX(45px) scale(0.4); }
-  85% {
-    transform: translateX(3.75px) scale(0.9); }
-  90% {
-    transform: translateX(0); } }
-
-@keyframes a4 {
-  0% {
-    transform: translateX(0); }
-  6% {
-    transform: translateX(3.75px) scale(0.75); }
-  24%, 30% {
-    transform: translateX(15px) scale(0.65); }
-  36% {
-    transform: translateX(15px) scale(0.5); }
-  60%, 70% {
-    transform: translateX(15px) scale(0.4); }
-  85% {
-    transform: translateX(3.75px) scale(0.9); }
-  90% {
-    transform: translateX(0); } }
+    transform: rotate(0); }
+  100% {
+    transform: rotate(360deg); } }
 
 /*# sourceMappingURL=main.css.map */

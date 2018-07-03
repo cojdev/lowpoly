@@ -169,53 +169,24 @@ label {
 }
 
 .loader {
-	position: absolute;
-	top: 50%;
+	display: flex;
+}
+
+.spinner {
+	$size: 40px;
+	border-radius: 50%;
+	height: $size;
+	width: $size;
+	animation: spinner 600ms linear infinite;
 }
 
 $loader-size: 30px;
 
-@mixin animate ($a,$time:1200ms) {
-	animation: $a $time ease-out infinite;
+@keyframes spinner {
+	0% {
+		transform: rotate(0);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
-
-.loader {
-	position: absolute;
-	filter: url("#goo");
-	top: calc(50% - #{$loader-size/2});
-	left: calc(50% - #{$loader-size*1.5});
-	height: $loader-size;
-	width: $loader-size*3;
-}
-.circle {
-	width: $loader-size;
-	height: $loader-size;
-	border-radius: 50%;
-	background: #fff;
-	position: absolute;
-	left: $loader-size;
-	$time: 1500ms;
-	&:first-child {@include animate(a1);}
-	&:last-child {@include animate(a2);}
-	&:nth-child(2) {@include animate(a3);}
-	&:nth-child(3) {@include animate(a4);}
-}
-
-@mixin anim ($a:1,$b:.5) {
-	0% {transform:translateX(0);
-	}
-	6% {transform:translateX($a*$loader-size/8) scale(0.75);
-	}
-	24%,30% {transform: translateX($a*$loader-size/2) scale(0.65);
-	}
-	36% {transform:translateX($a*$loader-size/2+$b*$loader-size/4) scale(0.5);
-	}
-	60%,70% {transform: translateX($a*$loader-size/2+$b*$loader-size) scale(0.4);
-	}
-	85% {transform: translateX($a*$loader-size/8) scale(0.9);}
-	90% {transform: translateX(0);}
-}
-@keyframes a1 {@include anim(-1,0);}
-@keyframes a2 {@include anim(-1,-1);}
-@keyframes a3 {@include anim(1,1);}
-@keyframes a4 {@include anim(1,0);}
