@@ -4,9 +4,17 @@ export default class DimensionControls extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            height: 720,
-            width: 1280,
+            height: 0,
+            width: 0,
         }
+    }
+
+    componentDidMount() {
+
+        this.setState({
+            height: this.props.settings.height,
+            width: this.props.settings.width
+        })
     }
 
     handlePreset(e) {

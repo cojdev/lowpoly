@@ -43,7 +43,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "sass": "node-sass src/sass/main.scss docs/css/main.css --source-map=true -w",
-    "start": "webpack-dev-server --open --mode development && npm run sass",
+    "start": "webpack-dev-server --open --mode development",
     "build": "webpack --mode production",
     "build-dev": "webpack --mode development"
   }

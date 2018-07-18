@@ -15,13 +15,13 @@ export default class App extends React.Component {
 
             defaults: {
                 dimensions: {
-                    width: 4280,
-                    height: 3720,
+                    width: 1280,
+                    height: 720,
                 },
 
                 geometry: {
-                    variance: 40,
-                    cellSize: 75,
+                    variance: 35,
+                    cellSize: 50,
                     depth: 20,
                 },
                 
@@ -107,6 +107,15 @@ export default class App extends React.Component {
         this.setState({settings: settings});
     }
 
+    setGeometry(option, value) {
+
+        let settings = JSON.parse(JSON.stringify(this.state.settings));
+
+        settings.geometry[option] = parseInt(value);
+
+        this.setState({ settings: settings });
+    } 
+
     /**
      * Updates the output dataURI in state
      * @param {string} value The data URL for the generated canvas 
@@ -125,7 +134,6 @@ export default class App extends React.Component {
         return (
             <div
                 className="container">
-                <Header />
                 <Display
                     settings={settings}
                     updateOutput={this.updateOutput.bind(this)} />
@@ -134,7 +142,8 @@ export default class App extends React.Component {
                     presets={presets}
                     output={output}
                     setDimensions={this.setDimensions.bind(this)}
-                    setColours={this.setColours.bind(this)} />
+                    setColours={this.setColours.bind(this)}
+                    setGeometry={this.setGeometry.bind(this)} />
             </div>
         );
     }

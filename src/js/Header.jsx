@@ -3,7 +3,7 @@ import React from 'react';
 export default class Header extends React.Component {
     render() {
         return (
-            <header className="topbar">
+            <header className="header">
                 <ul>
                     <li><h1>Low Poly Background</h1></li>
                     <li><a href="https://github.com/cojdev">Github</a></li>

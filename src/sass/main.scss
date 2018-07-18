@@ -18,7 +18,7 @@ html {
 	color: #333;
 	background: #ddd;
 	font-size: 14px;
-	letter-spacing: .04ch;
+	// font-weight: 300;
 }
 
 a {
@@ -28,11 +28,11 @@ a {
 		text-decoration: underline;
 	}
 }
-
-.topbar {
+.header {
 	height: $topbar-height;
-	background: #333;
-	color: #f8f8f8;
+	position: absolute;
+	top: 0;
+	left: 0;
 	li {
 		display: inline;
 	}
@@ -45,7 +45,7 @@ a {
 	}
 	h1 {
 		display: inline;
-		font-size: 1rem;
+		font-size: 2rem;
 		font-weight: 900;
 		margin: 0;
 		line-height: $topbar-height;
@@ -59,7 +59,7 @@ a {
     bottom: 0;
 	position: fixed;
 	left: 0;
-	top: $topbar-height;
+	top: 0;
 	bottom: 0;
 	display: flex;
 	align-items: center;
@@ -97,7 +97,7 @@ a {
 
 .canvas1 {
 	max-width: 95%;
-	max-height: 95%;
+	max-height: calc(100% - 6rem);
 	box-shadow: 0 2px 20px rgba(#000, .1);
 }
 .canvas2 {
@@ -146,37 +146,47 @@ select {
 
 .controls {
 	position: fixed;
-	color: #fff;
-	top: $topbar-height;
+	color: #444;
+	top: 0;
 	right: 0;
 	bottom: 0;
+	transform: translateX(38%);
 	width: $control-width;
-	background: #333;
+	background: #f8f8f8;
 	padding: 0;
 	box-shadow:  0 5px 20px rgba(0,0,0,0.1);
 	overflow-y: auto;
 	overflow-x: hidden;
-	border-top: 1px solid #444;
 	opacity: .2;
+	transition: 450ms ease;
 	&:hover {
-		opacity: .8;
+		opacity: 1;
+		transform: none;
 	}
 	h3 {
 		padding: .5rem 1rem;
 		margin: 0;
-		border-bottom: 1px solid #444;
 	}
 }
 
 .fieldgroup {
 	padding: 1rem;
-	border-bottom: 1px solid #444;
-	background: #222;
 }
 
 label {
-	color: #ddd;
+	color: #222;
 	display: block;
+	margin: .5em 0;
+	font-weight: 500;
+}
+
+.footer {
+	position: absolute;
+	color: #888;
+	bottom: 1rem;
+	width: 100%;
+	font-size: .9em;
+	text-align: center;
 }
 
 .loader {

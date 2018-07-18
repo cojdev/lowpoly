@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from './Header';
 
 export default class Display extends React.Component {
     constructor() {
@@ -283,6 +284,7 @@ export default class Display extends React.Component {
         return (
             <div
                 className="display">
+                <Header />
                 <div
                     className='loader'
                     ref='loader'>
@@ -299,6 +301,9 @@ export default class Display extends React.Component {
                     className="canvas2"
                     width={width}
                     height={height}></canvas>
+                <div className="footer">
+                    Developed by <a href="https://cojdev.github.io" target="_top">Charles Ojukwu</a>
+                </div>
             </div>
         );
     }

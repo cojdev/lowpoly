@@ -18,11 +18,12 @@ export default class Controls extends React.Component {
         return (
             <section className="controls">
                 <DimensionControls
-                    settings={settings.dimension}
+                    settings={settings.dimensions}
                     presets={presets}
                     setDimensions={setDimensions} />
                 <GeometryControls
-                    settings={settings.geometry} />
+                    settings={settings.geometry}
+                    setGeometry={this.props.setGeometry.bind(this)} />
                 <ColourControls
                     settings={settings.colour}
                     setColours={setColours} />
