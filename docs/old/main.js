@@ -102,6 +102,7 @@
 		}
 		setCols();
 		setSize(1280, 720);
+
 		//base_image = new Image();
 		//base_image.crossOrigin = "Anonymous";
 		//base_image.src = 'download.png';
@@ -154,26 +155,14 @@
 		})
 	}
 
-//Particle constructor
-function point () {
-	/*this.x = Math.random()*cvs.width;;
-	this.y = Math.random()*cvs.height;
-	this.vx = (Math.random()*2)-1;
-	this.vy = (Math.random()*2)-1;*/
-	//points.push(this);
-}
+	//Particle constructor UNNECESSARY
+	function point () {}
 
 	function drawBG(context, canvas) {
 
 		context.clearRect(0, 0, cvs.width, cvs.height);
 		context.globalCompositeOperation = "multiply";
 		var bg = context.createLinearGradient(0, 0, canvas.width, 0);
-
-		// Duskish gradient
-		// dusk = {
-		// 	colours: ["#0e1b32","#c28993","#ffc7af"],
-		// 	stops: [0, 0.8, 1]
-		// };
 
 		var inputs = _id("colour-div").getElementsByTagName('input');
 		//console.log(inputs.length);
@@ -344,10 +333,8 @@ function point () {
 	}
 
 	function pointFun(drawOnly) {
-		if (drawOnly === true) {
-			
-			//do nothing
-		} else {
+
+		if (drawOnly !== true) {
 			cellSize = (cRange.value * 3) + 30;
 			variance = vRange.value / 100;
 			gridWidth = cvs.width + cellSize * 2;
@@ -359,12 +346,14 @@ function point () {
 			var y = maxRows;
 			generatePoints(x * y);
 		}
+
 		ovA = oAmount.value / 100;
 		ctx.clearRect(0, 0, cvs.width, cvs.height);
 		drawBG(ctx, cvs);
 		for (var i = 0; i < points.length; i++) {
 			draw(points[i], true);
 		};
+
 		saveImage();
 		loader.style.display = "none";
 	}

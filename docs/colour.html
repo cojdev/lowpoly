@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Colour Functions</title>
+</head>
+<body>
+    <form action="#!" id="form">
+        <input type="number" id="h" step="1">
+        <input type="number" id="s" step="0.1">
+        <input type="number" id="l" step="0.1">
+        <input type="submit" value="submit">
+    </form>
+    <div class="output" id="output"></div>
+    <script>
+        const hslToRgb = (h, s, l) => {
+
+            let rgb = [], c = 0, x = 0, m = 0;
+
+            c = (1 - Math.abs(2 * l - 1)) * s;
+
+            h1 = h/60;
+
+            x = c * (1 - Math.abs((h1 % 2) - 1));
+
+            if (h1 >= 0 && h1 <= 1) {
+                rgb = [c,x,0];
+            }
+            else if (h1 >= 1 && h1 <= 2) {
+                rgb = [x,c,0];
+            }
+            else if (h1 >= 2 && h1 <= 3) {
+                rgb = [0,c,x];
+            }
+            else if (h1 >= 3 && h1 <= 4) {
+                rgb = [0,x,c];
+            }
+            else if (h1 >= 4 && h1 <= 5) {
+                rgb = [x,0,c];
+            }
+            else if (h1 >= 5 && h1 <= 6) {
+                rgb = [c,0,x];
+            }
+            else {
+                rgb = [0,0,0];
+            }
+
+            m = l - c / 2;
+
+            rgb = rgb.map(item => Math.floor((item + m) * 256));
+            
+            console.log(rgb);
+
+            return rgb.join(', ');
+        }
+
+        const $ = (query) => document.querySelector(query);
+
+        $('#form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            $('#output').innerHTML = hslToRgb($('#h').value, $('#s').value, $('#l').value);
+        });
+    </script>
+</body>
+</html>

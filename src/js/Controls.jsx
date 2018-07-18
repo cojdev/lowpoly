@@ -5,10 +5,15 @@ import GeometryControls from './GeometryControls';
 import ColourControls from './ColourControls';
 
 export default class Controls extends React.Component {
+    // handleSaveImage() {
+
+    // }
+
     render() {
         let settings = this.props.settings;
         let presets = this.props.presets;
         let setDimensions = this.props.setDimensions.bind(this);
+        let setColours = this.props.setColours.bind(this);
 
         return (
             <section className="controls">
@@ -19,9 +24,13 @@ export default class Controls extends React.Component {
                 <GeometryControls
                     settings={settings.geometry} />
                 <ColourControls
-                    settings={settings.colour} />
+                    settings={settings.colour}
+                    setColours={setColours} />
                 <div className="section">
-                    <a id="save" className="button" download="lowpoly.png">Download Image</a>
+                    <a 
+                        className="button"
+                        href={this.props.output}
+                        download="lowpoly.png">Download Image</a>
                 </div>
 
             </section>

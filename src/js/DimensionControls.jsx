@@ -33,12 +33,15 @@ export default class DimensionControls extends React.Component {
     }
 
     render() {
-        const presets = this.props.presets.map(item => {
+        const presets = this.props.presets.map((item, index) => {
             let value = item.width + '-' + item.height;
             return (
-                <option value={value}>{item.label}</option>
+                <option
+                    value={value}
+                    key={index}>{item.label}</option>
             );
-        })
+        });
+
         return (
             <div className="fieldgroup">
                 <label

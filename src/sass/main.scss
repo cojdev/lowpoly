@@ -14,10 +14,11 @@ body {
 }
 
 html {
-	font-family: 'Lato', sans-serif;
+	font-family: 'Manrope', sans-serif;
 	color: #333;
 	background: #ddd;
 	font-size: 14px;
+	letter-spacing: .04ch;
 }
 
 a {
@@ -53,13 +54,16 @@ a {
 }
 
 .display {
-	width: calc(100% - #{$control-width});
+	width: 100%;
     text-align: center;
     bottom: 0;
 	position: fixed;
 	left: 0;
 	top: $topbar-height;
 	bottom: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 @mixin row($gutter: 1rem) {
@@ -112,6 +116,9 @@ button,
 	&:hover {
 		background: linear-gradient(to bottom right,lighten(#D84155, 10%),lighten(#882963, 10%));
 	}
+	&[disabled] {
+		cursor: not-allowed;
+	}
 }
 
 .section {
@@ -150,6 +157,10 @@ select {
 	overflow-y: auto;
 	overflow-x: hidden;
 	border-top: 1px solid #444;
+	opacity: .2;
+	&:hover {
+		opacity: .8;
+	}
 	h3 {
 		padding: .5rem 1rem;
 		margin: 0;
@@ -170,6 +181,13 @@ label {
 
 .loader {
 	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 }
 
 .spinner {
@@ -177,7 +195,9 @@ label {
 	border-radius: 50%;
 	height: $size;
 	width: $size;
-	animation: spinner 600ms linear infinite;
+	border: 4px solid transparent;
+	border-left-color: #fff;
+	animation: spinner 450ms linear infinite;
 }
 
 $loader-size: 30px;
