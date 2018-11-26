@@ -1,5 +1,31 @@
 import React from 'react';
-import Header from './Header';
+import styled from 'styled-components';
+import theme from './common/theme';
+import { hexToRgb } from './common/colour';
+
+const StyledDisplay = styled.div`
+    width: calc(100% - ${theme.controls.width});
+    text-align: center;
+    bottom: 0;
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
+
+const Canvas = styled.canvas`
+    max-width: 100%;
+	max-height: 100%;
+	box-shadow: 0 2px 5px rgba(hexToRgb(#000), .2),
+				0 5px 20px rgba(hexToRgb(#000), .1);
+`;
+
+const HiddenCanvas = styled.canvas`
+    display: none;
+`;
 
 export default class Display extends React.Component {
     constructor() {
@@ -50,7 +76,7 @@ export default class Display extends React.Component {
         var ovA = 0.5;
         var cRange = {value: geometry.cellSize};
 		var vRange = {value: geometry.variance};
-        var oAmount = {value: geometry.depth};
+        var oAmount = {value: geometry.depth/2};
         var cvs = canvas;
         var ctx = cvs.getContext('2d');
         var points;
@@ -67,7 +93,7 @@ export default class Display extends React.Component {
             var inputs = self.props.settings.colour;
             
             // loop colours and create gradient
-            var gradient = context.createLinearGradient(0, 0, canvas.width, 0);
+            var gradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
             for (var i = 0; i < inputs.length; i++) {
                 if (inputs.length > 1) {
                     gradient.addColorStop(i / (inputs.length - 1), inputs[i]);
@@ -282,29 +308,22 @@ export default class Display extends React.Component {
             height = this.props.settings.dimensions.height;
 
         return (
-            <div
-                className="display">
-                <Header />
+            <StyledDisplay>
                 <div
                     className='loader'
                     ref='loader'>
                         <div
                             className="spinner"></div>
                 </div>
-                <canvas
+                <Canvas
                     ref="canvas1"
-                    className="canvas1"
                     width={width}
-                    height={height}></canvas>
-                <canvas
-                    ref='canvas2'
-                    className="canvas2"
+                    height={height} />
+                <HiddenCanvas
+                    ref="canvas2"
                     width={width}
-                    height={height}></canvas>
-                <div className="footer">
-                    Developed by <a href="https://cojdev.github.io" target="_top">Charles Ojukwu</a>
-                </div>
-            </div>
+                    height={height} />
+            </StyledDisplay>
         );
     }
 }

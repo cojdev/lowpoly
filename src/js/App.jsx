@@ -1,4 +1,5 @@
 import React from 'react';
+import styled, { createGlobalStyle } from 'styled-components';
 
 // Components
 import Header from './Header';
@@ -6,7 +7,38 @@ import Display from './Display';
 import Controls from './Controls';
 
 // Helpers
-import uuid from './lib/helpers';
+import uuid from './common/helpers';
+
+const GlobalStyles = createGlobalStyle`
+    *,*::before,*::after {
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        font-family: 'Manrope', sans-serif;
+        color: #333;
+        background: #ccc;
+        font-size: 16px;
+    }
+
+    a {
+        color: #48b;
+        text-decoration: none;
+        :hover {
+            text-decoration: underline;
+        }
+    }
+`;
+
+const Container = styled.div`
+
+`;
 
 export default class App extends React.Component {
     constructor() {
@@ -132,8 +164,8 @@ export default class App extends React.Component {
         const output = this.state.output;
 
         return (
-            <div
-                className="container">
+            <Container>
+                <GlobalStyles />
                 <Display
                     settings={settings}
                     updateOutput={this.updateOutput.bind(this)} />
@@ -144,7 +176,7 @@ export default class App extends React.Component {
                     setDimensions={this.setDimensions.bind(this)}
                     setColours={this.setColours.bind(this)}
                     setGeometry={this.setGeometry.bind(this)} />
-            </div>
+            </Container>
         );
     }
 }

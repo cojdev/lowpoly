@@ -1,11 +1,18 @@
 import React from 'react';
+import styled from 'styled-components';
+import ControlGroup from './widgets/ControlGroup';
+import { Label, RangeSlider } from './widgets/Fields';
+
+const StyledControlGroup = styled(ControlGroup)`
+
+`;
 
 String.prototype.capitalise = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
 
 const duplicate = function(obj) {
-    return JSON.parse(JSON.stringify(obj));
+    return Object.assign({}, obj);
 };
 
 export default class GeometryControls extends React.Component {
@@ -13,7 +20,9 @@ export default class GeometryControls extends React.Component {
         super();
 
         this.state = {
-            settings: {}
+            settings: {},
+            mouseX: 0,
+            mouseY: 0,
         };
     }
 
@@ -22,11 +31,7 @@ export default class GeometryControls extends React.Component {
 
         this.setState({ settings: settings });
     }
-
-    /**
-     * 
-     * @param {string} option 
-     */
+    
     handleChange(option, e) {
         let settings = duplicate(this.state.settings);
 
@@ -39,29 +44,40 @@ export default class GeometryControls extends React.Component {
         let value = e.target.value;
         this.props.setGeometry.call(this, option, value);
     }
+
+    getMousePos(e) {
+        // console.log('getMousePos');
+        this.setState({mouseX: e.pageX, mouseY: e.pageY}, () => {
+            // console.log(this.state.mouseX + ', ' + this.state.mouseY);
+        });
+    }
+
     render() {
 
         let settings = this.state.settings;
 
-        let options = ['variance','cellSize','depth'].map((item, index) => (
+        let options = Object.keys(settings).map((item, index) => (
             <div
                 key={index}>
-                <label htmlFor={item}>{item.capitalise()}</label>
-                <input type="range"
-                id={item}
-                min="0"
-                max="100"
-                value={settings[item] || ''}
-                onChange={this.handleChange.bind(this, item)}
-                onMouseUp={this.handleBLur.bind(this, item)} />
+                <Label htmlFor={item}>{item.capitalise()}</Label>
+                <RangeSlider
+                    id={item}
+                    min="0"
+                    max="100"
+                    value={settings[item] || ''}
+                    onChange={this.handleChange.bind(this, item)}
+                    onMouseUp={this.handleBLur.bind(this, item)} />
+                {/* <RangeInput
+                    mouseX={this.state.mouseX}
+                    mouseY={this.state.mouseY} /> */}
             </div>
         ));
 
         return (
-            <div
-                className="fieldgroup">
+            <StyledControlGroup title="Geometry"
+                onMouseMove={this.getMousePos.bind(this)}>
                 {options}
-            </div>
+            </StyledControlGroup>
         );
     }
 }

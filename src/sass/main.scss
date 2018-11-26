@@ -1,70 +1,58 @@
 @import "reset";
+@import "global";
+@import "display";
+@import "controls";
 
-$topbar-height: 40px;
-$control-width: 200px;
+// *,*::before,*::after {
+// 	box-sizing: border-box;
+// }
 
-*,*::before,*::after {
-	box-sizing: border-box;
-}
+// html,
+// body {
+// 	margin: 0;
+// 	padding: 0;
+// }
 
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
+// html {
+// 	font-family: 'Manrope', sans-serif;
+// 	color: #333;
+// 	background: #ddd;
+// 	font-size: 16px;
+// 	// font-weight: 300;
+// }
 
-html {
-	font-family: 'Manrope', sans-serif;
-	color: #333;
-	background: #ddd;
-	font-size: 14px;
-	// font-weight: 300;
-}
-
-a {
-	color: #48b;
-	text-decoration: none;
-	&:hover {
-		text-decoration: underline;
-	}
-}
-.header {
-	height: $topbar-height;
-	position: absolute;
-	top: 0;
-	left: 0;
-	li {
-		display: inline;
-	}
-	li:not(:last-child) {
-		&::after {
-			content: " •";
-			margin: 0 .5rem;
-			color: #888;
-		}
-	}
-	h1 {
-		display: inline;
-		font-size: 2rem;
-		font-weight: 900;
-		margin: 0;
-		line-height: $topbar-height;
-		padding-left: 1rem;
-	}
-}
-
-.display {
-	width: 100%;
-    text-align: center;
-    bottom: 0;
-	position: fixed;
-	left: 0;
-	top: 0;
-	bottom: 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
+// a {
+// 	color: #48b;
+// 	text-decoration: none;
+// 	&:hover {
+// 		text-decoration: underline;
+// 	}
+// }
+// .header {
+// 	height: $topbar-height;
+// 	position: absolute;
+// 	top: 0;
+// 	left: 0;
+// 	li {
+// 		display: inline;
+// 	}
+// 	li:not(:last-child) {
+// 		&::after {
+// 			content: " •";
+// 			margin: 0 .5rem;
+// 			color: #888;
+// 		}
+// 	}
+// 	h1 {
+// 		display: inline;
+// 		font-size: 1.5rem;
+// 		font-weight: 900;
+// 		color: #e24;
+// 		margin: 0;
+// 		line-height: $topbar-height;
+// 		padding-left: 1rem;
+// 	}
+// }
 
 @mixin row($gutter: 1rem) {
 	margin: 0 (0-($gutter / 2));
@@ -95,99 +83,52 @@ a {
 	text-align: center;
 }
 
-.canvas1 {
-	max-width: 95%;
-	max-height: calc(100% - 6rem);
-	box-shadow: 0 2px 20px rgba(#000, .1);
-}
-.canvas2 {
-	display: none;
-}
+// button,
+// .button {
+// 	display: inline-block;
+// 	text-decoration: none;
+// 	background: transparent;
+// 	border: 1px solid #ddd;
+// 	padding: 0.6rem;
+// 	color: #e24;
+// 	text-align: center;
+// 	border-radius: 50px;
+// 	width: 100%;
+// 	// font-weight: 500;
+// 	font-size: 1em;
+// 	&:hover {
+// 		background: #eee;
+// 	}
+// 	&[disabled] {
+// 		cursor: not-allowed;
+// 	}
+// }
 
-button,
-.button {
+.small-button {
 	display: inline-block;
-	text-decoration: none;
-	background: linear-gradient(to bottom right,#D84155,#882963);
-	padding: 0.6rem;
-	color: #fff;
-	border-radius: 2px;
-	width: 100%;
-	&:hover {
-		background: linear-gradient(to bottom right,lighten(#D84155, 10%),lighten(#882963, 10%));
-	}
-	&[disabled] {
-		cursor: not-allowed;
-	}
-}
-
-.section {
-	padding: 1rem;
-}
-
-input[type=text],
-input[type=number],
-input[type=range],
-select {
-	display: block;
-	width: 100%;
-}
-
-input[type=text],
-input[type=number],
-select {
+	width: 2rem;
 	height: 2rem;
-	line-height: 2rem;
-	padding: 0 .5rem;
-	background: #fff;
-	border: none;
-	margin-bottom: .75rem;
-}
-
-.controls {
-	position: fixed;
-	color: #444;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	transform: translateX(38%);
-	width: $control-width;
-	background: #f8f8f8;
+	border-radius: 50%;
 	padding: 0;
-	box-shadow:  0 5px 20px rgba(0,0,0,0.1);
-	overflow-y: auto;
-	overflow-x: hidden;
-	opacity: .2;
-	transition: 450ms ease;
-	&:hover {
-		opacity: 1;
-		transform: none;
-	}
-	h3 {
-		padding: .5rem 1rem;
-		margin: 0;
-	}
-}
-
-.fieldgroup {
-	padding: 1rem;
-}
-
-label {
-	color: #222;
-	display: block;
-	margin: .5em 0;
-	font-weight: 500;
-}
-
-.footer {
-	position: absolute;
-	color: #888;
-	bottom: 1rem;
-	width: 100%;
-	font-size: .9em;
 	text-align: center;
+	line-height: 2rem;
+	color: #e24;
+	background: transparent;
+	border: 1px solid #ddd;
 }
+
+// .section {
+// 	padding: 1rem;
+// }
+
+// .footer {
+// 	position: absolute;
+// 	color: #888;
+// 	bottom: 1rem;
+// 	width: 100%;
+// 	font-size: .9em;
+// 	text-align: center;
+// }
 
 .loader {
 	display: flex;

@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = function(env, argv) {
     return {
@@ -22,34 +21,8 @@ module.exports = function(env, argv) {
                         loader: "babel-loader"
                     },
                 },
-                {
-                    test: /\.scss$/,
-                    use: [
-                        argv.mode === 'development' ? 'style-loader' : 
-                        MiniCssExtractPlugin.loader,
-                        { loader: 'css-loader', options: { importLoaders: 2 }},
-                        {
-                            loader: 'postcss-loader',
-                            options: {
-                                plugins: [
-                                    require('autoprefixer')({
-                                        browsers: ['last 6 versions'],
-                                    })
-                                ]
-                            }
-                        },
-                        'sass-loader',
-                    ]
-                }
             ]
         },
-
-        plugins: [
-            new MiniCssExtractPlugin({
-                filename: "../css/[name].css",
-                chunkFilename: "[id].css"
-            })
-        ],
 
         resolve: {
             extensions: ['.js', '.jsx'],

@@ -4,29 +4,23 @@ export const hslToRgb = (h, s, l) => {
 
     c = (1 - Math.abs(2 * l - 1)) * s;
 
-    var h1 = h/60;
+    let h1 = h/60;
 
     x = c * (1 - Math.abs((h1 % 2) - 1));
 
     if (h1 >= 0 && h1 <= 1) {
         rgb = [c,x,0];
-    }
-    else if (h1 >= 1 && h1 <= 2) {
+    } else if (h1 >= 1 && h1 <= 2) {
         rgb = [x,c,0];
-    }
-    else if (h1 >= 2 && h1 <= 3) {
+    } else if (h1 >= 2 && h1 <= 3) {
         rgb = [0,c,x];
-    }
-    else if (h1 >= 3 && h1 <= 4) {
+    } else if (h1 >= 3 && h1 <= 4) {
         rgb = [0,x,c];
-    }
-    else if (h1 >= 4 && h1 <= 5) {
+    } else if (h1 >= 4 && h1 <= 5) {
         rgb = [x,0,c];
-    }
-    else if (h1 >= 5 && h1 <= 6) {
+    } else if (h1 >= 5 && h1 <= 6) {
         rgb = [c,0,x];
-    }
-    else {
+    } else {
         rgb = [0,0,0];
     }
 
@@ -58,9 +52,8 @@ export const getRandom = (bright) => {
     let val;
 
     if (bright) {
-        val = rgbToHex(hslToRgb(Math.floor(Math.random() * 360), 1, .6));
-    }
-    else {
+        val = rgbToHex(hslToRgb(Math.floor(Math.random() * 360), .95, .6));
+    } else {
         val = '#';
         let chars = '1234567890ABCDEF'.split('');
         for (let i = 0; i < 6; i++) {
@@ -69,4 +62,34 @@ export const getRandom = (bright) => {
     }
 
     return val;
+}
+
+/**
+ * Convert hex colour to RGB
+ * @param {string} hex Colour is 3 or 6 digit hexadecimal
+ * @returns {array}
+ */
+export function hexToRgb(hex) {
+    // console.log(hex);
+    hex = hex.replace('#', '');
+
+    // console.log(hex);
+
+    switch (hex.length) {
+        case 3: {
+            let ret = hex.split('').map(item => parseInt(item+item, 16));
+            // console.log(ret);
+            return ret;
+        }
+        
+        case 6: {
+            let ret = hex.match(/.{2}/g).map(item => parseInt(item, 16));
+            // console.log(ret);
+            return ret;
+        }
+
+        default: {
+            return;
+        }
+    }
 }

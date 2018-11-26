@@ -1,4 +1,26 @@
 import React from 'react';
+import styled, { css } from 'styled-components';
+import ControlGroup from './widgets/ControlGroup';
+import { TextField, Dropdown, NumberField, Label } from './widgets/Fields';
+import { Button } from './widgets/Button';
+import { row, column } from './common/mixins';
+
+const StyledControlGroup = styled(ControlGroup)`
+
+`;
+
+const Row = styled.div`
+    ${row};
+`;
+
+const Column = styled.div`
+    ${column};
+    width: calc(50% - 1em);
+`;
+
+const SetButton = styled.button`
+    ${Button};
+`;
 
 export default class DimensionControls extends React.Component {
     constructor(props) {
@@ -51,41 +73,38 @@ export default class DimensionControls extends React.Component {
         });
 
         return (
-            <div className="fieldgroup">
-                <label
-                    htmlFor="preset-size">Presets</label>
-                <select
-                    id="preset-size"
+            <StyledControlGroup title="Dimensions">
+
+                <Label
+                    htmlFor="preset-size">Presets</Label>
+                <Dropdown
                     onInput={this.handlePreset.bind(this)}>
                     {presets}
-                </select>
-                <div
-                    className="row">
-                    <div
-                        className="_50">
-                        <label
-                            htmlFor="width">Width</label>
-                        <input
-                            type="number"
+                </Dropdown>
+
+                <Row>
+                    <Column>
+                        <Label
+                            htmlFor="width">Width</Label>
+                        <NumberField
                             id="width"
                             value={this.state.width}
                             onChange={this.handleWidth.bind(this)} />
-                    </div>
-                    <div
-                        className="_50">
-                        <label
-                            htmlFor="height">Height</label>
-                        <input
-                            type="number"
+                    </Column>
+                    <Column>
+                        <Label
+                            htmlFor="height">Height</Label>
+                        <NumberField
                             id="height"
                             value={this.state.height}
                             onChange={this.handleHeight.bind(this)} />
-                    </div>
-                </div>
-                <button
-                    id="size-btn"
-                    onClick={this.handleSubmit.bind(this)}>Set</button>
-            </div>
+                    </Column>
+                </Row>
+
+                <SetButton
+                    onClick={this.handleSubmit.bind(this)}>Set</SetButton>
+
+            </StyledControlGroup>
         );
     }
 }
