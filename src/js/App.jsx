@@ -21,7 +21,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     html {
-        font-family: 'Manrope', sans-serif;
+        font-family: 'Nunito Sans', sans-serif;
         color: #333;
         background: #ccc;
         font-size: 16px;

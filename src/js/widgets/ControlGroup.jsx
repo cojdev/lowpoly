@@ -18,6 +18,9 @@ const Heading = styled.button`
     margin: 0;
     font-size: 1em;
     outline: none;
+    text-align: left;
+    color: #444;
+    font-family: inherit;
 `;
 
 const Arrow = styled.div`

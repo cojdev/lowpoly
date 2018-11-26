@@ -1,8 +1,8 @@
 {
   "name": "lowpoly",
   "version": "1.0.0",
-  "description": "Low Poly Background Generator",
-  "main": "gulpfile.js",
+  "description": "LowPoly Generator",
+  "main": "index.js",
   "directories": {
     "doc": "docs"
   },
