@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// import { ChromePicker } from 'react-color';
 const StyledColourInput = styled.div`
     display: block;
     position: relative;

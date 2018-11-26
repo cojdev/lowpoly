@@ -37,13 +37,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sass": "node-sass src/sass/main.scss docs/css/main.css --source-map=true -w",
     "start": "webpack-dev-server --open --mode development",
     "build": "webpack --mode production --progress",
     "dev": "webpack --mode development --progress",
     "dev-watch": "webpack --mode development --watch --progress"
-  },
-  "dependencies": {
-    "react-color": "^2.14.1"
   }
 }
