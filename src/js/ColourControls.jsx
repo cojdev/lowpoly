@@ -155,8 +155,9 @@ export default class ColourControls extends React.Component {
                     value={item}
                     key={index}
                     index={index}
+                    active={active === index}
                     handleChangeColour={this.handleChangeColour.bind(this)}
-                    setActiveColour={this.setActiveColour.bind(this)} />
+                    setActiveColour={this.setActiveColour.bind(this)}></ColourInput>
             ));
 
         return (

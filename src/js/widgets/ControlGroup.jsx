@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import animate from '../common/animate';
 
 const StyledControlGroup = styled.section`
     padding: 0 1rem;
@@ -51,7 +52,12 @@ const Arrow = styled.div`
 `;
 
 const Content = styled.div`
-padding-bottom: 1rem;
+    overflow: hidden;
+    transition: 300ms ease;
+`;
+
+const ContentInner = styled.div`
+    padding-bottom: 1rem;
 `;
 
 export default class ControlGroup extends React.Component {
@@ -61,10 +67,13 @@ export default class ControlGroup extends React.Component {
         this.state = {
             open: true,
         };
+
+        this.content = React.createRef();
     }
 
     toggleOpen() {
-        this.setState({ open: !this.state.open })
+        this.state.open ? animate.slideUp(this.content.current) : animate.slideDown(this.content.current);
+        this.setState({ open: !this.state.open });
     }
 
     render() {
@@ -77,8 +86,9 @@ export default class ControlGroup extends React.Component {
                     <Arrow open={this.state.open} />
                 </Heading>
                     {this.state.open ?
-                        <Content open={this.state.open}>{this.props.children}</Content> :
+                        '' :
                         ''}
+                <Content ref={this.content}><ContentInner>{this.props.children}</ContentInner></Content>
             </StyledControlGroup>
         );
     }
