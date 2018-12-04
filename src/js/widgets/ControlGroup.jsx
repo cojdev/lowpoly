@@ -45,8 +45,9 @@ const Arrow = styled.div`
     :after {
         transform-origin: center;
         transition: 150ms ease;
-        ${props => !props.open && css`
-            transform: rotate(90deg);
+        transform: rotate(90deg) scaleX(1);
+        ${props => props.open && css`
+            transform: rotate(90deg) scaleX(0);
         `};
     }
 `;

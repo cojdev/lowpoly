@@ -6,6 +6,8 @@ import * as colour from './common/colour';
 import ColourInput from './ColourInput';
 import { Label } from './widgets/Fields';
 import RangeInput from './RangeInput';
+import ColourPalette from './ColourPalette';
+import data from './data';
 
 const StyledControlGroup = styled(ControlGroup)`
 
@@ -60,10 +62,13 @@ export default class ColourControls extends React.Component {
         this.state = {
             maxColours: 12,
             active: 0,
+            h: null,
+            s: null,
+            l: null,
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.setState({ colours: this.props.settings });
     }
 
@@ -124,6 +129,7 @@ export default class ColourControls extends React.Component {
         this.props.setColours.call(this, colours);
     }
 
+    // 
     handleRgbSet(value, name) {
         value = parseInt(value, 10);
         console.log(value);
@@ -145,9 +151,38 @@ export default class ColourControls extends React.Component {
 
     }
 
+    // 
+    handleHslSet(value, name) {
+        value = parseInt(value, 10);
+        console.log(value);
+        let colours = this.props.settings.slice();
+        console.log(colours);
+
+        const hsl = colour.hexToHsl(colours[this.state.active]);
+        console.log('hsl', hsl);
+        if (name === 'hue') {
+            colours[this.state.active] = colour.hslToHex([value,hsl[1],hsl[2]]);
+        } else if (name === 'saturation') {
+            colours[this.state.active] = colour.hslToHex([hsl[0],value,hsl[2]]);
+        } else if (name === 'luminosity') {
+            colours[this.state.active] = colour.hslToHex([hsl[0],hsl[1],value]);
+        }
+        
+        console.log(colours);
+        this.props.setColours.call(this, colours);
+
+    }
+
+    handleSetPalette(palette) {
+        this.setState({active: 0});
+        this.props.setColours(palette);
+    }
+
     render() {
         const { settings } = this.props;
         const { active } = this.state;
+
+        console.log(settings);
 
         let colourInputs = settings.map(
             (item, index) => (
@@ -156,7 +191,6 @@ export default class ColourControls extends React.Component {
                     key={index}
                     index={index}
                     active={active === index}
-                    handleChangeColour={this.handleChangeColour.bind(this)}
                     setActiveColour={this.setActiveColour.bind(this)}></ColourInput>
             ));
 
@@ -176,44 +210,62 @@ export default class ColourControls extends React.Component {
                         {colourInputs}
                     </ColourGroupInner>
                 </ColourGroup>
+                {settings[active]}
                 <Label>
-                    Red: {colour.hexToRgb(settings[active])[0]},
+                    hue: {colour.hexToHsl(settings[active])[0]}
                 </Label>
                 <RangeInput
                     min="0"
-                    max="255"
-                    name="red"
-                    value={colour.hexToRgb(settings[active])[0]}
-                    handleMouseUp={this.handleRgbSet.bind(this)} />
+                    max="360"
+                    name="hue"
+                    value={colour.hexToHsl(settings[active])[0]}
+                    handleMouseUp={this.handleHslSet.bind(this)} />
                 <ColourBar background={
-                    `linear-gradient(to right, rgb(0, ${colour.hexToRgb(settings[active])[1]}, ${colour.hexToRgb(settings[active])[2]}),  rgb(255, ${colour.hexToRgb(settings[active])[1]}, ${colour.hexToRgb(settings[active])[2]}))`
+                    `linear-gradient(
+                        to right,
+                        hsl(0, ${colour.hexToHsl(settings[active])[1]}%,${colour.hexToHsl(settings[active])[2]}%), 
+                        hsl(60, ${colour.hexToHsl(settings[active])[1]}%,${colour.hexToHsl(settings[active])[2]}%), 
+                        hsl(120, ${colour.hexToHsl(settings[active])[1]}%,${colour.hexToHsl(settings[active])[2]}%), 
+                        hsl(180, ${colour.hexToHsl(settings[active])[1]}%,${colour.hexToHsl(settings[active])[2]}%), 
+                        hsl(240, ${colour.hexToHsl(settings[active])[1]}%,${colour.hexToHsl(settings[active])[2]}%), 
+                        hsl(300, ${colour.hexToHsl(settings[active])[1]}%,${colour.hexToHsl(settings[active])[2]}%), 
+                        hsl(360, ${colour.hexToHsl(settings[active])[1]}%, ${colour.hexToHsl(settings[active])[2]}%))`
                     } />
 
                 <Label>
-                    Green: {colour.hexToRgb(settings[active])[1]},
+                    saturation : {colour.hexToHsl(settings[active])[1]}
                 </Label>
                 <RangeInput
                     min="0"
-                    max="255"
-                    name="green"
-                    value={colour.hexToRgb(settings[active])[1]}
-                    handleMouseUp={this.handleRgbSet.bind(this)} />
+                    max="100"
+                    name="saturation"
+                    value={colour.hexToHsl(settings[active])[1]}
+                    handleMouseUp={this.handleHslSet.bind(this)} />
                 <ColourBar background={
-                    `linear-gradient(to right, rgb(${colour.hexToRgb(settings[active])[0]}, 0, ${colour.hexToRgb(settings[active])[2]}),  rgb(${colour.hexToRgb(settings[active])[0]}, 255, ${colour.hexToRgb(settings[active])[2]}))`
+                    `linear-gradient(
+                        to right,
+                        hsl(${colour.hexToHsl(settings[active])[0]}, 0%, ${colour.hexToHsl(settings[active])[2]}%),
+                        hsl(${colour.hexToHsl(settings[active])[0]}, 100%, ${colour.hexToHsl(settings[active])[2]}%))`
                     } />
 
                 <Label>
-                    Blue: {colour.hexToRgb(settings[active])[2]}
+                    luminosity: {colour.hexToHsl(settings[active])[2]}
                 </Label>
                 <RangeInput
                     min="0"
-                    max="255"
-                    name="blue"
-                    value={colour.hexToRgb(settings[active])[2]}
-                    handleMouseUp={this.handleRgbSet.bind(this)} />
+                    max="100"
+                    name="luminosity"
+                    value={colour.hexToHsl(settings[active])[2]}
+                    handleMouseUp={this.handleHslSet.bind(this)} />
                 <ColourBar background={
-                    `linear-gradient(to right, rgb(${colour.hexToRgb(settings[active])[0]}, ${colour.hexToRgb(settings[active])[1]}, 0),  rgb(${colour.hexToRgb(settings[active])[0]}, ${colour.hexToRgb(settings[active])[1]}, 255))`
+                    `linear-gradient(
+                        to right,
+                        hsl(${colour.hexToHsl(settings[active])[0]}, ${colour.hexToHsl(settings[active])[1]}%, 0%),
+                        hsl(${colour.hexToHsl(settings[active])[0]}, ${colour.hexToHsl(settings[active])[1]}%, 50%),
+                        hsl(${colour.hexToHsl(settings[active])[0]}, ${colour.hexToHsl(settings[active])[1]}%, 100%))`
                     } />
+                <Label>Palettes</Label>
+                {data.palettes.map((item, index) => <ColourPalette key={index} colours={item} handleSetPalette={this.handleSetPalette.bind(this)} />)}
             </ControlGroup>
         );
     }

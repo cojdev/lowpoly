@@ -40,14 +40,15 @@ export default class DimensionControls extends React.Component {
     }
 
     handlePreset(e) {
-        let dims = e.target.value.split('-');
-
         console.log(e.target.value);
-
-        this.setState({
-            width: dims[0],
-            height: dims[1],
-        })
+        if (e.target.value !== 'null') {
+            let dims = e.target.value.split('-');
+            this.setState({
+                width: dims[0],
+                height: dims[1],
+            }, () => {console.log(this.state.width, this.state.height)});
+        }
+        
     }
 
     handleHeight(e) {
@@ -89,6 +90,7 @@ export default class DimensionControls extends React.Component {
                     htmlFor="preset-size">Presets</Label>
                 <Dropdown
                     onChange={this.handlePreset.bind(this)}>
+                    <option value="null">Select...</option>
                     {presets}
                 </Dropdown>
 

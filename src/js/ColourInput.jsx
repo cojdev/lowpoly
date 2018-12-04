@@ -23,26 +23,11 @@ const Target = styled.div`
     `}
 `;
 
-const Picker = styled.div`
-    position: absolute;
-    right: 100%;
-    bottom: 0;
-    transition: 150ms ease;
-    visibility: hidden;
-    opacity: 0;
-    
-    *:focus > & {
-        visibility: visible;
-        opacity: 1;
-    }
-`;
-
 export default class ColourInput extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            showPicker: false,
             value: this.props.value
         }
     }
@@ -57,22 +42,12 @@ export default class ColourInput extends React.Component {
         // console.log(this.props.active);
 
         return (
-            <StyledColourInput
-                onBlur={() => { this.setState({ showPicker: false }) }}>
+            <StyledColourInput>
                 <Target
                     active={this.props.active}
                     style={{backgroundColor: this.props.value}}
                     data-id={this.props.index}
                     onClick={this.props.setActiveColour.bind(this)} />
-                {/* {showPicker ?
-                
-                : ''} */}
-                <Picker>
-                    {/* <ChromePicker
-                        color={this.state.value}
-                        style={{ display: this.showPicker ? 'block' : 'none'} }
-                        onChangeComplete={this.handleChangeComplete.bind(this)}/> */}
-                </Picker>
             </StyledColourInput>
         )
     }
