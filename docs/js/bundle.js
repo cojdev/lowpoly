@@ -24042,8 +24042,12 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+<<<<<<< HEAD
 var _templateObject = _taggedTemplateLiteral(['\n    *,*::before,*::after {\n        box-sizing: border-box;\n    }\n\n    html,\n    body {\n        margin: 0;\n        padding: 0;\n    }\n\n    html {\n        font-family: \'Manrope\', sans-serif;\n        color: #333;\n        background: #ccc;\n        font-size: 16px;\n    }\n\n    a {\n        color: #48b;\n        text-decoration: none;\n        :hover {\n            text-decoration: underline;\n        }\n    }\n'], ['\n    *,*::before,*::after {\n        box-sizing: border-box;\n    }\n\n    html,\n    body {\n        margin: 0;\n        padding: 0;\n    }\n\n    html {\n        font-family: \'Manrope\', sans-serif;\n        color: #333;\n        background: #ccc;\n        font-size: 16px;\n    }\n\n    a {\n        color: #48b;\n        text-decoration: none;\n        :hover {\n            text-decoration: underline;\n        }\n    }\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n\n'], ['\n\n']);
+=======
+var _templateObject = _taggedTemplateLiteral(['\n    *,*::before,*::after {\n        box-sizing: border-box;\n    }\n\n    html,\n    body {\n        margin: 0;\n        padding: 0;\n    }\n\n    html {\n        font-family: \'Nunito Sans\', sans-serif;\n        color: #333;\n        background: #ccc;\n        font-size: 16px;\n    }\n\n    a {\n        color: #48b;\n        text-decoration: none;\n        :hover {\n            text-decoration: underline;\n        }\n    }\n\n    button {\n        outline: none !important;\n    }\n'], ['\n    *,*::before,*::after {\n        box-sizing: border-box;\n    }\n\n    html,\n    body {\n        margin: 0;\n        padding: 0;\n    }\n\n    html {\n        font-family: \'Nunito Sans\', sans-serif;\n        color: #333;\n        background: #ccc;\n        font-size: 16px;\n    }\n\n    a {\n        color: #48b;\n        text-decoration: none;\n        :hover {\n            text-decoration: underline;\n        }\n    }\n\n    button {\n        outline: none !important;\n    }\n']);
+>>>>>>> master
 
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
@@ -24087,7 +24091,14 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 
 var GlobalStyles = (0, _styledComponents.createGlobalStyle)(_templateObject);
 
+<<<<<<< HEAD
 var Container = _styledComponents2.default.div(_templateObject2);
+=======
+var Container = _styledComponents2.default.div.withConfig({
+    displayName: 'App__Container',
+    componentId: 'sc-1cqp65n-0'
+})(['']);
+>>>>>>> master
 
 var App = function (_React$Component) {
     _inherits(App, _React$Component);
@@ -24115,6 +24126,7 @@ var App = function (_React$Component) {
             },
 
             presets: [{
+<<<<<<< HEAD
                 width: 1280,
                 height: 720,
                 label: '1280x720'
@@ -24150,6 +24162,49 @@ var App = function (_React$Component) {
                 width: 1440,
                 height: 2960,
                 label: 'Samsung Galaxy S8/S9'
+=======
+                label: 'Mobile',
+                values: [{
+                    width: 640,
+                    height: 1152,
+                    label: 'iPhone 5/5s'
+                }, {
+                    width: 750,
+                    height: 1334,
+                    label: 'iPhone 6/7/8'
+                }, {
+                    width: 1080,
+                    height: 1920,
+                    label: 'iPhone 6+/7+/8+'
+                }, {
+                    width: 1125,
+                    height: 2436,
+                    label: 'iPhone X'
+                }, {
+                    width: 1440,
+                    height: 2960,
+                    label: 'Samsung Galaxy S8/S9'
+                }]
+            }, {
+                label: 'Desktop',
+                values: [{
+                    width: 1280,
+                    height: 720,
+                    label: '1280x720'
+                }, {
+                    width: 1366,
+                    height: 768,
+                    label: '1366x768'
+                }, {
+                    width: 1920,
+                    height: 1080,
+                    label: '1920x1080'
+                }, {
+                    width: 3840,
+                    height: 2160,
+                    label: '3840x2160 (4K)'
+                }]
+>>>>>>> master
             }],
 
             settings: {},
@@ -24258,6 +24313,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+<<<<<<< HEAD
 var _templateObject = _taggedTemplateLiteral(['\n\n'], ['\n\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n    display: inline-block;\n\tborder-radius:100px;\n\tpadding: .5em;\n\ttext-align: center;\n\tline-height: 1;\n\tcolor: #e24;\n\tbackground: transparent;\n    border: 1px solid #eee;\n    \n    ', '\n'], ['\n    display: inline-block;\n\tborder-radius:100px;\n\tpadding: .5em;\n\ttext-align: center;\n\tline-height: 1;\n\tcolor: #e24;\n\tbackground: transparent;\n    border: 1px solid #eee;\n    \n    ', '\n']),
     _templateObject3 = _taggedTemplateLiteral(['\n        background: #eee;\n    '], ['\n        background: #eee;\n    ']),
@@ -24265,6 +24321,8 @@ var _templateObject = _taggedTemplateLiteral(['\n\n'], ['\n\n']),
     _templateObject5 = _taggedTemplateLiteral(['\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    /* z-index: -1; */\n    display: flex;\n    background: #ccc;\n'], ['\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    /* z-index: -1; */\n    display: flex;\n    background: #ccc;\n']),
     _templateObject6 = _taggedTemplateLiteral(['\n    display: block;\n    width: 100%;\n    height: 5px;\n    background: ', ';\n'], ['\n    display: block;\n    width: 100%;\n    height: 5px;\n    background: ', ';\n']);
 
+=======
+>>>>>>> master
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
@@ -24291,6 +24349,17 @@ var _RangeInput = __webpack_require__(/*! ./RangeInput */ "./src/js/RangeInput.j
 
 var _RangeInput2 = _interopRequireDefault(_RangeInput);
 
+<<<<<<< HEAD
+=======
+var _ColourPalette = __webpack_require__(/*! ./ColourPalette */ "./src/js/ColourPalette.jsx");
+
+var _ColourPalette2 = _interopRequireDefault(_ColourPalette);
+
+var _data = __webpack_require__(/*! ./data */ "./src/js/data.js");
+
+var _data2 = _interopRequireDefault(_data);
+
+>>>>>>> master
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -24301,6 +24370,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+<<<<<<< HEAD
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var StyledControlGroup = (0, _styledComponents2.default)(_ControlGroup2.default)(_templateObject);
@@ -24314,6 +24384,34 @@ var ColourGroup = _styledComponents2.default.div(_templateObject4);
 var ColourGroupInner = _styledComponents2.default.div(_templateObject5);
 
 var ColourBar = _styledComponents2.default.div(_templateObject6, function (props) {
+=======
+var StyledControlGroup = (0, _styledComponents2.default)(_ControlGroup2.default).withConfig({
+    displayName: 'ColourControls__StyledControlGroup',
+    componentId: 'g7mpc9-0'
+})(['']);
+
+var SmallButton = _styledComponents2.default.button.withConfig({
+    displayName: 'ColourControls__SmallButton',
+    componentId: 'g7mpc9-1'
+})(['display:inline-block;border-radius:100px;padding:.5em;text-align:center;line-height:1;color:#e24;background:transparent;border:1px solid #eee;', ''], function (props) {
+    return props.disabled && (0, _styledComponents.css)(['background:#eee;']);
+});
+
+var ColourGroup = _styledComponents2.default.div.withConfig({
+    displayName: 'ColourControls__ColourGroup',
+    componentId: 'g7mpc9-2'
+})(['width:100%;height:30px;position:relative;margin:1em 0;overflow:hidden;border-radius:3px;box-shadow:inset 0 5px 15px rgba(0,0,0,.1);']);
+
+var ColourGroupInner = _styledComponents2.default.div.withConfig({
+    displayName: 'ColourControls__ColourGroupInner',
+    componentId: 'g7mpc9-3'
+})(['position:absolute;top:0;left:0;right:0;bottom:0;display:flex;background:#ccc;']);
+
+var ColourBar = _styledComponents2.default.div.withConfig({
+    displayName: 'ColourControls__ColourBar',
+    componentId: 'g7mpc9-4'
+})(['display:block;width:100%;height:5px;background:', ';'], function (props) {
+>>>>>>> master
     return props.background || '#ccc';
 });
 
@@ -24327,14 +24425,26 @@ var ColourControls = function (_React$Component) {
 
         _this.state = {
             maxColours: 12,
+<<<<<<< HEAD
             active: 0
+=======
+            active: 0,
+            h: null,
+            s: null,
+            l: null
+>>>>>>> master
         };
         return _this;
     }
 
     _createClass(ColourControls, [{
+<<<<<<< HEAD
         key: 'componentWillMount',
         value: function componentWillMount() {
+=======
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+>>>>>>> master
             this.setState({ colours: this.props.settings });
         }
     }, {
@@ -24397,6 +24507,12 @@ var ColourControls = function (_React$Component) {
             // this.setState({ colours: colours }, () => this.props.setColours.call(this, this.state.colours));
             this.props.setColours.call(this, colours);
         }
+<<<<<<< HEAD
+=======
+
+        // 
+
+>>>>>>> master
     }, {
         key: 'handleRgbSet',
         value: function handleRgbSet(value, name) {
@@ -24418,6 +24534,39 @@ var ColourControls = function (_React$Component) {
             console.log(colours);
             this.props.setColours.call(this, colours);
         }
+<<<<<<< HEAD
+=======
+
+        // 
+
+    }, {
+        key: 'handleHslSet',
+        value: function handleHslSet(value, name) {
+            value = parseInt(value, 10);
+            console.log(value);
+            var colours = this.props.settings.slice();
+            console.log(colours);
+
+            var hsl = colour.hexToHsl(colours[this.state.active]);
+            console.log('hsl', hsl);
+            if (name === 'hue') {
+                colours[this.state.active] = colour.hslToHex([value, hsl[1], hsl[2]]);
+            } else if (name === 'saturation') {
+                colours[this.state.active] = colour.hslToHex([hsl[0], value, hsl[2]]);
+            } else if (name === 'luminosity') {
+                colours[this.state.active] = colour.hslToHex([hsl[0], hsl[1], value]);
+            }
+
+            console.log(colours);
+            this.props.setColours.call(this, colours);
+        }
+    }, {
+        key: 'handleSetPalette',
+        value: function handleSetPalette(palette) {
+            this.setState({ active: 0 });
+            this.props.setColours(palette);
+        }
+>>>>>>> master
     }, {
         key: 'render',
         value: function render() {
@@ -24427,12 +24576,21 @@ var ColourControls = function (_React$Component) {
             var active = this.state.active;
 
 
+<<<<<<< HEAD
+=======
+            console.log(settings);
+
+>>>>>>> master
             var colourInputs = settings.map(function (item, index) {
                 return _react2.default.createElement(_ColourInput2.default, {
                     value: item,
                     key: index,
                     index: index,
+<<<<<<< HEAD
                     handleChangeColour: _this3.handleChangeColour.bind(_this3),
+=======
+                    active: active === index,
+>>>>>>> master
                     setActiveColour: _this3.setActiveColour.bind(_this3) });
             });
 
@@ -24471,6 +24629,7 @@ var ColourControls = function (_React$Component) {
                         colourInputs
                     )
                 ),
+<<<<<<< HEAD
                 _react2.default.createElement(
                     _Fields.Label,
                     null,
@@ -24512,6 +24671,56 @@ var ColourControls = function (_React$Component) {
                     value: colour.hexToRgb(settings[active])[2],
                     handleMouseUp: this.handleRgbSet.bind(this) }),
                 _react2.default.createElement(ColourBar, { background: 'linear-gradient(to right, rgb(' + colour.hexToRgb(settings[active])[0] + ', ' + colour.hexToRgb(settings[active])[1] + ', 0),  rgb(' + colour.hexToRgb(settings[active])[0] + ', ' + colour.hexToRgb(settings[active])[1] + ', 255))' })
+=======
+                settings[active],
+                _react2.default.createElement(
+                    _Fields.Label,
+                    null,
+                    'hue: ',
+                    colour.hexToHsl(settings[active])[0]
+                ),
+                _react2.default.createElement(_RangeInput2.default, {
+                    min: '0',
+                    max: '360',
+                    name: 'hue',
+                    value: colour.hexToHsl(settings[active])[0],
+                    handleMouseUp: this.handleHslSet.bind(this) }),
+                _react2.default.createElement(ColourBar, { background: 'linear-gradient(\n                        to right,\n                        hsl(0, ' + colour.hexToHsl(settings[active])[1] + '%,' + colour.hexToHsl(settings[active])[2] + '%), \n                        hsl(60, ' + colour.hexToHsl(settings[active])[1] + '%,' + colour.hexToHsl(settings[active])[2] + '%), \n                        hsl(120, ' + colour.hexToHsl(settings[active])[1] + '%,' + colour.hexToHsl(settings[active])[2] + '%), \n                        hsl(180, ' + colour.hexToHsl(settings[active])[1] + '%,' + colour.hexToHsl(settings[active])[2] + '%), \n                        hsl(240, ' + colour.hexToHsl(settings[active])[1] + '%,' + colour.hexToHsl(settings[active])[2] + '%), \n                        hsl(300, ' + colour.hexToHsl(settings[active])[1] + '%,' + colour.hexToHsl(settings[active])[2] + '%), \n                        hsl(360, ' + colour.hexToHsl(settings[active])[1] + '%, ' + colour.hexToHsl(settings[active])[2] + '%))' }),
+                _react2.default.createElement(
+                    _Fields.Label,
+                    null,
+                    'saturation : ',
+                    colour.hexToHsl(settings[active])[1]
+                ),
+                _react2.default.createElement(_RangeInput2.default, {
+                    min: '0',
+                    max: '100',
+                    name: 'saturation',
+                    value: colour.hexToHsl(settings[active])[1],
+                    handleMouseUp: this.handleHslSet.bind(this) }),
+                _react2.default.createElement(ColourBar, { background: 'linear-gradient(\n                        to right,\n                        hsl(' + colour.hexToHsl(settings[active])[0] + ', 0%, ' + colour.hexToHsl(settings[active])[2] + '%),\n                        hsl(' + colour.hexToHsl(settings[active])[0] + ', 100%, ' + colour.hexToHsl(settings[active])[2] + '%))' }),
+                _react2.default.createElement(
+                    _Fields.Label,
+                    null,
+                    'luminosity: ',
+                    colour.hexToHsl(settings[active])[2]
+                ),
+                _react2.default.createElement(_RangeInput2.default, {
+                    min: '0',
+                    max: '100',
+                    name: 'luminosity',
+                    value: colour.hexToHsl(settings[active])[2],
+                    handleMouseUp: this.handleHslSet.bind(this) }),
+                _react2.default.createElement(ColourBar, { background: 'linear-gradient(\n                        to right,\n                        hsl(' + colour.hexToHsl(settings[active])[0] + ', ' + colour.hexToHsl(settings[active])[1] + '%, 0%),\n                        hsl(' + colour.hexToHsl(settings[active])[0] + ', ' + colour.hexToHsl(settings[active])[1] + '%, 50%),\n                        hsl(' + colour.hexToHsl(settings[active])[0] + ', ' + colour.hexToHsl(settings[active])[1] + '%, 100%))' }),
+                _react2.default.createElement(
+                    _Fields.Label,
+                    null,
+                    'Palettes'
+                ),
+                _data2.default.palettes.map(function (item, index) {
+                    return _react2.default.createElement(_ColourPalette2.default, { key: index, colours: item, handleSetPalette: _this3.handleSetPalette.bind(_this3) });
+                })
+>>>>>>> master
             );
         }
     }]);
@@ -24539,10 +24748,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+<<<<<<< HEAD
 var _templateObject = _taggedTemplateLiteral(['\n    display: block;\n    position: relative;\n    margin: 0;\n    \n    flex-grow: 1;\n'], ['\n    display: block;\n    position: relative;\n    margin: 0;\n    \n    flex-grow: 1;\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n    height: 100%;\n    width: 100%;\n    transition: 150ms ease;\n    cursor: pointer;\n    \n    :active {\n        box-shadow: inset 0 3px 5px rgba(#000, .1);\n    } \n'], ['\n    height: 100%;\n    width: 100%;\n    transition: 150ms ease;\n    cursor: pointer;\n    \n    :active {\n        box-shadow: inset 0 3px 5px rgba(#000, .1);\n    } \n']),
     _templateObject3 = _taggedTemplateLiteral(['\n    position: absolute;\n    right: 100%;\n    bottom: 0;\n    transition: 150ms ease;\n    visibility: hidden;\n    opacity: 0;\n    \n    *:focus > & {\n        visibility: visible;\n        opacity: 1;\n    }\n'], ['\n    position: absolute;\n    right: 100%;\n    bottom: 0;\n    transition: 150ms ease;\n    visibility: hidden;\n    opacity: 0;\n    \n    *:focus > & {\n        visibility: visible;\n        opacity: 1;\n    }\n']);
 
+=======
+>>>>>>> master
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
@@ -24559,6 +24771,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+<<<<<<< HEAD
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var StyledColourInput = _styledComponents2.default.div(_templateObject);
@@ -24566,6 +24779,19 @@ var StyledColourInput = _styledComponents2.default.div(_templateObject);
 var Target = _styledComponents2.default.div(_templateObject2);
 
 var Picker = _styledComponents2.default.div(_templateObject3);
+=======
+var StyledColourInput = _styledComponents2.default.div.withConfig({
+    displayName: 'ColourInput__StyledColourInput',
+    componentId: 'z3wnv-0'
+})(['display:block;position:relative;margin:0;flex-grow:1;']);
+
+var Target = _styledComponents2.default.div.withConfig({
+    displayName: 'ColourInput__Target',
+    componentId: 'z3wnv-1'
+})(['height:100%;width:100%;transition:150ms ease;cursor:pointer;outline:none;', ''], function (props) {
+    return props.active && (0, _styledComponents.css)(['box-shadow:inset 0 0 0 3px #fff,inset 0 0 4px 3px rgba(0,0,0,0.4);']);
+});
+>>>>>>> master
 
 var ColourInput = function (_React$Component) {
     _inherits(ColourInput, _React$Component);
@@ -24576,7 +24802,10 @@ var ColourInput = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (ColourInput.__proto__ || Object.getPrototypeOf(ColourInput)).call(this, props));
 
         _this.state = {
+<<<<<<< HEAD
             showPicker: false,
+=======
+>>>>>>> master
             value: _this.props.value
         };
         return _this;
@@ -24591,6 +24820,7 @@ var ColourInput = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+<<<<<<< HEAD
             var _this2 = this;
 
             var showPicker = this.state.showPicker;
@@ -24607,6 +24837,19 @@ var ColourInput = function (_React$Component) {
                     'data-id': this.props.index,
                     onClick: this.props.setActiveColour.bind(this) }),
                 _react2.default.createElement(Picker, null)
+=======
+            var showPicker = this.state.showPicker;
+            // console.log(this.props.active);
+
+            return _react2.default.createElement(
+                StyledColourInput,
+                null,
+                _react2.default.createElement(Target, {
+                    active: this.props.active,
+                    style: { backgroundColor: this.props.value },
+                    'data-id': this.props.index,
+                    onClick: this.props.setActiveColour.bind(this) })
+>>>>>>> master
             );
         }
     }]);
@@ -24618,6 +24861,62 @@ exports.default = ColourInput;
 
 /***/ }),
 
+<<<<<<< HEAD
+=======
+/***/ "./src/js/ColourPalette.jsx":
+/*!**********************************!*\
+  !*** ./src/js/ColourPalette.jsx ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = ColourPalette;
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _styledComponents = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Palette = _styledComponents2.default.div.withConfig({
+    displayName: 'ColourPalette__Palette',
+    componentId: 'majtdu-0'
+})(['display:flex;position:relative;margin:0 0 1em;cursor:pointer;outline:none;height:20px;']);
+
+var Colour = _styledComponents2.default.div.withConfig({
+    displayName: 'ColourPalette__Colour',
+    componentId: 'majtdu-1'
+})(['flex-grow:1;height:100%;background-color:', ';'], function (props) {
+    return props.background || '#ccc';
+});
+
+function ColourPalette(props) {
+
+    return _react2.default.createElement(
+        Palette,
+        {
+            onClick: props.handleSetPalette.bind(this, props.colours) },
+        props.colours.map(function (item, index) {
+            return _react2.default.createElement(Colour, {
+                key: index,
+                background: item });
+        })
+    );
+}
+
+/***/ }),
+
+>>>>>>> master
 /***/ "./src/js/Controls.jsx":
 /*!*****************************!*\
   !*** ./src/js/Controls.jsx ***!
@@ -24634,10 +24933,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+<<<<<<< HEAD
 var _templateObject = _taggedTemplateLiteral(['\n    min-height: 100vh;\n    margin-left:  calc(100% - ', ');\n    color: #444;\n\twidth: ', ';\n\tbackground: #f8f8f8;\n    padding: 0;\n\tbox-shadow:  0 10px 25px rgba(0,0,0,0.05);\n    overflow-y: auto;\n\n    h3 {\n\t\tpadding: .5rem 1rem;\n\t\tmargin: 0 0;\n\t}\n'], ['\n    min-height: 100vh;\n    margin-left:  calc(100% - ', ');\n    color: #444;\n\twidth: ', ';\n\tbackground: #f8f8f8;\n    padding: 0;\n\tbox-shadow:  0 10px 25px rgba(0,0,0,0.05);\n    overflow-y: auto;\n\n    h3 {\n\t\tpadding: .5rem 1rem;\n\t\tmargin: 0 0;\n\t}\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n    ', ';\n'], ['\n    ', ';\n']),
     _templateObject3 = _taggedTemplateLiteral(['\n\tcolor: #888;\n\twidth: 100%;\n\tfont-size: .8em;\n    text-align: center;\n    padding: 1em 0;\n\n    ul {\n\t\tmargin: 0;\n\t\tpadding: 0;\n\t}\n    \n\tli {\n\t\tdisplay: inline;\n    }\n    \n\tli:not(:last-child) {\n\t\t:after {\n\t\t\tcontent: " \u2022";\n\t\t\tmargin: 0 .5rem;\n\t\t\tcolor: #888;\n\t\t}\n    }\n'], ['\n\tcolor: #888;\n\twidth: 100%;\n\tfont-size: .8em;\n    text-align: center;\n    padding: 1em 0;\n\n    ul {\n\t\tmargin: 0;\n\t\tpadding: 0;\n\t}\n    \n\tli {\n\t\tdisplay: inline;\n    }\n    \n\tli:not(:last-child) {\n\t\t:after {\n\t\t\tcontent: " \u2022";\n\t\t\tmargin: 0 .5rem;\n\t\t\tcolor: #888;\n\t\t}\n    }\n']);
 
+=======
+>>>>>>> master
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
@@ -24680,6 +24982,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+<<<<<<< HEAD
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var StyledControls = _styledComponents2.default.section(_templateObject, _theme2.default.controls.width, _theme2.default.controls.width);
@@ -24687,6 +24990,22 @@ var StyledControls = _styledComponents2.default.section(_templateObject, _theme2
 var DownloadButton = _styledComponents2.default.a(_templateObject2, _Button.Button);
 
 var Footer = _styledComponents2.default.footer(_templateObject3);
+=======
+var StyledControls = _styledComponents2.default.section.withConfig({
+    displayName: 'Controls__StyledControls',
+    componentId: 'sc-2o9ws6-0'
+})(['min-height:100vh;margin-left:calc(100% - ', ');color:#444;width:', ';background:#f8f8f8;padding:0;box-shadow:0 10px 25px rgba(0,0,0,0.05);overflow-y:auto;h3{padding:.5rem 1rem;margin:0 0;}'], _theme2.default.controls.width, _theme2.default.controls.width);
+
+var DownloadButton = _styledComponents2.default.a.withConfig({
+    displayName: 'Controls__DownloadButton',
+    componentId: 'sc-2o9ws6-1'
+})(['', ';'], _Button.Button);
+
+var Footer = _styledComponents2.default.footer.withConfig({
+    displayName: 'Controls__Footer',
+    componentId: 'sc-2o9ws6-2'
+})(['color:#888;width:100%;font-size:.8em;text-align:center;padding:1em 0;ul{margin:0;padding:0;}li{display:inline;}li:not(:last-child){:after{content:" \u2022";margin:0 .5rem;color:#ddd;}}']);
+>>>>>>> master
 
 var Controls = function (_React$Component) {
     _inherits(Controls, _React$Component);
@@ -24699,11 +25018,14 @@ var Controls = function (_React$Component) {
 
     _createClass(Controls, [{
         key: 'render',
+<<<<<<< HEAD
 
         // handleSaveImage() {
 
         // }
 
+=======
+>>>>>>> master
         value: function render() {
             var settings = this.props.settings;
             var presets = this.props.presets;
@@ -24794,10 +25116,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+<<<<<<< HEAD
 var _templateObject = _taggedTemplateLiteral(['\n\n'], ['\n\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n    ', ';\n'], ['\n    ', ';\n']),
     _templateObject3 = _taggedTemplateLiteral(['\n    ', ';\n    width: calc(50% - 1em);\n'], ['\n    ', ';\n    width: calc(50% - 1em);\n']);
 
+=======
+>>>>>>> master
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
@@ -24824,6 +25149,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+<<<<<<< HEAD
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var StyledControlGroup = (0, _styledComponents2.default)(_ControlGroup2.default)(_templateObject);
@@ -24833,6 +25159,27 @@ var Row = _styledComponents2.default.div(_templateObject2, _mixins.row);
 var Column = _styledComponents2.default.div(_templateObject3, _mixins.column);
 
 var SetButton = _styledComponents2.default.button(_templateObject2, _Button.Button);
+=======
+var StyledControlGroup = (0, _styledComponents2.default)(_ControlGroup2.default).withConfig({
+    displayName: 'DimensionControls__StyledControlGroup',
+    componentId: 'sc-1r7gy9a-0'
+})(['']);
+
+var Row = _styledComponents2.default.div.withConfig({
+    displayName: 'DimensionControls__Row',
+    componentId: 'sc-1r7gy9a-1'
+})(['', ';'], _mixins.row);
+
+var Column = _styledComponents2.default.div.withConfig({
+    displayName: 'DimensionControls__Column',
+    componentId: 'sc-1r7gy9a-2'
+})(['', ';width:calc(50% - 1em);'], _mixins.column);
+
+var SetButton = _styledComponents2.default.button.withConfig({
+    displayName: 'DimensionControls__SetButton',
+    componentId: 'sc-1r7gy9a-3'
+})(['', ';'], _Button.Button);
+>>>>>>> master
 
 var DimensionControls = function (_React$Component) {
     _inherits(DimensionControls, _React$Component);
@@ -24861,12 +25208,27 @@ var DimensionControls = function (_React$Component) {
     }, {
         key: 'handlePreset',
         value: function handlePreset(e) {
+<<<<<<< HEAD
             var dims = e.target.value.split('-');
 
             this.setState({
                 width: dims[0],
                 height: dims[1]
             });
+=======
+            var _this2 = this;
+
+            console.log(e.target.value);
+            if (e.target.value !== 'null') {
+                var dims = e.target.value.split('-');
+                this.setState({
+                    width: dims[0],
+                    height: dims[1]
+                }, function () {
+                    console.log(_this2.state.width, _this2.state.height);
+                });
+            }
+>>>>>>> master
         }
     }, {
         key: 'handleHeight',
@@ -24889,6 +25251,7 @@ var DimensionControls = function (_React$Component) {
         key: 'render',
         value: function render() {
             var presets = this.props.presets.map(function (item, index) {
+<<<<<<< HEAD
                 var value = item.width + '-' + item.height;
                 return _react2.default.createElement(
                     'option',
@@ -24896,6 +25259,23 @@ var DimensionControls = function (_React$Component) {
                         value: value,
                         key: index },
                     item.label
+=======
+                return _react2.default.createElement(
+                    'optgroup',
+                    { key: index, label: item.label },
+                    item.values.map(function (item2, index2) {
+
+                        var value = item2.width + '-' + item2.height;
+
+                        return _react2.default.createElement(
+                            'option',
+                            {
+                                value: value,
+                                key: index2 },
+                            item2.label
+                        );
+                    })
+>>>>>>> master
                 );
             });
 
@@ -24911,7 +25291,16 @@ var DimensionControls = function (_React$Component) {
                 _react2.default.createElement(
                     _Fields.Dropdown,
                     {
+<<<<<<< HEAD
                         onInput: this.handlePreset.bind(this) },
+=======
+                        onChange: this.handlePreset.bind(this) },
+                    _react2.default.createElement(
+                        'option',
+                        { value: 'null' },
+                        'Select...'
+                    ),
+>>>>>>> master
                     presets
                 ),
                 _react2.default.createElement(
@@ -24950,7 +25339,11 @@ var DimensionControls = function (_React$Component) {
                     SetButton,
                     {
                         onClick: this.handleSubmit.bind(this) },
+<<<<<<< HEAD
                     'Set'
+=======
+                    'Resize'
+>>>>>>> master
                 )
             );
         }
@@ -24979,10 +25372,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+<<<<<<< HEAD
 var _templateObject = _taggedTemplateLiteral(['\n    width: calc(100% - ', ');\n    text-align: center;\n    bottom: 0;\n\tposition: fixed;\n\tleft: 0;\n\ttop: 0;\n\tbottom: 0;\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: center;\n'], ['\n    width: calc(100% - ', ');\n    text-align: center;\n    bottom: 0;\n\tposition: fixed;\n\tleft: 0;\n\ttop: 0;\n\tbottom: 0;\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: center;\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n    max-width: 100%;\n\tmax-height: 100%;\n\tbox-shadow: 0 2px 5px rgba(hexToRgb(#000), .2),\n\t\t\t\t0 5px 20px rgba(hexToRgb(#000), .1);\n'], ['\n    max-width: 100%;\n\tmax-height: 100%;\n\tbox-shadow: 0 2px 5px rgba(hexToRgb(#000), .2),\n\t\t\t\t0 5px 20px rgba(hexToRgb(#000), .1);\n']),
     _templateObject3 = _taggedTemplateLiteral(['\n    display: none;\n'], ['\n    display: none;\n']);
 
+=======
+>>>>>>> master
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
@@ -25005,6 +25401,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+<<<<<<< HEAD
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var StyledDisplay = _styledComponents2.default.div(_templateObject, _theme2.default.controls.width);
@@ -25012,6 +25409,22 @@ var StyledDisplay = _styledComponents2.default.div(_templateObject, _theme2.defa
 var Canvas = _styledComponents2.default.canvas(_templateObject2);
 
 var HiddenCanvas = _styledComponents2.default.canvas(_templateObject3);
+=======
+var StyledDisplay = _styledComponents2.default.div.withConfig({
+    displayName: 'Display__StyledDisplay',
+    componentId: 'mvr2yw-0'
+})(['width:calc(100% - ', ');text-align:center;bottom:0;position:fixed;left:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center;'], _theme2.default.controls.width);
+
+var Canvas = _styledComponents2.default.canvas.withConfig({
+    displayName: 'Display__Canvas',
+    componentId: 'mvr2yw-1'
+})(['max-width:100%;max-height:100%;box-shadow:0 2px 5px rgba(hexToRgb(#000),.2),0 5px 20px rgba(hexToRgb(#000),.1);']);
+
+var HiddenCanvas = _styledComponents2.default.canvas.withConfig({
+    displayName: 'Display__HiddenCanvas',
+    componentId: 'mvr2yw-2'
+})(['display:none;']);
+>>>>>>> master
 
 var Display = function (_React$Component) {
     _inherits(Display, _React$Component);
@@ -25347,8 +25760,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+<<<<<<< HEAD
 var _templateObject = _taggedTemplateLiteral(['\n\n'], ['\n\n']);
 
+=======
+>>>>>>> master
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
@@ -25371,9 +25787,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+<<<<<<< HEAD
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var StyledControlGroup = (0, _styledComponents2.default)(_ControlGroup2.default)(_templateObject);
+=======
+var StyledControlGroup = (0, _styledComponents2.default)(_ControlGroup2.default).withConfig({
+    displayName: 'GeometryControls__StyledControlGroup',
+    componentId: 'sc-1jlva75-0'
+})(['']);
+>>>>>>> master
 
 String.prototype.capitalise = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
@@ -25488,8 +25911,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+<<<<<<< HEAD
 var _templateObject = _taggedTemplateLiteral(['\n\n\tbackground-color: #fff;\n\tpadding: 1rem;\n    \n\th1 {\n\t\tdisplay: inline;\n\t\tfont-size: 1.5rem;\n\t\tfont-weight: 900;\n\t\tcolor: #e24;\n\t\tmargin: 0;\n        line-height: ', ';\n\t}\n'], ['\n\n\tbackground-color: #fff;\n\tpadding: 1rem;\n    \n\th1 {\n\t\tdisplay: inline;\n\t\tfont-size: 1.5rem;\n\t\tfont-weight: 900;\n\t\tcolor: #e24;\n\t\tmargin: 0;\n        line-height: ', ';\n\t}\n']);
 
+=======
+>>>>>>> master
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
@@ -25510,9 +25936,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+<<<<<<< HEAD
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var StyledHeader = _styledComponents2.default.header(_templateObject, _theme2.default.topbar.height);
+=======
+var StyledHeader = _styledComponents2.default.header.withConfig({
+				displayName: 'Header__StyledHeader',
+				componentId: 'sc-12eltix-0'
+})(['background-color:#fff;padding:1rem;h1{display:inline;font-size:1.5rem;font-weight:900;color:#e24;margin:0;line-height:', ';}'], _theme2.default.topbar.height);
+>>>>>>> master
 
 var Header = function (_React$Component) {
 				_inherits(Header, _React$Component);
@@ -25642,6 +26075,45 @@ exports.default = RangeInput;
 
 /***/ }),
 
+<<<<<<< HEAD
+=======
+/***/ "./src/js/common/animate.js":
+/*!**********************************!*\
+  !*** ./src/js/common/animate.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    slideUp: function slideUp(elem) {
+        var height = elem.offsetHeight;
+
+        elem.style.height = height + 'px';
+
+        requestAnimationFrame(function () {
+            elem.style.height = '0px';
+        });
+    },
+    slideDown: function slideDown(elem) {
+
+        var height = elem.children[0].scrollHeight;
+        elem.style.height = '0px';
+
+        requestAnimationFrame(function () {
+            elem.style.height = height + 'px';
+        });
+    }
+};
+
+/***/ }),
+
+>>>>>>> master
 /***/ "./src/js/common/colour.js":
 /*!*********************************!*\
   !*** ./src/js/common/colour.js ***!
@@ -25656,6 +26128,12 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.hexToRgb = hexToRgb;
+<<<<<<< HEAD
+=======
+exports.hexToHsl = hexToHsl;
+exports.hslToHex = hslToHex;
+exports.cssToHsl = cssToHsl;
+>>>>>>> master
 var hslToRgb = exports.hslToRgb = function hslToRgb(h, s, l) {
 
     var rgb = [],
@@ -25705,9 +26183,13 @@ var rgbToHex = exports.rgbToHex = function rgbToHex(arr) {
         }
         return ret;
     });
+<<<<<<< HEAD
     // console.table(components);
     ret = ret + components.join('');
     // console.log(ret);
+=======
+    ret = ret + components.join('');
+>>>>>>> master
     return ret;
 };
 
@@ -25719,6 +26201,10 @@ var getRandom = exports.getRandom = function getRandom(bright) {
     } else {
         val = '#';
         var chars = '1234567890ABCDEF'.split('');
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
         for (var i = 0; i < 6; i++) {
             val += chars[Math.floor(Math.random() * chars.length)];
         }
@@ -25733,18 +26219,26 @@ var getRandom = exports.getRandom = function getRandom(bright) {
  * @returns {array}
  */
 function hexToRgb(hex) {
+<<<<<<< HEAD
     // console.log(hex);
     hex = hex.replace('#', '');
 
     // console.log(hex);
 
+=======
+    hex = hex.replace('#', '');
+
+>>>>>>> master
     switch (hex.length) {
         case 3:
             {
                 var ret = hex.split('').map(function (item) {
                     return parseInt(item + item, 16);
                 });
+<<<<<<< HEAD
                 // console.log(ret);
+=======
+>>>>>>> master
                 return ret;
             }
 
@@ -25753,15 +26247,116 @@ function hexToRgb(hex) {
                 var _ret = hex.match(/.{2}/g).map(function (item) {
                     return parseInt(item, 16);
                 });
+<<<<<<< HEAD
                 // console.log(ret);
+=======
+>>>>>>> master
                 return _ret;
             }
 
         default:
+<<<<<<< HEAD
             {
                 return;
             }
     }
+=======
+            return;
+    }
+}
+
+function hexToHsl(hex) {
+    hex = hex.replace('#', '');
+
+    var result = void 0;
+
+    switch (hex.length) {
+        case 3:
+            result = hex.split('').map(function (item) {
+                return parseInt(item + item, 16);
+            });
+            break;
+        case 6:
+            result = hex.match(/.{2}/g).map(function (item) {
+                return parseInt(item, 16);
+            });
+            break;
+        default:
+            return;
+    }
+    var r = result[0] / 255,
+        g = result[1] / 255,
+        b = result[2] / 255;
+
+    var max = Math.max(r, g, b),
+        min = Math.min(r, g, b);
+
+    var h = void 0,
+        s = void 0,
+        l = (max + min) / 2;
+
+    if (max === min) {
+        h = s = 0; // achromatic
+    } else {
+        var d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+            case r:
+                h = (g - b) / d + (g < b ? 6 : 0);
+                break;
+            case g:
+                h = (b - r) / d + 2;
+                break;
+            case b:
+                h = (r - g) / d + 4;
+                break;
+        }
+        h = h / 6;
+    }
+
+    h = Math.floor(h * 360);
+    s = Math.floor(s * 100);
+    l = Math.floor(l * 100);
+
+    return [h, s, l];
+}
+
+function hslToHex(hsl) {
+    var h = hsl[0] / 360,
+        s = hsl[1] / 100,
+        l = hsl[2] / 100;
+
+    var r = void 0,
+        g = void 0,
+        b = void 0;
+
+    if (s === 0) {
+        r = g = b = l; // achromatic
+    } else {
+        var hue2rgb = function hue2rgb(p, q, t) {
+            if (t < 0) t += 1;
+            if (t > 1) t -= 1;
+            if (t < 1 / 6) return p + (q - p) * 6 * t;
+            if (t < 1 / 2) return q;
+            if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+            return p;
+        };
+        var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+        var p = 2 * l - q;
+        r = hue2rgb(p, q, h + 1 / 3);
+        g = hue2rgb(p, q, h);
+        b = hue2rgb(p, q, h - 1 / 3);
+    }
+    var toHex = function toHex(x) {
+        var hex = Math.round(x * 255).toString(16);
+        return hex.length === 1 ? '0' + hex : hex;
+    };
+    return '#' + toHex(r) + toHex(g) + toHex(b);
+}
+
+function cssToHsl(css) {
+    //
+>>>>>>> master
 }
 
 /***/ }),
@@ -25819,6 +26414,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.column = exports.row = undefined;
 
+<<<<<<< HEAD
 var _templateObject = _taggedTemplateLiteral(['\n    margin: 0 -.5rem;\n    display: flex;\n    flex-wrap: wrap;\n'], ['\n    margin: 0 -.5rem;\n    display: flex;\n    flex-wrap: wrap;\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n    display: block;\n    margin: 0 .5rem;\n'], ['\n    display: block;\n    margin: 0 .5rem;\n']);
 
@@ -25829,6 +26425,13 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 var row = exports.row = (0, _styledComponents.css)(_templateObject);
 
 var column = exports.column = (0, _styledComponents.css)(_templateObject2);
+=======
+var _styledComponents = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+
+var row = exports.row = (0, _styledComponents.css)(['margin:0 -.5rem;display:flex;flex-wrap:wrap;']);
+
+var column = exports.column = (0, _styledComponents.css)(['display:block;margin:0 .5rem;']);
+>>>>>>> master
 
 /***/ }),
 
@@ -25865,6 +26468,28 @@ exports.topbar = topbar;
 
 /***/ }),
 
+<<<<<<< HEAD
+=======
+/***/ "./src/js/data.js":
+/*!************************!*\
+  !*** ./src/js/data.js ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    palettes: [['#e14', '#e82', '#de2', '#4e2', '#2ae', '#22d', '#82e'], ['#0e1b32', '#c28993', '#ffc7af'], ['#82c', '#e31', '#fe6'], ['#48c', '#6cf'], ['#213', '#236'], ['#f6c', '#84d', '#2fc']]
+};
+
+/***/ }),
+
+>>>>>>> master
 /***/ "./src/js/index.jsx":
 /*!**************************!*\
   !*** ./src/js/index.jsx ***!
@@ -25908,8 +26533,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Button = undefined;
 
+<<<<<<< HEAD
 var _templateObject = _taggedTemplateLiteral(['\n    display: inline-block;\n\ttext-decoration: none;\n\tbackground: transparent;\n\tborder: 1px solid #ddd;\n\tpadding: 0.6rem;\n\tcolor: ', ';\n\ttext-align: center;\n\tborder-radius: 50px;\n    width: 100%;\n    \n\tfont-size: 1em;\n    \n    :hover {\n\t\tbackground: #eee;\n\t}\n    \n    [disabled] {\n\t\tcursor: not-allowed;\n\t}\n'], ['\n    display: inline-block;\n\ttext-decoration: none;\n\tbackground: transparent;\n\tborder: 1px solid #ddd;\n\tpadding: 0.6rem;\n\tcolor: ', ';\n\ttext-align: center;\n\tborder-radius: 50px;\n    width: 100%;\n    \n\tfont-size: 1em;\n    \n    :hover {\n\t\tbackground: #eee;\n\t}\n    \n    [disabled] {\n\t\tcursor: not-allowed;\n\t}\n']);
 
+=======
+>>>>>>> master
 var _styledComponents = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 
 var _theme = __webpack_require__(/*! ../common/theme */ "./src/js/common/theme.js");
@@ -25918,9 +26546,13 @@ var _theme2 = _interopRequireDefault(_theme);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+<<<<<<< HEAD
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var Button = exports.Button = (0, _styledComponents.css)(_templateObject, _theme2.default.colours.primary);
+=======
+var Button = exports.Button = (0, _styledComponents.css)(['display:inline-block;text-decoration:none;background:transparent;border:1px solid #ddd;padding:0.6rem;color:', ';text-align:center;border-radius:50px;width:100%;font-size:1em;:hover{background:#eee;}[disabled]{cursor:not-allowed;}'], _theme2.default.colours.primary);
+>>>>>>> master
 
 /***/ }),
 
@@ -25940,12 +26572,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+<<<<<<< HEAD
 var _templateObject = _taggedTemplateLiteral(['\n    padding: 0 1rem;\n    border-bottom: 1px solid #ddd;\n'], ['\n    padding: 0 1rem;\n    border-bottom: 1px solid #ddd;\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n    line-height: 3;\n    font-weight: bold;\n    position: relative;\n    background: transparent;\n    display: block;\n    width: 100%;\n    border: none;\n    padding: 0;\n    margin: 0;\n    font-size: 1em;\n    outline: none;\n'], ['\n    line-height: 3;\n    font-weight: bold;\n    position: relative;\n    background: transparent;\n    display: block;\n    width: 100%;\n    border: none;\n    padding: 0;\n    margin: 0;\n    font-size: 1em;\n    outline: none;\n']),
     _templateObject3 = _taggedTemplateLiteral(['\n    position: absolute;\n    right: 0;\n    display: block;\n    top: 0;\n    bottom: 0;\n\n    :before, :after {\n        display: block;\n        position: absolute;\n        content: \'\';\n        height: 2px;\n        width: .62em;\n        background: #ccc;\n        top: 50%;\n        right: 0;\n    }\n\n    :after {\n        transform-origin: center;\n        transition: 150ms ease;\n        ', ';\n    }\n'], ['\n    position: absolute;\n    right: 0;\n    display: block;\n    top: 0;\n    bottom: 0;\n\n    :before, :after {\n        display: block;\n        position: absolute;\n        content: \'\';\n        height: 2px;\n        width: .62em;\n        background: #ccc;\n        top: 50%;\n        right: 0;\n    }\n\n    :after {\n        transform-origin: center;\n        transition: 150ms ease;\n        ', ';\n    }\n']),
     _templateObject4 = _taggedTemplateLiteral(['\n            transform: rotate(90deg);\n        '], ['\n            transform: rotate(90deg);\n        ']),
     _templateObject5 = _taggedTemplateLiteral(['\npadding-bottom: 1rem;\n'], ['\npadding-bottom: 1rem;\n']);
 
+=======
+>>>>>>> master
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
@@ -25954,6 +26589,13 @@ var _styledComponents = __webpack_require__(/*! styled-components */ "./node_mod
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
+<<<<<<< HEAD
+=======
+var _animate = __webpack_require__(/*! ../common/animate */ "./src/js/common/animate.js");
+
+var _animate2 = _interopRequireDefault(_animate);
+
+>>>>>>> master
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25962,6 +26604,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+<<<<<<< HEAD
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var StyledControlGroup = _styledComponents2.default.section(_templateObject);
@@ -25973,6 +26616,34 @@ var Arrow = _styledComponents2.default.div(_templateObject3, function (props) {
 });
 
 var Content = _styledComponents2.default.div(_templateObject5);
+=======
+var StyledControlGroup = _styledComponents2.default.section.withConfig({
+    displayName: 'ControlGroup__StyledControlGroup',
+    componentId: 'sc-1rhk8ty-0'
+})(['padding:0 1rem;border-bottom:1px solid #ddd;']);
+
+var Heading = _styledComponents2.default.button.withConfig({
+    displayName: 'ControlGroup__Heading',
+    componentId: 'sc-1rhk8ty-1'
+})(['line-height:3;font-weight:bold;position:relative;background:transparent;display:block;width:100%;border:none;padding:0;margin:0;font-size:1em;outline:none;text-align:left;color:#444;font-family:inherit;']);
+
+var Arrow = _styledComponents2.default.div.withConfig({
+    displayName: 'ControlGroup__Arrow',
+    componentId: 'sc-1rhk8ty-2'
+})(['position:absolute;right:0;display:block;top:0;bottom:0;:before,:after{display:block;position:absolute;content:\'\';height:2px;width:.62em;background:#ccc;top:50%;right:0;}:after{transform-origin:center;transition:150ms ease;transform:rotate(90deg) scaleX(1);', ';}'], function (props) {
+    return props.open && (0, _styledComponents.css)(['transform:rotate(90deg) scaleX(0);']);
+});
+
+var Content = _styledComponents2.default.div.withConfig({
+    displayName: 'ControlGroup__Content',
+    componentId: 'sc-1rhk8ty-3'
+})(['overflow:hidden;transition:300ms ease;']);
+
+var ContentInner = _styledComponents2.default.div.withConfig({
+    displayName: 'ControlGroup__ContentInner',
+    componentId: 'sc-1rhk8ty-4'
+})(['padding-bottom:1rem;']);
+>>>>>>> master
 
 var ControlGroup = function (_React$Component) {
     _inherits(ControlGroup, _React$Component);
@@ -25985,12 +26656,21 @@ var ControlGroup = function (_React$Component) {
         _this.state = {
             open: true
         };
+<<<<<<< HEAD
+=======
+
+        _this.content = _react2.default.createRef();
+>>>>>>> master
         return _this;
     }
 
     _createClass(ControlGroup, [{
         key: 'toggleOpen',
         value: function toggleOpen() {
+<<<<<<< HEAD
+=======
+            this.state.open ? _animate2.default.slideUp(this.content.current) : _animate2.default.slideDown(this.content.current);
+>>>>>>> master
             this.setState({ open: !this.state.open });
         }
     }, {
@@ -26007,11 +26687,24 @@ var ControlGroup = function (_React$Component) {
                     this.props.title,
                     _react2.default.createElement(Arrow, { open: this.state.open })
                 ),
+<<<<<<< HEAD
                 this.state.open ? _react2.default.createElement(
                     Content,
                     { open: this.state.open },
                     this.props.children
                 ) : ''
+=======
+                this.state.open ? '' : '',
+                _react2.default.createElement(
+                    Content,
+                    { ref: this.content },
+                    _react2.default.createElement(
+                        ContentInner,
+                        null,
+                        this.props.children
+                    )
+                )
+>>>>>>> master
             );
         }
     }]);
@@ -26038,11 +26731,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Label = exports.RangeSlider = exports.Dropdown = exports.NumberField = exports.TextField = undefined;
 
+<<<<<<< HEAD
 var _templateObject = _taggedTemplateLiteral(['\n    display: block;\n    width: 100%;\n    height: 2rem;\n    font-family: inherit;\n    font-size: 1em;\n    line-height: 2rem;\n    padding: 0 1ch;\n    background: #fff;\n    border: none;\n    margin-bottom: .75rem;\n    border-radius: 3px;\n    transition: 150ms ease;\n\n    :focus {\n        outline: none;\n        box-shadow: inset 0 0 0 2px ', ', 0 0 0 4px rgba(', ', .1);\n    }\n'], ['\n    display: block;\n    width: 100%;\n    height: 2rem;\n    font-family: inherit;\n    font-size: 1em;\n    line-height: 2rem;\n    padding: 0 1ch;\n    background: #fff;\n    border: none;\n    margin-bottom: .75rem;\n    border-radius: 3px;\n    transition: 150ms ease;\n\n    :focus {\n        outline: none;\n        box-shadow: inset 0 0 0 2px ', ', 0 0 0 4px rgba(', ', .1);\n    }\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n    ', ';\n'], ['\n    ', ';\n']),
     _templateObject3 = _taggedTemplateLiteral(['\n    width: 100%;\n'], ['\n    width: 100%;\n']),
     _templateObject4 = _taggedTemplateLiteral(['\n    color: #888;\n\tdisplay: block;\n\tmargin: .5em 0;\n    font-weight: 500;\n    font-size: .8em;\n'], ['\n    color: #888;\n\tdisplay: block;\n\tmargin: .5em 0;\n    font-weight: 500;\n    font-size: .8em;\n']);
 
+=======
+>>>>>>> master
 var _styledComponents = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
@@ -26055,6 +26751,7 @@ var _colour = __webpack_require__(/*! ../common/colour */ "./src/js/common/colou
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+<<<<<<< HEAD
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var field = (0, _styledComponents.css)(_templateObject, _theme2.default.colours.primary, (0, _colour.hexToRgb)(_theme2.default.colours.primary).join(', '));
@@ -26068,6 +26765,34 @@ var Dropdown = exports.Dropdown = _styledComponents2.default.select(_templateObj
 var RangeSlider = exports.RangeSlider = _styledComponents2.default.input.attrs({ type: 'range' })(_templateObject3);
 
 var Label = exports.Label = _styledComponents2.default.label(_templateObject4);
+=======
+var field = (0, _styledComponents.css)(['display:block;width:100%;height:2rem;font-family:inherit;font-size:1em;line-height:2rem;padding:0 1ch;background:#fff;border:none;margin-bottom:.75rem;border-radius:3px;transition:150ms ease;:focus{outline:none;box-shadow:inset 0 0 0 2px ', ',0 0 0 4px rgba(', ',.1);}'], _theme2.default.colours.primary, (0, _colour.hexToRgb)(_theme2.default.colours.primary).join(', '));
+
+var TextField = exports.TextField = _styledComponents2.default.input.attrs({ type: 'text' }).withConfig({
+    displayName: 'Fields__TextField',
+    componentId: 'sc-1ciizoo-0'
+})(['', ';'], field);
+
+var NumberField = exports.NumberField = _styledComponents2.default.input.attrs({ type: 'number' }).withConfig({
+    displayName: 'Fields__NumberField',
+    componentId: 'sc-1ciizoo-1'
+})(['', ';'], field);
+
+var Dropdown = exports.Dropdown = _styledComponents2.default.select.withConfig({
+    displayName: 'Fields__Dropdown',
+    componentId: 'sc-1ciizoo-2'
+})(['', ';'], field);
+
+var RangeSlider = exports.RangeSlider = _styledComponents2.default.input.attrs({ type: 'range' }).withConfig({
+    displayName: 'Fields__RangeSlider',
+    componentId: 'sc-1ciizoo-3'
+})(['width:100%;']);
+
+var Label = exports.Label = _styledComponents2.default.label.withConfig({
+    displayName: 'Fields__Label',
+    componentId: 'sc-1ciizoo-4'
+})(['color:#888;display:block;margin:.5em 0;font-weight:500;font-size:.8em;']);
+>>>>>>> master
 
 /***/ })
 

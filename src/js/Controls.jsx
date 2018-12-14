@@ -49,15 +49,12 @@ const Footer = styled.footer`
 		:after {
 			content: " •";
 			margin: 0 .5rem;
-			color: #888;
+			color: #ddd;
 		}
     }
 `;
 
 export default class Controls extends React.Component {
-    // handleSaveImage() {
-
-    // }
 
     render() {
         let settings = this.props.settings;
@@ -68,22 +65,22 @@ export default class Controls extends React.Component {
         return (
             <StyledControls>
                 <Header />
-                    <DimensionControls
-                        settings={settings.dimensions}
-                        presets={presets}
-                        setDimensions={setDimensions} />
-                    <GeometryControls
-                        settings={settings.geometry}
-                        setGeometry={this.props.setGeometry.bind(this)} />
-                    <ColourControls
-                        settings={settings.colour}
-                        setColours={setColours} />
-                    <ControlGroup title="Export">
-                        <DownloadButton
-                            href={this.props.output}
-                            download="lowpoly.png">Download Image</DownloadButton>
-                    </ControlGroup>
-                    <Footer>
+                <DimensionControls
+                    settings={settings.dimensions}
+                    presets={presets}
+                    setDimensions={setDimensions} />
+                <GeometryControls
+                    settings={settings.geometry}
+                    setGeometry={this.props.setGeometry.bind(this)} />
+                <ColourControls
+                    settings={settings.colour}
+                    setColours={setColours} />
+                <ControlGroup title="Export">
+                    <DownloadButton
+                        href={this.props.output}
+                        download="lowpoly.png">Download Image</DownloadButton>
+                </ControlGroup>
+                <Footer>
                     by <a href="https://cojdev.github.io" target="_top">Charles Ojukwu</a>
                     <ul>
                         <li><a href="https://github.com/cojdev">Github</a></li>

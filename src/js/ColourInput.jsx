@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 
 const StyledColourInput = styled.div`
     display: block;
@@ -14,24 +14,13 @@ const Target = styled.div`
     width: 100%;
     transition: 150ms ease;
     cursor: pointer;
-    
-    :active {
-        box-shadow: inset 0 3px 5px rgba(#000, .1);
-    } 
-`;
+    outline: none;
 
-const Picker = styled.div`
-    position: absolute;
-    right: 100%;
-    bottom: 0;
-    transition: 150ms ease;
-    visibility: hidden;
-    opacity: 0;
-    
-    *:focus > & {
-        visibility: visible;
-        opacity: 1;
-    }
+    ${props => props.active && css`
+        box-shadow:
+            inset 0 0 0 3px #fff,
+            inset 0 0 4px 3px rgba(0,0,0,0.4);
+    `}
 `;
 
 export default class ColourInput extends React.Component {
@@ -39,7 +28,6 @@ export default class ColourInput extends React.Component {
         super(props);
 
         this.state = {
-            showPicker: false,
             value: this.props.value
         }
     }
@@ -51,24 +39,15 @@ export default class ColourInput extends React.Component {
     
     render() {
         let showPicker = this.state.showPicker;
+        // console.log(this.props.active);
 
         return (
-            <StyledColourInput
-                tabIndex="0"
-                onBlur={() => { this.setState({ showPicker: false }) }}>
+            <StyledColourInput>
                 <Target
+                    active={this.props.active}
                     style={{backgroundColor: this.props.value}}
                     data-id={this.props.index}
                     onClick={this.props.setActiveColour.bind(this)} />
-                {/* {showPicker ?
-                
-                : ''} */}
-                <Picker>
-                    {/* <ChromePicker
-                        color={this.state.value}
-                        style={{ display: this.showPicker ? 'block' : 'none'} }
-                        onChangeComplete={this.handleChangeComplete.bind(this)}/> */}
-                </Picker>
             </StyledColourInput>
         )
     }

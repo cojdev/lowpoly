@@ -40,12 +40,15 @@ export default class DimensionControls extends React.Component {
     }
 
     handlePreset(e) {
-        let dims = e.target.value.split('-');
-
-        this.setState({
-            width: dims[0],
-            height: dims[1],
-        })
+        console.log(e.target.value);
+        if (e.target.value !== 'null') {
+            let dims = e.target.value.split('-');
+            this.setState({
+                width: dims[0],
+                height: dims[1],
+            }, () => {console.log(this.state.width, this.state.height)});
+        }
+        
     }
 
     handleHeight(e) {
@@ -63,14 +66,22 @@ export default class DimensionControls extends React.Component {
     }
 
     render() {
-        const presets = this.props.presets.map((item, index) => {
-            let value = item.width + '-' + item.height;
-            return (
-                <option
-                    value={value}
-                    key={index}>{item.label}</option>
-            );
-        });
+        const presets = this.props.presets.map((item, index) => (
+            <optgroup key={index} label={item.label}>
+
+                {item.values.map((item2, index2) => {
+
+                    let value = item2.width + '-' + item2.height;
+                
+                    return (
+                        <option
+                        value={value}
+                        key={index2}>{item2.label}</option>
+                    );
+                })}
+
+            </optgroup>
+        ));
 
         return (
             <StyledControlGroup title="Dimensions">
@@ -78,7 +89,8 @@ export default class DimensionControls extends React.Component {
                 <Label
                     htmlFor="preset-size">Presets</Label>
                 <Dropdown
-                    onInput={this.handlePreset.bind(this)}>
+                    onChange={this.handlePreset.bind(this)}>
+                    <option value="null">Select...</option>
                     {presets}
                 </Dropdown>
 
@@ -102,7 +114,7 @@ export default class DimensionControls extends React.Component {
                 </Row>
 
                 <SetButton
-                    onClick={this.handleSubmit.bind(this)}>Set</SetButton>
+                    onClick={this.handleSubmit.bind(this)}>Resize</SetButton>
 
             </StyledControlGroup>
         );

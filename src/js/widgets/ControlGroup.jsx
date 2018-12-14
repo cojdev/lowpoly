@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import animate from '../common/animate';
 
 const StyledControlGroup = styled.section`
     padding: 0 1rem;
@@ -18,6 +19,9 @@ const Heading = styled.button`
     margin: 0;
     font-size: 1em;
     outline: none;
+    text-align: left;
+    color: #444;
+    font-family: inherit;
 `;
 
 const Arrow = styled.div`
@@ -41,14 +45,20 @@ const Arrow = styled.div`
     :after {
         transform-origin: center;
         transition: 150ms ease;
-        ${props => !props.open && css`
-            transform: rotate(90deg);
+        transform: rotate(90deg) scaleX(1);
+        ${props => props.open && css`
+            transform: rotate(90deg) scaleX(0);
         `};
     }
 `;
 
 const Content = styled.div`
-padding-bottom: 1rem;
+    overflow: hidden;
+    transition: 300ms ease;
+`;
+
+const ContentInner = styled.div`
+    padding-bottom: 1rem;
 `;
 
 export default class ControlGroup extends React.Component {
@@ -58,10 +68,13 @@ export default class ControlGroup extends React.Component {
         this.state = {
             open: true,
         };
+
+        this.content = React.createRef();
     }
 
     toggleOpen() {
-        this.setState({ open: !this.state.open })
+        this.state.open ? animate.slideUp(this.content.current) : animate.slideDown(this.content.current);
+        this.setState({ open: !this.state.open });
     }
 
     render() {
@@ -74,8 +87,9 @@ export default class ControlGroup extends React.Component {
                     <Arrow open={this.state.open} />
                 </Heading>
                     {this.state.open ?
-                        <Content open={this.state.open}>{this.props.children}</Content> :
+                        '' :
                         ''}
+                <Content ref={this.content}><ContentInner>{this.props.children}</ContentInner></Content>
             </StyledControlGroup>
         );
     }
