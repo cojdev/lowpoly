@@ -1,13 +1,13 @@
 import React from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle, css } from 'styled-components';
 
 // Components
-import Header from './Header';
 import Display from './Display';
 import Controls from './Controls';
 
 // Helpers
-import uuid from './common/helpers';
+import data from './data';
+import theme from './common/theme';
 
 const GlobalStyles = createGlobalStyle`
     *,*::before,*::after {
@@ -21,9 +21,9 @@ const GlobalStyles = createGlobalStyle`
     }
 
     html {
-        font-family: 'Nunito Sans', sans-serif;
+        font-family: ${theme.fonts.base};
         color: #333;
-        background: #ccc;
+        background: #f8f8f8;
         font-size: 16px;
     }
 
@@ -44,11 +44,26 @@ const Container = styled.div`
 
 `;
 
+const StyledControls = styled(Controls)`
+
+    @media screen and (max-width: 800px) {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        transform: translateX(calc(100% - 3em));
+        transition: transform 300ms ease;
+
+        ${props => props.open && css`
+            transform: none;
+        `}
+    }
+`;
+
 export default class App extends React.Component {
     constructor() {
         super();
         this.state = {
-
             defaults: {
                 dimensions: {
                     width: 1280,
@@ -61,104 +76,84 @@ export default class App extends React.Component {
                     depth: 20,
                 },
 
-                colour: ["#22bbee", "#8855cc", "#ee2266", "#ee7722"],
+                colour: data.palettes[0],
+
+                image: null,
+                useImage: false,
             },
-
-            presets: [
-                {
-                    label: 'Mobile',
-                    values: [
-                        {
-                            width: 640,
-                            height: 1152,
-                            label: 'iPhone 5/5s',
-                        },
-                        {
-                            width: 750,
-                            height: 1334,
-                            label: 'iPhone 6/7/8',
-                        },
-                        {
-                            width: 1080,
-                            height: 1920,
-                            label: 'iPhone 6+/7+/8+',
-                        },
-                        {
-                            width: 1125,
-                            height: 2436,
-                            label: 'iPhone X',
-                        },
-                        {
-                            width: 1440,
-                            height: 2960,
-                            label: 'Samsung Galaxy S8/S9',
-                        },
-                    ]
-                },
-                {
-                    label: 'Desktop',
-                    values: [
-                        {
-                            width: 1280,
-                            height: 720,
-                            label: '1280x720',
-                        },
-                        {
-                            width: 1366,
-                            height: 768,
-                            label: '1366x768',
-                        },
-                        {
-                            width: 1920,
-                            height: 1080,
-                            label: '1920x1080',
-                        },
-                        {
-                            width: 3840,
-                            height: 2160,
-                            label: '3840x2160 (4K)',
-                        },
-                    ],
-                }
-            ],
-
+            presets: data.presets,
             settings: {},
-
             output: '',
+            controlsOpen: false,
         };
+
+        this.setters = {
+            setDimensions: this.setDimensions.bind(this),
+            setColours: this.setColours.bind(this),
+            setGeometry: this.setGeometry.bind(this),
+            setImage: this.setImage.bind(this),
+            setUseImage: this.setUseImage.bind(this),
+        }
+
+        
+        this.toggleControls = this.toggleControls.bind(this);
     }
 
     componentWillMount() {
-        let defaults = JSON.parse(JSON.stringify(this.state.defaults));
+        let defaults = Object.assign({}, this.state.defaults);
         this.setState({ settings: defaults });
     }
 
+    toggleControls() {
+        this.setState({ controlsOpen: !this.state.controlsOpen },()=>{console.log(this.state.controlsOpen)});
+    }
+
+    /**
+     * set dimensions
+     * @param {object} obj 
+     */
     setDimensions(obj) {
-        console.log('setDimensions');
 
-        let settings = JSON.parse(JSON.stringify(this.state.settings));
-
+        let settings = Object.assign({}, this.state.settings);
         settings.dimensions = obj;
-
         this.setState({ settings: settings });
     }
 
+    /**
+     * sets the colours in the palette
+     * @param {array} arr array of colour hex values
+     */
     setColours(arr) {
-        // console.log('setColours');
 
-        let settings = JSON.parse(JSON.stringify(this.state.settings));
-
+        let settings = Object.assign({}, this.state.settings);
+        console.log(arr);
         settings.colour = arr;
-
         this.setState({ settings: settings });
     }
 
+    /**
+     * set geometry
+     * @param {number} option attribute being set
+     * @param {number} value value
+     */
     setGeometry(option, value) {
 
-        let settings = JSON.parse(JSON.stringify(this.state.settings));
-
+        let settings = Object.assign({}, this.state.settings);
         settings.geometry[option] = parseInt(value);
+        this.setState({ settings: settings });
+    }
 
+    setImage(image) {
+
+        let settings = Object.assign({}, this.state.settings);
+        settings.image = image;
+        this.setState({ settings: settings });
+    }
+
+    setUseImage(boolean) {
+
+        let settings = Object.assign({}, this.state.settings);
+        settings.useImage = boolean;
         this.setState({ settings: settings });
     }
 
@@ -183,13 +178,13 @@ export default class App extends React.Component {
                 <Display
                     settings={settings}
                     updateOutput={this.updateOutput.bind(this)} />
-                <Controls
+                <StyledControls
                     settings={settings}
                     presets={presets}
                     output={output}
-                    setDimensions={this.setDimensions.bind(this)}
-                    setColours={this.setColours.bind(this)}
-                    setGeometry={this.setGeometry.bind(this)} />
+                    open={this.state.controlsOpen}
+                    toggleControls={this.toggleControls}
+                    { ...this.setters } />
             </Container>
         );
     }

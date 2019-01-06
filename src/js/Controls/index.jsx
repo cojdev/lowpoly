@@ -8,21 +8,65 @@ import ColourControls from './ColourControls';
 import Header from '../Header';
 import ControlGroup from '../widgets/ControlGroup';
 import { CallToAction } from '../widgets/CallToAction';
+import ImageControls from './ImageControls';
+
+const Container = styled.section`
+    max-width: 100%;
+    padding: 0;
+    display: flex;
+
+    @media screen and (min-width: 800px) {
+        margin-left:  calc(100% - ${theme.controls.width});   
+    }
+`;
+
+const ButtonWrap = styled.div`
+    width: 3rem;
+    padding: .5rem;
+    display: flex;
+    align-items: flex-end;
+    @media screen and (min-width: 800px) {
+        display: none;
+    }
+`;
+
+const ToggleButton = styled.button`
+    display: block;
+    height: 2rem;
+    width: 2rem;
+    padding: .5rem;
+    margin: 0;
+    border: none;
+    border-radius: 100px;
+    box-shadow: ${theme.shadow};
+    background-color: #fff;
+
+    img {
+        width: 1rem;
+        vertical-align: middle;
+        height: auto;
+    }
+`;
 
 const StyledControls = styled.section`
     min-height: 100vh;
-    margin-left:  calc(100% - ${theme.controls.width});
     color: #444;
-	width: ${theme.controls.width};
-	background: #f8f8f8;
+    background-color: #fff;
+    width: ${theme.controls.width};
+    max-width: calc(100% - 3em);
     padding: 0;
 	box-shadow:  0 10px 25px rgba(0,0,0,0.05);
-    overflow-y: auto;
+        overflow-y: auto;
 
     h3 {
 		padding: .5rem 1rem;
 		margin: 0 0;
-	}
+    }
+    
+    @media screen and (min-width: 800px) {
+        max-width: 100%;
+        box-shadow: none;
+    }
 `;
 
 const DownloadButton = styled.a`
@@ -56,38 +100,63 @@ const Footer = styled.footer`
 
 export default class Controls extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.setDimensions = props.setDimensions.bind(this);
+        this.setColours = props.setColours.bind(this);
+        this.setImage = props.setImage.bind(this);
+        this.setUseImage = props.setUseImage.bind(this);
+        this.setGeometry = props.setGeometry.bind(this);
+    }
+
     render() {
-        let settings = this.props.settings;
-        let presets = this.props.presets;
-        let setDimensions = this.props.setDimensions.bind(this);
-        let setColours = this.props.setColours.bind(this);
+        const { settings, presets } = this.props;
+        
+        const setDimensions = this.setDimensions;
+        const setColours = this.setColours;
+        const setImage = this.setImage;
+        const setUseImage = this.setUseImage;
+        const setGeometry = this.setGeometry;
 
         return (
-            <StyledControls>
-                <Header />
-                <DimensionControls
-                    settings={settings.dimensions}
-                    presets={presets}
-                    setDimensions={setDimensions} />
-                <GeometryControls
-                    settings={settings.geometry}
-                    setGeometry={this.props.setGeometry.bind(this)} />
-                <ColourControls
-                    settings={settings.colour}
-                    setColours={setColours} />
-                <ControlGroup title="Export">
-                    <DownloadButton
-                        href={this.props.output}
-                        download="lowpoly.png">Download Image</DownloadButton>
-                </ControlGroup>
-                <Footer>
-                    by <a href="https://cojdev.github.io" target="_top">Charles Ojukwu</a>
-                    <ul>
-                        <li><a href="https://github.com/cojdev">Github</a></li>
-                        <li><a href="https://codepen.io/cojdev">CodePen</a></li>
-                    </ul>
-                </Footer>
-            </StyledControls>
+            <Container className={this.props.className}>
+                <ButtonWrap>
+                    <ToggleButton
+                        onClick={this.props.toggleControls}>
+                        <img src={this.props.open ? 'assets/x.svg' : 'assets/menu.svg'} />    
+                    </ToggleButton>
+                </ButtonWrap>
+                <StyledControls>
+                    <Header />
+                    <DimensionControls
+                        settings={settings.dimensions}
+                        presets={presets}
+                        setDimensions={setDimensions} />
+                    <ImageControls
+                        settings={settings.image}
+                        useImage={settings.useImage}
+                        setImage={setImage}
+                        setUseImage={setUseImage} />
+                    <GeometryControls
+                        settings={settings.geometry}
+                        setGeometry={setGeometry} />
+                    <ColourControls
+                        settings={settings.colour}
+                        setColours={setColours} />
+                    <ControlGroup title="Export">
+                        <DownloadButton
+                            href={this.props.output}
+                            download="lowpoly.png">Download PNG</DownloadButton>
+                    </ControlGroup>
+                    <Footer>
+                        by <a href="https://cojdev.github.io" target="_top">Charles Ojukwu</a>
+                        <ul>
+                            <li><a href="https://github.com/cojdev">Github</a></li>
+                            <li><a href="https://codepen.io/cojdev">CodePen</a></li>
+                        </ul>
+                    </Footer>
+                </StyledControls>
+            </Container>
         );
     }
 }

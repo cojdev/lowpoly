@@ -25,11 +25,12 @@ export default class RangeInput extends React.Component {
 
     handleChange(e) {
         this.setState({ value: e.target.value });
+        this.props.onChange.call(this, e);
     }
 
     handleMouseUp(e) {
         console.log('up');
-        this.props.handleMouseUp.call(this, e.target.value, e.target.name);
+        this.props.onMouseUp.call(this, e);
     }
 
     render() {

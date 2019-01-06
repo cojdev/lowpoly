@@ -65,28 +65,24 @@ export default class ColourControls extends React.Component {
             h: null,
             s: null,
             l: null,
+            settings: null,
         }
     }
 
     componentDidMount() {
-        this.setState({ colours: this.props.settings });
+        const settings = this.props.settings;
+
+        this.setState({ settings: settings });
     }
 
     handleAddColour() {
         
-        // let colours = this.state.colours.slice();
-        let colours = this.props.settings.slice();
-        console.log('ADD');
-        console.log(colours);
+        let settings = this.state.settings.slice();
 
-        if (colours.length < this.state.maxColours) {
-            colours.push(colour.getRandom(1));
-            // this.setState({ colours: colours }, () => this.props.setColours.call(this, this.state.colours));
-            this.props.setColours.call(this, colours);
+        if (settings.length < this.state.maxColours) {
+            settings.push(colour.getRandom(1));
+            this.setState({ settings: settings }, () => this.props.setColours.call(this, this.state.settings));
         }
-        console.log(colours);
-        
-
     }
 
     setActiveColour(e) {
@@ -94,23 +90,20 @@ export default class ColourControls extends React.Component {
     }
 
     handleRemoveColour() {
-        // let colours = this.state.colours.slice();
-        let colours = this.props.settings.slice();
+
+        let settings = this.state.settings.slice();
         const active = this.state.active;
-        console.log('REMOVE');
-        console.log(colours);
 
-        if (colours.length > 1) {
-            colours.splice(-1, 1);
-            console.log(colours);
+        if (settings.length > 1) {
+            settings.splice(-1, 1);
 
-            if (active > colours.length - 1) {
-                this.setState({active: colours.length - 1}, () => {
-                    this.props.setColours.call(this, colours);
+            if (active > settings.length - 1) {
+                this.setState({active: settings.length - 1, settings: settings}, () => {
+                    this.props.setColours.call(this, settings);
                 });
             }
             else {
-                this.props.setColours.call(this, colours);
+                this.setState({ settings: settings }, () => this.props.setColours.call(this, this.state.settings));
             }
         }
     }
@@ -120,8 +113,6 @@ export default class ColourControls extends React.Component {
         let colours = this.props.settings.slice();
         // colour.hexToRgb(settings[active])
         colour.hexToRgb = hexValue;
-        console.log('CHANGE');
-        console.log(colours);
 
         colours[index] = hexValue;
         console.log(colours);
@@ -146,31 +137,31 @@ export default class ColourControls extends React.Component {
             colours[this.state.active] = colour.rgbToHex([rgb[0],rgb[1],value]);
         }
         
-        console.log(colours);
         this.props.setColours.call(this, colours);
 
     }
 
     // 
-    handleHslSet(value, name) {
-        value = parseInt(value, 10);
-        console.log(value);
+    handleChange(e) {
+        const value = parseInt(e.target.value, 10);
         let colours = this.props.settings.slice();
-        console.log(colours);
 
         const hsl = colour.hexToHsl(colours[this.state.active]);
-        console.log('hsl', hsl);
-        if (name === 'hue') {
+        
+        if (e.target.name === 'hue') {
             colours[this.state.active] = colour.hslToHex([value,hsl[1],hsl[2]]);
-        } else if (name === 'saturation') {
+        } else if (e.target.name === 'saturation') {
             colours[this.state.active] = colour.hslToHex([hsl[0],value,hsl[2]]);
-        } else if (name === 'luminosity') {
+        } else if (e.target.name === 'luminosity') {
             colours[this.state.active] = colour.hslToHex([hsl[0],hsl[1],value]);
         }
-        
-        console.log(colours);
-        this.props.setColours.call(this, colours);
 
+        this.setState({settings: colours});
+    }
+
+    handleMouseUp(e) {
+        const colours = this.state.settings.slice();
+        this.props.setColours.call(this, colours);
     }
 
     handleSetPalette(palette) {
@@ -179,95 +170,100 @@ export default class ColourControls extends React.Component {
     }
 
     render() {
-        const { settings } = this.props;
+        const { settings } = this.state;
         const { active } = this.state;
 
-        const hsl = colour.hexToHsl(settings[active]);
+        if (settings) {
+            const hsl = colour.hexToHsl(settings[active]);
 
-        console.log(settings);
+            let colourInputs = settings.map(
+                (item, index) => (
+                    <ColourInput
+                        value={item}
+                        key={index}
+                        index={index}
+                        active={active === index}
+                        setActiveColour={this.setActiveColour.bind(this)}></ColourInput>
+                ));
 
-        let colourInputs = settings.map(
-            (item, index) => (
-                <ColourInput
-                    value={item}
-                    key={index}
-                    index={index}
-                    active={active === index}
-                    setActiveColour={this.setActiveColour.bind(this)}></ColourInput>
-            ));
+            return (
+                <ControlGroup title="Colours">
+                    <SmallButton
+                        onClick={this.handleRemoveColour.bind(this)}
+                        disabled={settings.length > 1 ? false : true}>Remove -</SmallButton>
+                    <SmallButton
+                        onClick={this.handleAddColour.bind(this)}
+                        disabled={settings.length < this.state.maxColours ? false : true}>Add +</SmallButton>
+                        {settings[active]}
+                    <br />
+                    
+                    <ColourGroup>
+                        <ColourGroupInner>
+                            {colourInputs}
+                        </ColourGroupInner>
+                    </ColourGroup>
+                    <Label>
+                        hue: {hsl[0]}
+                    </Label>
+                    <RangeInput
+                        min="0"
+                        max="360"
+                        name="hue"
+                        value={hsl[0]}
+                        onChange={this.handleChange.bind(this)}
+                        onMouseUp={this.handleMouseUp.bind(this)} />
+                    <ColourBar background={
+                        `linear-gradient(
+                            to right,
+                            hsl(0, ${hsl[1]}%,${hsl[2]}%), 
+                            hsl(60, ${hsl[1]}%,${hsl[2]}%), 
+                            hsl(120, ${hsl[1]}%,${hsl[2]}%), 
+                            hsl(180, ${hsl[1]}%,${hsl[2]}%), 
+                            hsl(240, ${hsl[1]}%,${hsl[2]}%), 
+                            hsl(300, ${hsl[1]}%,${hsl[2]}%), 
+                            hsl(360, ${hsl[1]}%, ${hsl[2]}%))`
+                        } />
 
-        return (
-            <ControlGroup title="Colours">
-                <SmallButton
-                    onClick={this.handleRemoveColour.bind(this)}
-                    disabled={settings.length > 1 ? false : true}>Remove -</SmallButton>
-                <SmallButton
-                    onClick={this.handleAddColour.bind(this)}
-                    disabled={settings.length < this.state.maxColours ? false : true}>Add +</SmallButton>
-                    {settings[active]}
-                <br />
-                
-                <ColourGroup>
-                    <ColourGroupInner>
-                        {colourInputs}
-                    </ColourGroupInner>
-                </ColourGroup>
-                <Label>
-                    hue: {hsl[0]}
-                </Label>
-                <RangeInput
-                    min="0"
-                    max="360"
-                    name="hue"
-                    value={hsl[0]}
-                    handleMouseUp={this.handleHslSet.bind(this)} />
-                <ColourBar background={
-                    `linear-gradient(
-                        to right,
-                        hsl(0, ${hsl[1]}%,${hsl[2]}%), 
-                        hsl(60, ${hsl[1]}%,${hsl[2]}%), 
-                        hsl(120, ${hsl[1]}%,${hsl[2]}%), 
-                        hsl(180, ${hsl[1]}%,${hsl[2]}%), 
-                        hsl(240, ${hsl[1]}%,${hsl[2]}%), 
-                        hsl(300, ${hsl[1]}%,${hsl[2]}%), 
-                        hsl(360, ${hsl[1]}%, ${hsl[2]}%))`
-                    } />
+                    <Label>
+                        saturation : {hsl[1]}
+                    </Label>
+                    <RangeInput
+                        min="0"
+                        max="100"
+                        name="saturation"
+                        value={hsl[1]}
+                        onChange={this.handleChange.bind(this)}
+                        onMouseUp={this.handleMouseUp.bind(this)} />
+                    <ColourBar background={
+                        `linear-gradient(
+                            to right,
+                            hsl(${hsl[0]}, 0%, ${hsl[2]}%),
+                            hsl(${hsl[0]}, 100%, ${hsl[2]}%))`
+                        } />
 
-                <Label>
-                    saturation : {hsl[1]}
-                </Label>
-                <RangeInput
-                    min="0"
-                    max="100"
-                    name="saturation"
-                    value={hsl[1]}
-                    handleMouseUp={this.handleHslSet.bind(this)} />
-                <ColourBar background={
-                    `linear-gradient(
-                        to right,
-                        hsl(${hsl[0]}, 0%, ${hsl[2]}%),
-                        hsl(${hsl[0]}, 100%, ${hsl[2]}%))`
-                    } />
+                    <Label>
+                        luminosity: {hsl[2]}
+                    </Label>
+                    <RangeInput
+                        min="0"
+                        max="100"
+                        name="luminosity"
+                        value={hsl[2]}
+                        onChange={this.handleChange.bind(this)}
+                        onMouseUp={this.handleMouseUp.bind(this)} />
+                    <ColourBar background={
+                        `linear-gradient(
+                            to right,
+                            hsl(${hsl[0]}, ${hsl[1]}%, 0%),
+                            hsl(${hsl[0]}, ${hsl[1]}%, 50%),
+                            hsl(${hsl[0]}, ${hsl[1]}%, 100%))`
+                        } />
+                    <Label>Palettes</Label>
+                    {data.palettes.map((item, index) => <ColourPalette key={index} colours={item} handleSetPalette={this.handleSetPalette.bind(this)} />)}
+                </ControlGroup>
+            );
+        }
 
-                <Label>
-                    luminosity: {hsl[2]}
-                </Label>
-                <RangeInput
-                    min="0"
-                    max="100"
-                    name="luminosity"
-                    value={hsl[2]}
-                    handleMouseUp={this.handleHslSet.bind(this)} />
-                <ColourBar background={
-                    `linear-gradient(
-                        to right,
-                        hsl(${hsl[0]}, ${hsl[1]}%, 0%),
-                        hsl(${hsl[0]}, ${hsl[1]}%, 50%),
-                        hsl(${hsl[0]}, ${hsl[1]}%, 100%))`
-                    } />
-                <Label>Palettes</Label>
-                {data.palettes.map((item, index) => <ColourPalette key={index} colours={item} handleSetPalette={this.handleSetPalette.bind(this)} />)}
-            </ControlGroup>
-        );
+        return <div>Loading...</div>;
     }
 }

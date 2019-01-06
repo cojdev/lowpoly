@@ -7,13 +7,13 @@ const field = css`
     width: 100%;
     height: 2rem;
     font-family: inherit;
-    font-size: 1em;
+    font-size: .9em;
     line-height: 2rem;
     padding: 0 1ch;
     background: #fff;
     border: none;
     margin-bottom: .75rem;
-    border-radius: 3px;
+    border-radius: 100px;
     transition: 150ms ease;
 
     :focus {
@@ -34,6 +34,10 @@ export const Dropdown = styled.select`
     ${field};
 `;
 
+export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
+    
+`;
+
 export const RangeSlider = styled.input.attrs({ type: 'range' })`
     width: 100%;
 `;
@@ -41,7 +45,8 @@ export const RangeSlider = styled.input.attrs({ type: 'range' })`
 export const Label = styled.label`
     color: #888;
 	display: block;
-	margin: .5em 0;
+	margin: .5em 0 0;
     font-weight: 500;
     font-size: .8em;
+    font-weight: bold;
 `;

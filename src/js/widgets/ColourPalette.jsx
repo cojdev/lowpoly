@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const Palette = styled.div`
     display: flex;
@@ -8,6 +8,8 @@ const Palette = styled.div`
     cursor: pointer;
     outline: none;
     height: 20px;
+    border-radius: 3px;
+    overflow: hidden;
 `;
 
 const Colour = styled.div`

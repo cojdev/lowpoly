@@ -40,7 +40,7 @@ export default class GeometryControls extends React.Component {
         this.setState({ settings: settings });
     }
 
-    handleBLur(option, e) {
+    handleBlur(option, e) {
         let value = e.target.value;
         this.props.setGeometry.call(this, option, value);
     }
@@ -58,14 +58,14 @@ export default class GeometryControls extends React.Component {
         let options = Object.keys(settings).map((item, index) => (
             <div
                 key={index}>
-                <Label htmlFor={item}>{item.capitalise()}</Label>
+                <Label htmlFor={item}>{item.capitalise()}: {settings[item]}</Label>
                 <RangeSlider
                     id={item}
                     min="0"
                     max="100"
                     value={settings[item] || ''}
                     onChange={this.handleChange.bind(this, item)}
-                    onMouseUp={this.handleBLur.bind(this, item)} />
+                    onMouseUp={this.handleBlur.bind(this, item)} />
             </div>
         ));
 

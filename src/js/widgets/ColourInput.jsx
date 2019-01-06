@@ -9,13 +9,18 @@ const StyledColourInput = styled.div`
     flex-grow: 1;
 `;
 
-const Target = styled.div`
+const Target = styled.div.attrs(props => ({
+    style: {
+        backgroundColor: props.colour || '#fff',
+        padding: '3px',
+    }
+}))`
     height: 100%;
     width: 100%;
     transition: 150ms ease;
     cursor: pointer;
     outline: none;
-    background-color: ${props => props.colour};
+    /* background-color: ${props => props.colour}; */
 
     ${props => props.active && css`
         box-shadow:
@@ -34,12 +39,10 @@ export default class ColourInput extends React.Component {
     }
 
     handleChangeComplete(colour) {
-        console.log(this.state.value);
         this.setState({ value: colour.hex}, this.props.handleChangeColour.bind(this, this.props.index, colour.hex));
     }
     
     render() {
-        // console.log(this.props.active);
 
         return (
             <StyledColourInput>

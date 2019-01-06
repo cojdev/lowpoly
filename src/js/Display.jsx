@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from './common/theme';
 import { hexToRgb } from './common/colour';
+import { drawImageProp } from './common/helpers';
 
 const StyledDisplay = styled.div`
-    width: calc(100% - ${theme.controls.width});
     text-align: center;
     bottom: 0;
 	position: fixed;
@@ -13,7 +13,12 @@ const StyledDisplay = styled.div`
 	bottom: 0;
 	display: flex;
 	align-items: center;
-	justify-content: center;
+    justify-content: center;
+    width: 100%;
+
+    @media screen and (min-width: 800px) {
+        width: calc(100% - ${theme.controls.width});
+    }
 `;
 
 const Canvas = styled.canvas`
@@ -34,6 +39,7 @@ export default class Display extends React.Component {
             loaded: false
         }
     }
+
     componentDidMount() {
         const canvas = this.refs.canvas1,
             canvas2 = this.refs.canvas2;
@@ -84,53 +90,62 @@ export default class Display extends React.Component {
         var gridWidth = cvs.width + cellSize * 2;
 		var gridHeight = cvs.height + cellSize * 2;
 
-        const drawBG = (context, canvas, hidden) => {
+        const drawBG = (context, canvas, hidden, callback) => {
 
             context.clearRect(0, 0, canvas.width, canvas.height);
-            context.globalCompositeOperation = "multiply";
+
+            if (this.props.settings.image && this.props.settings.useImage) {
+                let base_image = new Image();
+                base_image.crossOrigin = "Anonymous";
+                base_image.src = this.props.settings.image;
+                
+                base_image.onload = function () {
+                    // use image instead of gradient
+                    drawImageProp(context, base_image);
+                    // context.drawImage(base_image, 0, 0);
+                    callback();
+                };
+            }
+            else {
+                context.globalCompositeOperation = "multiply";
             
-            // colours
-            var inputs = self.props.settings.colour;
-            
-            // loop colours and create gradient
-            var gradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
-            for (var i = 0; i < inputs.length; i++) {
-                if (inputs.length > 1) {
-                    gradient.addColorStop(i / (inputs.length - 1), inputs[i]);
-                    // console.log(inputs[i]);
-                } else {
-                    gradient = inputs[i];
+                // colours
+                var inputs = self.props.settings.colour;
+                
+                // loop colours and create gradient
+                var gradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs.length > 1) {
+                        gradient.addColorStop(i / (inputs.length - 1), inputs[i]);
+                        // console.log(inputs[i]);
+                    } else {
+                        gradient = inputs[i];
+                    }
                 }
+
+                // draw gradient on canvas
+                context.fillStyle = gradient;
+                context.beginPath();
+                context.fillRect(0, 0, canvas.width, canvas.height);
+                context.closePath();
+                context.fill();
+                
+                // draw subtle gradient overlay
+                context.beginPath();
+                var overlay = context.createLinearGradient(0, 0, 0, cvs.height);
+                overlay.addColorStop(0, "#fff");
+                overlay.addColorStop(1, "#ccc");
+                context.fillStyle = overlay;
+                context.fillRect(0, 0, cvs.width, cvs.height);
+                context.closePath();
+                context.fill();
+                context.globalCompositeOperation = "source-over";
             }
 
-            // draw gradient on canvas
-            context.fillStyle = gradient;
-            context.beginPath();
-            context.fillRect(0, 0, canvas.width, canvas.height);
-            context.closePath();
-            context.fill();
             
-            // draw subtle gradient overlay
-            context.beginPath();
-            var overlay = context.createLinearGradient(0, 0, 0, cvs.height);
-            overlay.addColorStop(0, "#fff");
-            overlay.addColorStop(1, "#ccc");
-            context.fillStyle = overlay;
-            context.fillRect(0, 0, cvs.width, cvs.height);
-            context.closePath();
-            context.fill();
-            context.globalCompositeOperation = "source-over";
-
-            // use image instead of gradient
-            // ctx.drawImage(base_image, 0, 0);
 
             // check context is of the defined hidden canvas
             if (hidden) { imgd = context; }
-
-            // ?
-            // else if (imgd.getImageData(0, 0, 1, 1).data[3] < 255 || imgd.getImageData(canvas.width - 1, canvas.height - 1, 1, 1).data[3] < 255) {
-            //     context.clearRect(0, 0, canvas.width, canvas.height);
-            // }
         }
 
         // generate a grid of point objects
@@ -268,24 +283,27 @@ export default class Display extends React.Component {
             }
         }
 
-        if (/*drawOnly !== */true) {
+        const drawPoly = () => {
+            for (var i = 0; i < points.length; i++) {
+                draw(points[i], true);
+            };
+        };
 
-			cellSize = (cRange.value * 3) + 30;
-			variance = vRange.value / 100;
-			gridWidth = cvs.width + cellSize * 2;
-			gridHeight = cvs.height + cellSize * 2;
-			maxCols = Math.ceil(gridWidth / cellSize) + 2;
-			maxRows = Math.ceil(gridHeight / (cellSize * 0.865))
-			//console.log(maxCols);
-			var x = maxCols;
-			var y = maxRows;
-			points = generatePoints(x * y);
-		}
+        cellSize = (cRange.value * 3) + 30;
+        variance = vRange.value / 100;
+        gridWidth = cvs.width + cellSize * 2;
+        gridHeight = cvs.height + cellSize * 2;
+        maxCols = Math.ceil(gridWidth / cellSize) + 2;
+        maxRows = Math.ceil(gridHeight / (cellSize * 0.865))
+        //console.log(maxCols);
+        var x = maxCols;
+        var y = maxRows;
+        points = generatePoints(x * y);
 
 		ovA = oAmount.value / 100;
 		ctx.clearRect(0, 0, cvs.width, cvs.height);
-        drawBG(canvas2.getContext('2d'), canvas2, true);
-        drawBG(ctx, cvs);
+        drawBG(canvas2.getContext('2d'), canvas2, true, drawPoly);
+        drawBG(ctx, cvs, false, drawPoly);
 
 		for (var i = 0; i < points.length; i++) {
 			draw(points[i], true);

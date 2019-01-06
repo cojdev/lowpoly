@@ -49,21 +49,14 @@ export const rgbToHex = (arr) => {
     return ret;
 }
 
-export const getRandom = (bright) => {
-    let val;
-
+export const getRandom = (bright = false) => {
     if (bright) {
-        val = rgbToHex(hslToRgb(Math.floor(Math.random() * 360), .95, .6));
+        // generate random 'bright' colour
+        return 'hsl(' + Math.floor(Math.random() * 360) + ', 80%, 50%)';
     } else {
-        val = '#';
-        let chars = '1234567890ABCDEF'.split('');
-
-        for (let i = 0; i < 6; i++) {
-            val += chars[Math.floor(Math.random() * chars.length)];
-        }
+        // generate random hex
+        return '#' + Math.floor(Math.random() * 16777215).toString(16);
     }
-
-    return val;
 }
 
 /**

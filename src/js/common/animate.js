@@ -4,7 +4,7 @@ export default {
 
         elem.style.height = height + 'px';
 
-        requestAnimationFrame(() => {
+        setTimeout(() => {
             elem.style.height = '0px';
         });
     },
@@ -13,8 +13,8 @@ export default {
         const height = elem.children[0].scrollHeight;
         elem.style.height = '0px';
 
-        requestAnimationFrame(() => {
-        elem.style.height = height + 'px';
-        });
+        setTimeout(() => {
+            elem.style.height = height + 'px';
+        }, 35);
     },
 }
