@@ -9,6 +9,7 @@ import Header from '../Header';
 import ControlGroup from '../widgets/ControlGroup';
 import { CallToAction } from '../widgets/CallToAction';
 import ImageControls from './ImageControls';
+import { Button } from '../widgets/Button';
 
 const Container = styled.section`
     max-width: 100%;
@@ -57,11 +58,6 @@ const StyledControls = styled.section`
     padding: 0;
 	box-shadow:  0 10px 25px rgba(0,0,0,0.05);
         overflow-y: auto;
-
-    h3 {
-		padding: .5rem 1rem;
-		margin: 0 0;
-    }
     
     @media screen and (min-width: 800px) {
         max-width: 100%;
@@ -70,7 +66,7 @@ const StyledControls = styled.section`
 `;
 
 const DownloadButton = styled.a`
-    ${CallToAction};
+    ${Button};
 `;
 
 const Footer = styled.footer`
@@ -78,7 +74,8 @@ const Footer = styled.footer`
 	width: 100%;
 	font-size: .8em;
     text-align: center;
-    padding: 1em 0;
+    padding: 2em 0;
+    border-top: 2px solid #eee;
 
     ul {
 		margin: 0;

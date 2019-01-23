@@ -1,30 +1,29 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
-import ControlGroup from '../widgets/ControlGroup';
 
+import styled, { css } from 'styled-components';
 import * as colour from '../common/colour';
+
+// widgets
 import ColourInput from '../widgets/ColourInput';
 import { Label } from '../widgets/Fields';
 import RangeInput from '../widgets/RangeInput';
 import ColourPalette from '../widgets/ColourPalette';
+import ControlGroup from '../widgets/ControlGroup';
+import { Button } from '../widgets/Button';
+
 import data from '../data';
 
-const StyledControlGroup = styled(ControlGroup)`
-
-`;
-
 const SmallButton = styled.button`
+    ${Button}
+
     display: inline-block;
-	border-radius:100px;
-	padding: .5em;
-	text-align: center;
-	line-height: 1;
-	color: #e24;
-	background: transparent;
-    border: 1px solid #eee;
+    width: 2rem;
+    padding: .5ch .5rem;
+    margin-right: 1ch;
     
     ${props => props.disabled && css`
         background: #eee;
+        color: #888;
     `}
 `;
 
@@ -56,6 +55,8 @@ const ColourBar = styled.div`
     background: ${props => props.background || '#ccc'};
 `;
 
+const Heading = styled.h3``;
+
 export default class ColourControls extends React.Component {
     constructor() {
         super();
@@ -70,9 +71,16 @@ export default class ColourControls extends React.Component {
     }
 
     componentDidMount() {
-        const settings = this.props.settings;
+        const settings = this.props.settings.slice();
 
         this.setState({ settings: settings });
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.settings !== prevProps.settings) {
+            console.log(this.props.settings);
+            this.setState({ settings: this.props.settings });
+        }
     }
 
     handleAddColour() {
@@ -173,8 +181,34 @@ export default class ColourControls extends React.Component {
         const { settings } = this.state;
         const { active } = this.state;
 
+        console.log(settings);
+
         if (settings) {
             const hsl = colour.hexToHsl(settings[active]);
+
+            const hueBarBg = `linear-gradient(
+                to right,
+                hsl(0, ${hsl[1]}%,${hsl[2]}%), 
+                hsl(60, ${hsl[1]}%,${hsl[2]}%), 
+                hsl(120, ${hsl[1]}%,${hsl[2]}%), 
+                hsl(180, ${hsl[1]}%,${hsl[2]}%), 
+                hsl(240, ${hsl[1]}%,${hsl[2]}%), 
+                hsl(300, ${hsl[1]}%,${hsl[2]}%), 
+                hsl(360, ${hsl[1]}%, ${hsl[2]}%)
+            )`;
+
+            const satBarBg = `linear-gradient(
+                to right,
+                hsl(${hsl[0]}, 0%, ${hsl[2]}%),
+                hsl(${hsl[0]}, 100%, ${hsl[2]}%)
+            )`;
+
+            const lumBarBg = `linear-gradient(
+                to right,
+                hsl(${hsl[0]}, ${hsl[1]}%, 0%),
+                hsl(${hsl[0]}, ${hsl[1]}%, 50%),
+                hsl(${hsl[0]}, ${hsl[1]}%, 100%)
+            )`;
 
             let colourInputs = settings.map(
                 (item, index) => (
@@ -190,18 +224,18 @@ export default class ColourControls extends React.Component {
                 <ControlGroup title="Colours">
                     <SmallButton
                         onClick={this.handleRemoveColour.bind(this)}
-                        disabled={settings.length > 1 ? false : true}>Remove -</SmallButton>
+                        disabled={settings.length > 1 ? false : true}>-</SmallButton>
                     <SmallButton
                         onClick={this.handleAddColour.bind(this)}
-                        disabled={settings.length < this.state.maxColours ? false : true}>Add +</SmallButton>
-                        {settings[active]}
+                        disabled={settings.length < this.state.maxColours ? false : true}>+</SmallButton>
                     <br />
-                    
                     <ColourGroup>
                         <ColourGroupInner>
                             {colourInputs}
                         </ColourGroupInner>
                     </ColourGroup>
+                    {settings[active]}
+                    <br />
                     <Label>
                         hue: {hsl[0]}
                     </Label>
@@ -212,20 +246,10 @@ export default class ColourControls extends React.Component {
                         value={hsl[0]}
                         onChange={this.handleChange.bind(this)}
                         onMouseUp={this.handleMouseUp.bind(this)} />
-                    <ColourBar background={
-                        `linear-gradient(
-                            to right,
-                            hsl(0, ${hsl[1]}%,${hsl[2]}%), 
-                            hsl(60, ${hsl[1]}%,${hsl[2]}%), 
-                            hsl(120, ${hsl[1]}%,${hsl[2]}%), 
-                            hsl(180, ${hsl[1]}%,${hsl[2]}%), 
-                            hsl(240, ${hsl[1]}%,${hsl[2]}%), 
-                            hsl(300, ${hsl[1]}%,${hsl[2]}%), 
-                            hsl(360, ${hsl[1]}%, ${hsl[2]}%))`
-                        } />
+                    <ColourBar background={hueBarBg} />
 
                     <Label>
-                        saturation : {hsl[1]}
+                        saturation: {hsl[1]}
                     </Label>
                     <RangeInput
                         min="0"
@@ -234,12 +258,7 @@ export default class ColourControls extends React.Component {
                         value={hsl[1]}
                         onChange={this.handleChange.bind(this)}
                         onMouseUp={this.handleMouseUp.bind(this)} />
-                    <ColourBar background={
-                        `linear-gradient(
-                            to right,
-                            hsl(${hsl[0]}, 0%, ${hsl[2]}%),
-                            hsl(${hsl[0]}, 100%, ${hsl[2]}%))`
-                        } />
+                    <ColourBar background={satBarBg} />
 
                     <Label>
                         luminosity: {hsl[2]}
@@ -251,14 +270,8 @@ export default class ColourControls extends React.Component {
                         value={hsl[2]}
                         onChange={this.handleChange.bind(this)}
                         onMouseUp={this.handleMouseUp.bind(this)} />
-                    <ColourBar background={
-                        `linear-gradient(
-                            to right,
-                            hsl(${hsl[0]}, ${hsl[1]}%, 0%),
-                            hsl(${hsl[0]}, ${hsl[1]}%, 50%),
-                            hsl(${hsl[0]}, ${hsl[1]}%, 100%))`
-                        } />
-                    <Label>Palettes</Label>
+                    <ColourBar background={lumBarBg} />
+                    <Heading>Palettes</Heading>
                     {data.palettes.map((item, index) => <ColourPalette key={index} colours={item} handleSetPalette={this.handleSetPalette.bind(this)} />)}
                 </ControlGroup>
             );

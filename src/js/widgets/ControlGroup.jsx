@@ -4,7 +4,7 @@ import animate from '../common/animate';
 
 const StyledControlGroup = styled.section`
     padding: 0 1rem;
-    border-bottom: 1px solid #ddd;
+    /* border-bottom: 1px solid #ddd; */
 `;
 
 const Heading = styled.button`
@@ -15,6 +15,7 @@ const Heading = styled.button`
     display: block;
     width: 100%;
     border: none;
+    cursor: pointer;
     padding: 0;
     margin: 0;
     font-size: 1em;
@@ -54,7 +55,7 @@ const Arrow = styled.div`
 
 const Content = styled.div`
     overflow: hidden;
-    transition: 300ms ease;
+    transition: 450ms ease;
 `;
 
 const ContentInner = styled.div`

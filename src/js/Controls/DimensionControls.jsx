@@ -4,6 +4,8 @@ import ControlGroup from '../widgets/ControlGroup';
 import { TextField, Dropdown, NumberField, Label } from '../widgets/Fields';
 import { Button } from '../widgets/Button';
 import { row, column } from '../common/mixins';
+import SingleInput from '../Forms/SingleInput';
+import SelectInput from '../Forms/SelectInput';
 
 const StyledControlGroup = styled(ControlGroup)`
 
@@ -86,28 +88,45 @@ export default class DimensionControls extends React.Component {
         return (
             <StyledControlGroup title="Dimensions">
 
-                <Label
+                {/* <Label
                     htmlFor="preset-size">Presets</Label>
                 <Dropdown
                     onChange={this.handlePreset.bind(this)}>
                     <option value="null">Select...</option>
                     {presets}
-                </Dropdown>
-
+                </Dropdown> */}
+                <SelectInput
+                    name="presets"
+                    label="Presets"
+                    onChange={this.handlePreset.bind(this)}>>
+                    {presets}
+                </SelectInput>
                 <Row>
                     <Column>
-                        <Label
+                        {/* <Label
                             htmlFor="width">Width</Label>
                         <NumberField
                             id="width"
                             value={this.state.width}
+                            onChange={this.handleWidth.bind(this)} /> */}
+                        <SingleInput
+                            type="number"
+                            name="width"
+                            label="Width"
+                            value={this.state.width}
                             onChange={this.handleWidth.bind(this)} />
                     </Column>
                     <Column>
-                        <Label
+                        {/* <Label
                             htmlFor="height">Height</Label>
                         <NumberField
                             id="height"
+                            value={this.state.height}
+                            onChange={this.handleHeight.bind(this)} /> */}
+                        <SingleInput
+                            type="number"
+                            name="height"
+                            label="Height"
                             value={this.state.height}
                             onChange={this.handleHeight.bind(this)} />
                     </Column>
