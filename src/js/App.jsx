@@ -37,6 +37,11 @@ const GlobalStyles = createGlobalStyle`
 
     button {
         outline: none !important;
+        font-family: inherit;
+    }
+
+    input {
+        font-family: inherit;
     }
 `;
 
@@ -61,21 +66,21 @@ const StyledControls = styled(Controls)`
 `;
 
 export default class App extends React.Component {
+
     constructor() {
         super();
+
         this.state = {
             defaults: {
                 dimensions: {
                     width: 1280,
                     height: 720,
                 },
-
                 geometry: {
                     variance: 35,
                     cellSize: 50,
                     depth: 20,
                 },
-
                 colour: data.palettes[0],
 
                 image: null,
@@ -87,6 +92,7 @@ export default class App extends React.Component {
             controlsOpen: false,
         };
 
+        // methods for setting application state
         this.setters = {
             setDimensions: this.setDimensions.bind(this),
             setColours: this.setColours.bind(this),
@@ -95,12 +101,11 @@ export default class App extends React.Component {
             setUseImage: this.setUseImage.bind(this),
         }
 
-        
         this.toggleControls = this.toggleControls.bind(this);
     }
 
     componentWillMount() {
-        let defaults = Object.assign({}, this.state.defaults);
+        const defaults = Object.assign({}, this.state.defaults);
         this.setState({ settings: defaults });
     }
 
@@ -109,11 +114,10 @@ export default class App extends React.Component {
     }
 
     /**
-     * set dimensions
-     * @param {object} obj 
+     * set dimensions of the image in pixels
+     * @param {object} obj {width:Number, height:Number}
      */
     setDimensions(obj) {
-
         let settings = Object.assign({}, this.state.settings);
         settings.dimensions = obj;
         this.setState({ settings: settings });
@@ -124,7 +128,6 @@ export default class App extends React.Component {
      * @param {array} arr array of colour hex values
      */
     setColours(arr) {
-
         let settings = Object.assign({}, this.state.settings);
         console.log(arr);
         settings.colour = arr;
@@ -137,21 +140,22 @@ export default class App extends React.Component {
      * @param {number} value value
      */
     setGeometry(option, value) {
-
         let settings = Object.assign({}, this.state.settings);
         settings.geometry[option] = parseInt(value);
         this.setState({ settings: settings });
     }
 
+    /**
+     * Sets the selected image
+     * @param {string} image url for specified image
+     */
     setImage(image) {
-
         let settings = Object.assign({}, this.state.settings);
         settings.image = image;
         this.setState({ settings: settings });
     }
 
     setUseImage(boolean) {
-
         let settings = Object.assign({}, this.state.settings);
         settings.useImage = boolean;
         this.setState({ settings: settings });
@@ -162,12 +166,10 @@ export default class App extends React.Component {
      * @param {string} value The data URL for the generated canvas 
      */
     updateOutput(value) {
-
         this.setState({ output: value });
     }
 
     render() {
-
         const settings = this.state.settings;
         const presets = this.state.presets;
         const output = this.state.output;
