@@ -1,6 +1,6 @@
 const theme = {
     fonts: {
-        base: '"Nunito Sans", sans-serif'
+        base: '"PT Root UI Web", sans-serif'
     },
     colours: {
         primary: '#e14',

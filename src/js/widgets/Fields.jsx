@@ -3,7 +3,7 @@ import theme from '../common/theme';
 import { hexToRgb } from '../common/colour';
 
 const field = css`
-    display: block;
+    /* display: block;
     width: 100%;
     height: 2rem;
     font-family: inherit;
@@ -19,7 +19,7 @@ const field = css`
     :focus {
         outline: none;
         box-shadow: inset 0 0 0 2px ${theme.colours.primary}, 0 0 0 4px rgba(${hexToRgb(theme.colours.primary).join(', ')}, .1);
-    }
+    } */
 `;
 
 export const TextField = styled.input.attrs({ type: 'text' })`
@@ -43,10 +43,10 @@ export const RangeSlider = styled.input.attrs({ type: 'range' })`
 `;
 
 export const Label = styled.label`
+    padding: 0 .5ch;
     color: #888;
-	display: block;
-	margin: .5em 0 0;
-    font-weight: 500;
-    font-size: .8em;
+    font-size: 0.9em;
     font-weight: bold;
+    background-color: #fff;
+    font-weight: 700;
 `;

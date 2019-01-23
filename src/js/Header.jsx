@@ -6,14 +6,14 @@ const StyledHeader = styled.header`
 
 	background-color: #fff;
 	padding: 1rem;
+	border-bottom: 2px solid #eee;
     
 	h1 {
-		display: inline;
 		font-size: 1.5rem;
 		font-weight: 900;
 		color: #e24;
 		margin: 0;
-        line-height: ${theme.topbar.height};
+		line-height: ${theme.topbar.height};
 	}
 `;
 
