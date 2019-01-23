@@ -49,6 +49,7 @@
     "dev-watch": "webpack --mode development --watch --progress"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.2.5",
     "react-color": "^2.14.1"
   }
 }
