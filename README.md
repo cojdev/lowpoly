@@ -1,5 +1,6 @@
-# Low Poly Background Generator
-A Javascript canvas Low-Poly Background Image Generator. Visit the [Project Page](https://cojdev.github.io/lowpoly)
+# Low Poly Generator
+A Javascript canvas Low-Poly Image Generator. Create low poly images from gradients or uploaded images.
+https://cojdev.github.io/lowpoly
 
 ## To do
 * ~~Add image trianglification~~
