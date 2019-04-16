@@ -6,4 +6,4 @@ https://cojdev.github.io/lowpoly
 * Image trianglification
 
 ## To do
-* Add ability to choose gradient direction
+* Gradient direction
