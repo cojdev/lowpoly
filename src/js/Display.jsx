@@ -59,7 +59,9 @@ export default class Display extends React.Component {
         if (previousProps.settings !== this.props.settings) {
             self.refs.loader.style.display = 'flex';
 
-            var draw = window.setTimeout(this.drawCanvas.bind(this, canvas,canvas2, () => { console.log('callback'); self.refs.loader.style.display = 'none'; }), 5);
+            var draw = window.setTimeout(this.drawCanvas.bind(this, canvas,canvas2, () => {
+                self.refs.loader.style.display = 'none';
+            }), 5);
         }
     }
     /**
