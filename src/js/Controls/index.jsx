@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import theme from '../common/theme';
 
 import DimensionControls from './DimensionControls';
@@ -10,9 +10,10 @@ import ControlGroup from '../widgets/ControlGroup';
 import { CallToAction } from '../widgets/CallToAction';
 import ImageControls from './ImageControls';
 import { Button } from '../widgets/Button';
+import PaletteControls from './PaletteControls';
 
 const Container = styled.section`
-    max-width: 100%;
+    /* max-width: calc(100% + 2.5rem); */
     padding: 0;
     display: flex;
 
@@ -22,10 +23,11 @@ const Container = styled.section`
 `;
 
 const ButtonWrap = styled.div`
-    width: 3rem;
-    padding: .5rem;
+    width: 5rem;
+    padding: 1rem;
     display: flex;
     align-items: flex-end;
+    overflow: hidden;
     @media screen and (min-width: 800px) {
         display: none;
     }
@@ -33,20 +35,25 @@ const ButtonWrap = styled.div`
 
 const ToggleButton = styled.button`
     display: block;
-    height: 2rem;
-    width: 2rem;
-    padding: .5rem;
+    height: 3rem;
+    width: 3rem;
+    padding: 0rem;
     margin: 0;
     border: none;
     border-radius: 100px;
     box-shadow: ${theme.shadow};
     background-color: #fff;
+    transition: 300ms ease;
 
     img {
         width: 1rem;
         vertical-align: middle;
         height: auto;
     }
+
+    ${props => props.open && css`
+        transform: translateX(62%);
+    `}
 `;
 
 const StyledControls = styled.section`
@@ -54,10 +61,11 @@ const StyledControls = styled.section`
     color: #444;
     background-color: #fff;
     width: ${theme.controls.width};
-    max-width: calc(100% - 3em);
+    max-width: calc(100vw - 2.5rem);
     padding: 0;
 	box-shadow:  0 10px 25px rgba(0,0,0,0.05);
-        overflow-y: auto;
+    overflow-y: auto;
+    z-index: 2;
     
     @media screen and (min-width: 800px) {
         max-width: 100%;
@@ -119,7 +127,8 @@ export default class Controls extends React.Component {
             <Container className={this.props.className}>
                 <ButtonWrap>
                     <ToggleButton
-                        onClick={this.props.toggleControls}>
+                        onClick={this.props.toggleControls}
+                        open={this.props.open}>
                         <img src={this.props.open ? 'assets/x.svg' : 'assets/menu.svg'} />    
                     </ToggleButton>
                 </ButtonWrap>
@@ -139,6 +148,8 @@ export default class Controls extends React.Component {
                         setGeometry={setGeometry} />
                     <ColourControls
                         settings={settings.colour}
+                        setColours={setColours} />
+                    <PaletteControls
                         setColours={setColours} />
                     <ControlGroup title="Export">
                         <DownloadButton

@@ -1,4 +1,17 @@
-export const hslToRgb = (h, s, l) => {
+/**
+ * Convert hsl to rgb
+ * @param {number | array} h hue (hsl if array)
+ * @param {number} s saturation
+ * @param {number} l luminosity
+ * @returns {array}
+ */
+export const hslToRgb = (h, s = null, l = null) => {
+
+    if (Array.isArray(h)) {
+        s = h[1];
+        l = h[2];
+        h = h[0];
+    }
 
     let rgb = [],
         c = 0,
@@ -32,13 +45,26 @@ export const hslToRgb = (h, s, l) => {
     rgb = rgb.map(item => Math.floor((item + m) * 255));
 
     // console.log(rgb);
-
     return rgb;
 }
 
-export const rgbToHex = (arr) => {
+/**
+ * Convert rgb to hexadecimal
+ * @param {array<number> | number} r red, green and blue array or red component
+ * @param {number} g green component
+ * @param {number} b blue component
+ * @returns {string}
+ */
+export const rgbToHex = (r,g,b) => {
+
+    if (Array.isArray(r)) {
+        g = r[1];
+        b = r[2];
+        r = r[0];
+    }
+
     let ret = '#';
-    let components = arr.map(item => {
+    let components = rgb.map(item => {
         let ret = item.toString(16);
         if (ret.length === 1) {
             ret = '0' + ret;
@@ -49,18 +75,21 @@ export const rgbToHex = (arr) => {
     return ret;
 }
 
-export const getRandom = (bright = false) => {
+/**
+ * Generate a random colour
+ * @param {boolean} bright generate a bright saturated colour
+ * @returns {string}
+ */
+export const getRandomHex = (bright = false) => {
     if (bright) {
-        // generate random 'bright' colour
-        return 'hsl(' + Math.floor(Math.random() * 360) + ', 80%, 50%)';
+        return hslToHex(Math.floor(Math.random() * 360), 85, 53);
     } else {
-        // generate random hex
         return '#' + Math.floor(Math.random() * 16777215).toString(16);
     }
 }
 
 /**
- * Convert hex colour to RGB
+ * Convert hexadecimal colour to RGB
  * @param {string} hex Colour is 3 or 6 digit hexadecimal
  * @returns {array}
  */
@@ -85,24 +114,28 @@ export function hexToRgb(hex) {
     }
 }
 
+/**
+ * Convert hexadecimal string to hue, saturation and luminosity
+ * @param {string} hex hexadecimal colour string; hash optional
+ */
 export function hexToHsl(hex) {
     hex = hex.replace('#', '');
 
-    let result;
+    let rgb;
     
     switch (hex.length) {
         case 3:
-            result = hex.split('').map(item => parseInt(item + item, 16));
+            rgb = hex.split('').map(item => parseInt(item + item, 16));
             break;
         case 6:
-            result = hex.match(/.{2}/g).map(item => parseInt(item, 16));
+            rgb = hex.match(/.{2}/g).map(item => parseInt(item, 16));
             break;
         default:
             return;
     }
-    const r = result[0] / 255,
-        g = result[1] / 255,
-        b = result[2] / 255;
+    const r = rgb[0] / 255,
+        g = rgb[1] / 255,
+        b = rgb[2] / 255;
 
     const max = Math.max(r, g, b),
         min = Math.min(r, g, b);
@@ -110,7 +143,7 @@ export function hexToHsl(hex) {
     let h, s, l = (max + min) / 2;
 
     if (max === min) {
-        h = s = 0; // achromatic
+        h = s = 0;
     } else {
         const d = max - min;
         s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
@@ -135,10 +168,24 @@ export function hexToHsl(hex) {
     return [h,s,l];
 }
 
-export function hslToHex(hsl) {
-    const h = hsl[0] / 360,
-        s = hsl[1] / 100,
-        l = hsl[2] / 100;
+/**
+ * Convert hue, saturation and luminosity to hexadecimal
+ * @param {number | array} h hue (hsl if array)
+ * @param {number} s saturation
+ * @param {number} l luminosity
+ * @returns {string}
+ */
+export function hslToHex(h, s, l) {
+    
+    if (Array.isArray(h)) {
+        s = h[1];
+        l = h[2];
+        h = h[0];
+    }
+
+    h = h / 360;
+    s = s / 100;
+    l = l / 100;
 
     let r, g, b;
 

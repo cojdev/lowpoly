@@ -42,7 +42,7 @@ export default class DimensionControls extends React.Component {
     }
 
     handlePreset(e) {
-        console.log(e.target.value);
+        // console.log(e.target.value);
         if (e.target.value !== 'null') {
             let dims = e.target.value.split('-');
             this.setState({
@@ -63,7 +63,6 @@ export default class DimensionControls extends React.Component {
 
     handleSubmit(e) {
         this.props.setDimensions.call(this, this.state);
-        console.log('handleSubmit');
         e.preventDefault();
     }
 

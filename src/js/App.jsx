@@ -56,7 +56,7 @@ const StyledControls = styled(Controls)`
         top: 0;
         right: 0;
         bottom: 0;
-        transform: translateX(calc(100% - 3em));
+        transform: translateX(calc(100% - 5rem));
         transition: transform 300ms ease;
 
         ${props => props.open && css`
@@ -71,6 +71,7 @@ export default class App extends React.Component {
         super();
 
         this.state = {
+            // default controls values
             defaults: {
                 dimensions: {
                     width: 1280,
@@ -109,8 +110,11 @@ export default class App extends React.Component {
         this.setState({ settings: defaults });
     }
 
+    /**
+     * Open and close the controls on mobile devices
+     */
     toggleControls() {
-        this.setState({ controlsOpen: !this.state.controlsOpen },()=>{console.log(this.state.controlsOpen)});
+        this.setState({ controlsOpen: !this.state.controlsOpen });
     }
 
     /**
@@ -129,7 +133,7 @@ export default class App extends React.Component {
      */
     setColours(arr) {
         let settings = Object.assign({}, this.state.settings);
-        console.log(arr);
+        // console.log(arr);
         settings.colour = arr;
         this.setState({ settings: settings });
     }
@@ -155,6 +159,10 @@ export default class App extends React.Component {
         this.setState({ settings: settings });
     }
 
+    /**
+     * Toggle using uploaded image in generated picture
+     * @param {boolean} boolean 
+     */
     setUseImage(boolean) {
         let settings = Object.assign({}, this.state.settings);
         settings.useImage = boolean;

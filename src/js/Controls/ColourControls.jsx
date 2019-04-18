@@ -78,7 +78,7 @@ export default class ColourControls extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.settings !== prevProps.settings) {
-            console.log(this.props.settings);
+            // console.log(this.props.settings);
             this.setState({ settings: this.props.settings });
         }
     }
@@ -88,7 +88,7 @@ export default class ColourControls extends React.Component {
         let settings = this.state.settings.slice();
 
         if (settings.length < this.state.maxColours) {
-            settings.push(colour.getRandom(1));
+            settings.push(colour.getRandomHex(true));
             this.setState({ settings: settings }, () => this.props.setColours.call(this, this.state.settings));
         }
     }
@@ -123,7 +123,7 @@ export default class ColourControls extends React.Component {
         colour.hexToRgb = hexValue;
 
         colours[index] = hexValue;
-        console.log(colours);
+        // console.log(colours);
         // this.setState({ colours: colours }, () => this.props.setColours.call(this, this.state.colours));
         this.props.setColours.call(this, colours);
     }
@@ -131,10 +131,10 @@ export default class ColourControls extends React.Component {
     // 
     handleRgbSet(value, name) {
         value = parseInt(value, 10);
-        console.log(value);
+        // console.log(value);
         let colours = this.props.settings.slice();
-        console.log('Set');
-        console.log(colours);
+        // console.log('Set');
+        // console.log(colours);
 
         const rgb = colour.hexToRgb(colours[this.state.active]);
         if (name === 'red') {
@@ -181,10 +181,12 @@ export default class ColourControls extends React.Component {
         const { settings } = this.state;
         const { active } = this.state;
 
-        console.log(settings);
+        // console.log(settings);
 
         if (settings) {
             const hsl = colour.hexToHsl(settings[active]);
+
+            // console.log(settings, hsl);
 
             const hueBarBg = `linear-gradient(
                 to right,
@@ -228,14 +230,15 @@ export default class ColourControls extends React.Component {
                     <SmallButton
                         onClick={this.handleAddColour.bind(this)}
                         disabled={settings.length < this.state.maxColours ? false : true}>+</SmallButton>
-                    <br />
+                    {settings[active]}
+                    <br/>
+
                     <ColourGroup>
                         <ColourGroupInner>
                             {colourInputs}
                         </ColourGroupInner>
                     </ColourGroup>
-                    {settings[active]}
-                    <br />
+
                     <Label>
                         hue: {hsl[0]}
                     </Label>
@@ -271,8 +274,6 @@ export default class ColourControls extends React.Component {
                         onChange={this.handleChange.bind(this)}
                         onMouseUp={this.handleMouseUp.bind(this)} />
                     <ColourBar background={lumBarBg} />
-                    <Heading>Palettes</Heading>
-                    {data.palettes.map((item, index) => <ColourPalette key={index} colours={item} handleSetPalette={this.handleSetPalette.bind(this)} />)}
                 </ControlGroup>
             );
         }

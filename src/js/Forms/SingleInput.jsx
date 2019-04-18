@@ -110,7 +110,7 @@ export default class SingleInput extends React.Component {
 
         let input;
 
-        console.log(type);
+        // console.log(type);
 
         switch (type) {
             case 'text':

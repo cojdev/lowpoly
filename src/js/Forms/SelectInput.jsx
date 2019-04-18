@@ -98,7 +98,7 @@ export default class SelectInput extends React.Component {
             onBlur: this.handleBlur,
         };
 
-        console.log(type);
+        // console.log(type);
 
         return (
             <StyledSelectInput focus={focus}>
