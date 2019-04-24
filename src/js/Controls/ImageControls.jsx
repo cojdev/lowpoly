@@ -117,7 +117,7 @@ export default class ImageControls extends React.Component {
                     </PreviewWrap>
                 ) : ''}
                 <StyledFileInput id="file" type="file" value={value} onChange={this.handleChange} />
-                <label htmlFor="file">Select an...</label>
+                <label htmlFor="file">Select an Image...</label>
                 <br/>
                 <Label><Checkbox checked={useImage} onChange={this.handleCheckboxChange} /> Use image</Label>
             </StyledControlGroup>
