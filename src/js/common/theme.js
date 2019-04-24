@@ -11,6 +11,7 @@ const theme = {
     },
     controls: {
         width: '320px',
+        transition: '450ms ease',
     },
     shadow: '0 10px 25px rgba(0,0,0,0.1)',
 }

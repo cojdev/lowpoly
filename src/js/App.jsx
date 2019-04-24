@@ -57,7 +57,7 @@ const StyledControls = styled(Controls)`
         right: 0;
         bottom: 0;
         transform: translateX(calc(100% - 5rem));
-        transition: transform 300ms ease;
+        transition: transform ${theme.controls.transition};
 
         ${props => props.open && css`
             transform: none;

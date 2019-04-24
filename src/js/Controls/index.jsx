@@ -13,7 +13,6 @@ import { Button } from '../widgets/Button';
 import PaletteControls from './PaletteControls';
 
 const Container = styled.section`
-    /* max-width: calc(100% + 2.5rem); */
     padding: 0;
     display: flex;
 
@@ -27,7 +26,6 @@ const ButtonWrap = styled.div`
     padding: 1rem;
     display: flex;
     align-items: flex-end;
-    overflow: hidden;
     @media screen and (min-width: 800px) {
         display: none;
     }
@@ -43,7 +41,7 @@ const ToggleButton = styled.button`
     border-radius: 100px;
     box-shadow: ${theme.shadow};
     background-color: #fff;
-    transition: 300ms ease;
+    transition: ${theme.controls.transition};
 
     img {
         width: 1rem;
