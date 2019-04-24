@@ -35,7 +35,7 @@ const StyledDropdown = styled(Dropdown)`
     border-radius: 3px;
     transition: 150ms ease;
     outline: none;
-    font-size: 1rem;
+    font-size: .9rem;
     font-family: inherit;
 
     ${p => p.focus && css`

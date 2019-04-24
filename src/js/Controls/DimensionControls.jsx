@@ -42,13 +42,16 @@ export default class DimensionControls extends React.Component {
     }
 
     handlePreset(e) {
-        // console.log(e.target.value);
         if (e.target.value !== 'null') {
-            let dims = e.target.value.split('-');
+            let p;
+            this.props.presets.forEach(item => {
+                p = item.values.find(item => item.label === e.target.value) || p;
+            });
+            let dims = [p.width, p.height];
             this.setState({
                 width: dims[0],
                 height: dims[1],
-            }, () => {console.log(this.state.width, this.state.height)});
+            });
         }
         
     }
@@ -72,7 +75,7 @@ export default class DimensionControls extends React.Component {
 
                 {item.values.map((item2, index2) => {
 
-                    let value = item2.width + '-' + item2.height;
+                    let value = item2.label;
                 
                     return (
                         <option
@@ -86,28 +89,14 @@ export default class DimensionControls extends React.Component {
 
         return (
             <StyledControlGroup title="Dimensions">
-
-                {/* <Label
-                    htmlFor="preset-size">Presets</Label>
-                <Dropdown
-                    onChange={this.handlePreset.bind(this)}>
-                    <option value="null">Select...</option>
-                    {presets}
-                </Dropdown> */}
                 <SelectInput
                     name="presets"
                     label="Presets"
-                    onChange={this.handlePreset.bind(this)}>>
+                    onChange={this.handlePreset.bind(this)}>
                     {presets}
                 </SelectInput>
                 <Row>
                     <Column>
-                        {/* <Label
-                            htmlFor="width">Width</Label>
-                        <NumberField
-                            id="width"
-                            value={this.state.width}
-                            onChange={this.handleWidth.bind(this)} /> */}
                         <SingleInput
                             type="number"
                             name="width"
@@ -116,12 +105,6 @@ export default class DimensionControls extends React.Component {
                             onChange={this.handleWidth.bind(this)} />
                     </Column>
                     <Column>
-                        {/* <Label
-                            htmlFor="height">Height</Label>
-                        <NumberField
-                            id="height"
-                            value={this.state.height}
-                            onChange={this.handleHeight.bind(this)} /> */}
                         <SingleInput
                             type="number"
                             name="height"

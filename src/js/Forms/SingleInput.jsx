@@ -36,7 +36,7 @@ const fieldCSS = css`
     border-radius: 3px;
     transition: 150ms ease;
     outline: none;
-    font-size: 1rem;
+    font-size: .9rem;
     font-family: inherit;
     margin: 1em 0;
 

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ControlGroup from '../widgets/ControlGroup';
 import { Checkbox, Label } from '../widgets/Fields';
+import theme from '../common/theme';
 
 const StyledControlGroup = styled(ControlGroup)`
 
@@ -31,6 +32,21 @@ const Preview = styled.div`
         border-radius: 3px;
     }
     
+`;
+
+const StyledFileInput = styled.input`
+    display: none;
+
+    + label {
+        display: block;
+        padding: 1ch 1em;
+        border-radius: 4px;
+        border: 2px solid ${theme.colours.primary};
+        color: ${theme.colours.primary};
+        font-weight: 600;
+        text-align: center;
+        cursor: pointer;
+    }
 `;
 
 const Image = styled.img`
@@ -100,9 +116,9 @@ export default class ImageControls extends React.Component {
                         </Preview>
                     </PreviewWrap>
                 ) : ''}
-
-                <input type="file" value={value} onChange={this.handleChange} />
-                <br/><br/>
+                <StyledFileInput id="file" type="file" value={value} onChange={this.handleChange} />
+                <label htmlFor="file">Select an...</label>
+                <br/>
                 <Label><Checkbox checked={useImage} onChange={this.handleCheckboxChange} /> Use image</Label>
             </StyledControlGroup>
         );
