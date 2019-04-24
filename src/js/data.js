@@ -30,17 +30,32 @@ export default {
                 {
                     width: 1125,
                     height: 2436,
-                    label: 'iPhone X',
+                    label: 'iPhone X/Xs',
+                },
+                {
+                    width: 1242, 
+                    height: 2688,
+                    label: 'iPhone Xs Max',
                 },
                 {
                     width: 1440,
                     height: 2960,
                     label: 'Samsung Galaxy S8/S9',
                 },
+                {
+                    width: 1080,
+                    height: 1920,
+                    label: 'Google Pixel',
+                },
+                {
+                    width: 1440,
+                    height: 2960,
+                    label: 'Google Pixel XL',
+                },
             ]
         },
         {
-            label: 'Desktop',
+            label: 'Generic',
             values: [
                 {
                     width: 1280,
