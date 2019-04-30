@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from './common/theme';
-import { hexToRgb } from './common/colour';
+import { hexToRgb, hslToCss } from './common/colour';
 import { drawImageProp } from './common/helpers';
 
 const StyledDisplay = styled.div`
@@ -116,7 +116,7 @@ export default class Display extends React.Component {
                 var gradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
                 for (var i = 0; i < inputs.length; i++) {
                     if (inputs.length > 1) {
-                        gradient.addColorStop(i / (inputs.length - 1), inputs[i]);
+                        gradient.addColorStop(i / (inputs.length - 1), hslToCss.apply(null,inputs[i]));
                         // console.log(inputs[i]);
                     } else {
                         gradient = inputs[i];

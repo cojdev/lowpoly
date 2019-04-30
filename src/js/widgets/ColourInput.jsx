@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, {css} from 'styled-components';
+import { hslToCss } from '../common/colour';
 
 const StyledColourInput = styled.div`
     display: block;
@@ -11,7 +12,7 @@ const StyledColourInput = styled.div`
 
 const Target = styled.div.attrs(props => ({
     style: {
-        backgroundColor: props.colour || '#fff',
+        backgroundColor: hslToCss.apply(null, props.colour) || '#fff',
         padding: '3px',
     }
 }))`
@@ -30,20 +31,7 @@ const Target = styled.div.attrs(props => ({
 `;
 
 export default class ColourInput extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            value: this.props.value,
-        }
-    }
-
-    handleChangeComplete(colour) {
-        this.setState({ value: colour.hex}, this.props.handleChangeColour.bind(this, this.props.index, colour.hex));
-    }
-    
     render() {
-
         return (
             <StyledColourInput>
                 <Target

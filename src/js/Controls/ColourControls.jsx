@@ -83,22 +83,29 @@ export default class ColourControls extends React.Component {
         }
     }
 
+    /**
+     * Add a colour to current palette
+     */
     handleAddColour() {
-        
         let settings = this.state.settings.slice();
 
         if (settings.length < this.state.maxColours) {
-            settings.push(colour.getRandomHex(true));
+            settings.push(hexToHsl(colour.getRandomHex(true)));
             this.setState({ settings: settings }, () => this.props.setColours.call(this, this.state.settings));
         }
     }
 
+    /**
+     * Select a colour in the active palette triggered by an event
+     */
     setActiveColour(e) {
         this.setState({ active: parseInt(e.target.getAttribute('data-id'), 10)});
     }
 
+    /**
+     * Remove a colour from the current palette
+     */
     handleRemoveColour() {
-
         let settings = this.state.settings.slice();
         const active = this.state.active;
 
@@ -115,63 +122,44 @@ export default class ColourControls extends React.Component {
             }
         }
     }
-
-    handleChangeColour(index, hexValue) {
-        // let colours = this.state.colours.slice();
-        let colours = this.props.settings.slice();
-        // colour.hexToRgb(settings[active])
-        colour.hexToRgb = hexValue;
-
-        colours[index] = hexValue;
-        // console.log(colours);
-        // this.setState({ colours: colours }, () => this.props.setColours.call(this, this.state.colours));
-        this.props.setColours.call(this, colours);
-    }
-
-    // 
-    handleRgbSet(value, name) {
-        value = parseInt(value, 10);
-        // console.log(value);
-        let colours = this.props.settings.slice();
-        // console.log('Set');
-        // console.log(colours);
-
-        const rgb = colour.hexToRgb(colours[this.state.active]);
-        if (name === 'red') {
-            colours[this.state.active] = colour.rgbToHex([value,rgb[1],rgb[2]]);
-        } else if (name === 'green') {
-            colours[this.state.active] = colour.rgbToHex([rgb[0],value,rgb[2]]);
-        } else if (name === 'blue') {
-            colours[this.state.active] = colour.rgbToHex([rgb[0],rgb[1],value]);
-        }
-        
-        this.props.setColours.call(this, colours);
-
-    }
-
-    // 
+    
+    /**
+     * Handle change in colour component values
+     */
     handleChange(e) {
-        const value = parseInt(e.target.value, 10);
-        let colours = this.props.settings.slice();
+        const { target } = e;
+        const { active } = this.state;
+        const value = parseInt(target.value, 10);
 
-        const hsl = colour.hexToHsl(colours[this.state.active]);
-        
-        if (e.target.name === 'hue') {
-            colours[this.state.active] = colour.hslToHex([value,hsl[1],hsl[2]]);
-        } else if (e.target.name === 'saturation') {
-            colours[this.state.active] = colour.hslToHex([hsl[0],value,hsl[2]]);
-        } else if (e.target.name === 'luminosity') {
-            colours[this.state.active] = colour.hslToHex([hsl[0],hsl[1],value]);
+        // deep clone global colours
+        let colours = this.props.settings.slice().map(item => item.slice());
+
+        switch (target.name) {
+            case 'hue':
+                colours[active][0] = value;
+                break;
+            case 'saturation':
+                colours[active][1] = value;
+                break;
+            case 'luminosity':
+                colours[active][2] = value;
+                break;
         }
 
         this.setState({settings: colours});
     }
 
+    /**
+     * Set the global palette value
+     */
     handleMouseUp(e) {
         const colours = this.state.settings.slice();
         this.props.setColours.call(this, colours);
     }
 
+    /**
+     * Set a selected palette as the current palette
+     */
     handleSetPalette(palette) {
         this.setState({active: 0});
         this.props.setColours(palette);
@@ -184,33 +172,22 @@ export default class ColourControls extends React.Component {
         // console.log(settings);
 
         if (settings) {
-            const hsl = colour.hexToHsl(settings[active]);
+            const activeColour = settings[active];
+            const hsl = activeColour;
 
-            // console.log(settings, hsl);
+            let hueBarBg = `linear-gradient(to right,`;
+            let satBarBg = `linear-gradient(to right,`;
+            let lumBarBg = `linear-gradient(to right,`;
 
-            const hueBarBg = `linear-gradient(
-                to right,
-                hsl(0, ${hsl[1]}%,${hsl[2]}%), 
-                hsl(60, ${hsl[1]}%,${hsl[2]}%), 
-                hsl(120, ${hsl[1]}%,${hsl[2]}%), 
-                hsl(180, ${hsl[1]}%,${hsl[2]}%), 
-                hsl(240, ${hsl[1]}%,${hsl[2]}%), 
-                hsl(300, ${hsl[1]}%,${hsl[2]}%), 
-                hsl(360, ${hsl[1]}%, ${hsl[2]}%)
-            )`;
-
-            const satBarBg = `linear-gradient(
-                to right,
-                hsl(${hsl[0]}, 0%, ${hsl[2]}%),
-                hsl(${hsl[0]}, 100%, ${hsl[2]}%)
-            )`;
-
-            const lumBarBg = `linear-gradient(
-                to right,
-                hsl(${hsl[0]}, ${hsl[1]}%, 0%),
-                hsl(${hsl[0]}, ${hsl[1]}%, 50%),
-                hsl(${hsl[0]}, ${hsl[1]}%, 100%)
-            )`;
+            for (let i = 0; i <= 6; i++) {
+                hueBarBg += `hsl(${i*60}, ${activeColour[1]}%,${activeColour[2]}%)${i !== 6 ? ',' : ')' }`;
+                if (i < 2) {
+                    satBarBg += `hsl(${activeColour[0]}, ${i * 100}%, ${activeColour[2]}%)${i !== 1 ? ',' : ')' }`;
+                }
+                if (i < 3) {
+                    lumBarBg += `hsl(${activeColour[0]}, ${activeColour[1]}%, ${i * 50}%)${i !== 2 ? ',' : ')' }`;
+                }
+            }
 
             let colourInputs = settings.map(
                 (item, index) => (
