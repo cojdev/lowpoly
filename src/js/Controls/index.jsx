@@ -41,6 +41,7 @@ const ToggleButton = styled.button`
     border-radius: 100px;
     box-shadow: ${theme.shadow};
     background-color: #fff;
+    cursor: pointer;
     transition: ${theme.controls.transition};
 
     img {

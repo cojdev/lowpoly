@@ -23,7 +23,7 @@ const GlobalStyles = createGlobalStyle`
     html {
         font-family: ${theme.fonts.base};
         color: #333;
-        background: #f8f8f8;
+        background: #f6f6f6;
         font-size: 16px;
     }
 
@@ -82,7 +82,7 @@ export default class App extends React.Component {
                     cellSize: 50,
                     depth: 20,
                 },
-                colour: data.palettes[0],
+                colour: data.hslpalettes[0],
 
                 image: null,
                 useImage: false,

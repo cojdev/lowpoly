@@ -50,7 +50,7 @@ export const hslToRgb = (h, s = null, l = null) => {
 
 /**
  * Convert rgb to hexadecimal
- * @param {array<number> | number} r red, green and blue array or red component
+ * @param {array<number>|number} r red, green and blue array or red component
  * @param {number} g green component
  * @param {number} b blue component
  * @returns {string}
@@ -215,4 +215,8 @@ export function hslToHex(h, s, l) {
 
 export function cssToHsl(css) {
     //
+}
+
+export function hslToCss(h,s,l) {
+    return `hsl(${h},${s}%,${l}%)`;
 }

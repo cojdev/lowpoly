@@ -39,13 +39,27 @@ const StyledFileInput = styled.input`
 
     + label {
         display: block;
-        padding: 1ch 1em;
+        padding: 2em;
         border-radius: 4px;
-        border: 2px solid ${theme.colours.primary};
+        /* border: 2px solid ${theme.colours.primary}; */
         color: ${theme.colours.primary};
         font-weight: 600;
         text-align: center;
         cursor: pointer;
+        box-shadow: inset 0 2px 5px rgba(10,20,40,0.05);
+        position: relative;
+
+        &:after {
+            display: block;
+            position: absolute;
+            content: '';
+            top: .5rem;
+            left: .5rem;
+            right: .5rem;
+            bottom: .5rem;
+            border-radius: 2px;
+            border: 1px dashed #eee;
+        }
     }
 `;
 
@@ -57,7 +71,7 @@ const Image = styled.img`
     max-height: 200px;
 `;
 
-String.prototype.capitalise = function() {
+String.prototype.capitalise = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
 
@@ -72,6 +86,7 @@ export default class ImageControls extends React.Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleDrop = this.handleDrop.bind(this);
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     }
 
@@ -81,19 +96,39 @@ export default class ImageControls extends React.Component {
 
         this.setState({ settings: settings, useImage });
     }
-    
+
     handleChange(e) {
-        
         if (e.target.files && e.target.files[0]) {
             const reader = new FileReader();
-    
+
             reader.onload = (e) => {
                 this.props.setImage.call(this, e.target.result);
                 this.setState({ settings: e.target.result });
             }
-    
+
             reader.readAsDataURL(e.target.files[0]);
         }
+    }
+
+    handleDrop(e) {
+        // Prevent default behavior (Prevent file from being opened)
+        e.preventDefault();
+
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                this.props.setImage.call(this, e.target.result);
+                this.setState({ settings: e.target.result });
+            }
+
+            reader.readAsDataURL(e.dataTransfer.files[0]);
+        }
+    }
+
+    handleDragOver(e) {
+        // Prevent default behavior (Prevent file from being opened)
+        e.preventDefault();
     }
 
     handleCheckboxChange(e) {
@@ -117,8 +152,8 @@ export default class ImageControls extends React.Component {
                     </PreviewWrap>
                 ) : ''}
                 <StyledFileInput id="file" type="file" value={value} onChange={this.handleChange} />
-                <label htmlFor="file">Select an Image...</label>
-                <br/>
+                <label htmlFor="file" onDrop={this.handleDrop} onDragOver={this.handleDragOver}>Select an Image...</label>
+                <br />
                 <Label><Checkbox checked={useImage} onChange={this.handleCheckboxChange} /> Use image</Label>
             </StyledControlGroup>
         );

@@ -47,6 +47,6 @@ export const Label = styled.label`
     color: #888;
     font-size: 0.9em;
     font-weight: bold;
-    background-color: #fff;
+    background-color: #f8f8f8;
     font-weight: 700;
 `;

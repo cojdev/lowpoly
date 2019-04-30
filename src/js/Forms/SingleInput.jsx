@@ -23,7 +23,7 @@ const StyledLabel = styled.label`
         color: #e14;
         font-weight: bold;
         transform: translateY(-50%);
-        background-color: #fff;
+        background: linear-gradient(#f8f8f8, #fff);
         font-weight: 700;
     `};
 `;

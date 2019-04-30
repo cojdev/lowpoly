@@ -10,6 +10,10 @@ const Palette = styled.div`
     height: 20px;
     border-radius: 3px;
     overflow: hidden;
+
+    :last-child {
+        margin: 0;
+    }
 `;
 
 const Colour = styled.div`

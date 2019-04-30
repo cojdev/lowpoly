@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components';
 import animate from '../common/animate';
 
 const StyledControlGroup = styled.section`
-    padding: 0 1rem;
     /* border-bottom: 1px solid #ddd; */
 `;
 
@@ -16,7 +15,7 @@ const Heading = styled.button`
     width: 100%;
     border: none;
     cursor: pointer;
-    padding: 0;
+    padding: 0 1rem;
     margin: 0;
     font-size: 1em;
     outline: none;
@@ -40,7 +39,7 @@ const Arrow = styled.div`
         width: .62em;
         background: #ccc;
         top: 50%;
-        right: 0;
+        right: 1rem;
     }
 
     :after {
@@ -56,10 +55,12 @@ const Arrow = styled.div`
 const Content = styled.div`
     overflow: hidden;
     transition: 450ms ease;
+    padding: 0;
+    background-color: #fbfbfb;
 `;
 
 const ContentInner = styled.div`
-    padding-bottom: 1rem;
+    padding: .5rem 1rem;
 `;
 
 export default class ControlGroup extends React.Component {

@@ -20,7 +20,7 @@ const StyledLabel = styled.label`
     font-weight: bold;
     font-weight: 700;
     transform: translateY(-50%);
-    background-color: #fff;
+    background: linear-gradient(#f8f8f8, #fff);
 
     ${p => p.focus && css`
         color: #e14;
