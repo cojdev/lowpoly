@@ -10,12 +10,14 @@ const StyledColourInput = styled.div`
     flex-grow: 1;
 `;
 
-const Target = styled.div.attrs(props => ({
+const Target = styled.div.attrs(props => {
+    // console.log(props.colour);
+    return ({
     style: {
         backgroundColor: hslToCss.apply(null, props.colour) || '#fff',
         padding: '3px',
     }
-}))`
+});})`
     height: 100%;
     width: 100%;
     transition: 150ms ease;
@@ -24,9 +26,10 @@ const Target = styled.div.attrs(props => ({
     /* background-color: ${props => props.colour}; */
 
     ${props => props.active && css`
-        box-shadow:
-            inset 0 0 0 3px #fff,
-            inset 0 0 4px 3px rgba(0,0,0,0.4);
+        box-shadow: 
+            inset 0 0 0 2px rgba(200,200,200,1),
+            inset 0 0 0 4px rgba(255,255,255,1)
+        ;
     `}
 `;
 

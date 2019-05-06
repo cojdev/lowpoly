@@ -13,13 +13,19 @@ import { Button } from '../widgets/Button';
 
 import data from '../data';
 
+const Row = styled.div`
+    display: flex;
+    align-items: center;
+    margin: -.5ch;
+`;
+
 const SmallButton = styled.button`
     ${Button}
 
     display: inline-block;
-    width: 2rem;
     padding: .5ch .5rem;
-    margin-right: 1ch;
+    margin: 0 .5ch;
+    width: auto;
     
     ${props => props.disabled && css`
         background: #eee;
@@ -27,9 +33,19 @@ const SmallButton = styled.button`
     `}
 `;
 
+const AddButton = styled.button`
+    ${Button}
+
+    display: inline-block;
+    width: 2rem;
+    padding: .5ch .5rem;
+    height: 2rem;
+    margin-left: 1ch;
+`;
+
 const ColourGroup = styled.div`
     width: 100%;
-    height: 30px;
+    height: 2rem;
     position: relative;
     margin: 1em 0;
     overflow: hidden;
@@ -48,11 +64,15 @@ const ColourGroupInner = styled.div`
     background: #ccc;
 `;
 
-const ColourBar = styled.div`
+const ColourBar = styled.div.attrs(props => ({
+    style: {
+        background: props.background,
+    },
+}))`
     display: block;
     width: 100%;
     height: 5px;
-    background: ${props => props.background || '#ccc'};
+    border-radius: 10px;
 `;
 
 const Heading = styled.h3``;
@@ -77,9 +97,21 @@ export default class ColourControls extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.settings !== prevProps.settings) {
-            // console.log(this.props.settings);
-            this.setState({ settings: this.props.settings });
+        const  { settings } = this.props;
+        const { active } = this.state;
+        
+        const newState = Object.create(null);
+        if (settings !== prevProps.settings) {
+            // console.log(settings);
+            newState.settings = settings;
+            
+            if (!settings[active]) {
+                console.log('not active: ', active, settings);
+                newState.active = settings.length - 1;
+
+            }
+
+            this.setState(newState);
         }
     }
 
@@ -90,7 +122,7 @@ export default class ColourControls extends React.Component {
         let settings = this.state.settings.slice();
 
         if (settings.length < this.state.maxColours) {
-            settings.push(hexToHsl(colour.getRandomHex(true)));
+            settings.push(colour.hexToHsl(colour.getRandomHex(true)));
             this.setState({ settings: settings }, () => this.props.setColours.call(this, this.state.settings));
         }
     }
@@ -99,7 +131,7 @@ export default class ColourControls extends React.Component {
      * Select a colour in the active palette triggered by an event
      */
     setActiveColour(e) {
-        this.setState({ active: parseInt(e.target.getAttribute('data-id'), 10)});
+        this.setState({ active: parseInt(e.target.getAttribute('data-id'), 10) });
     }
 
     /**
@@ -110,10 +142,10 @@ export default class ColourControls extends React.Component {
         const active = this.state.active;
 
         if (settings.length > 1) {
-            settings.splice(-1, 1);
+            settings.splice(active, 1);
 
             if (active > settings.length - 1) {
-                this.setState({active: settings.length - 1, settings: settings}, () => {
+                this.setState({ active: settings.length - 1, settings: settings }, () => {
                     this.props.setColours.call(this, settings);
                 });
             }
@@ -122,7 +154,7 @@ export default class ColourControls extends React.Component {
             }
         }
     }
-    
+
     /**
      * Handle change in colour component values
      */
@@ -146,7 +178,7 @@ export default class ColourControls extends React.Component {
                 break;
         }
 
-        this.setState({settings: colours});
+        this.setState({ settings: colours });
     }
 
     /**
@@ -161,17 +193,17 @@ export default class ColourControls extends React.Component {
      * Set a selected palette as the current palette
      */
     handleSetPalette(palette) {
-        this.setState({active: 0});
+        this.setState({ active: 0 });
         this.props.setColours(palette);
     }
 
     render() {
-        const { settings } = this.state;
-        const { active } = this.state;
+        const { settings, active } = this.state;
 
         // console.log(settings);
 
         if (settings) {
+            console.log('active: ', active, settings);
             const activeColour = settings[active];
             const hsl = activeColour;
 
@@ -180,12 +212,12 @@ export default class ColourControls extends React.Component {
             let lumBarBg = `linear-gradient(to right,`;
 
             for (let i = 0; i <= 6; i++) {
-                hueBarBg += `hsl(${i*60}, ${activeColour[1]}%,${activeColour[2]}%)${i !== 6 ? ',' : ')' }`;
+                hueBarBg += `hsl(${i * 60}, ${activeColour[1]}%,${activeColour[2]}%)${i !== 6 ? ',' : ')'}`;
                 if (i < 2) {
-                    satBarBg += `hsl(${activeColour[0]}, ${i * 100}%, ${activeColour[2]}%)${i !== 1 ? ',' : ')' }`;
+                    satBarBg += `hsl(${activeColour[0]}, ${i * 100}%, ${activeColour[2]}%)${i !== 1 ? ',' : ')'}`;
                 }
                 if (i < 3) {
-                    lumBarBg += `hsl(${activeColour[0]}, ${activeColour[1]}%, ${i * 50}%)${i !== 2 ? ',' : ')' }`;
+                    lumBarBg += `hsl(${activeColour[0]}, ${activeColour[1]}%, ${i * 50}%)${i !== 2 ? ',' : ')'}`;
                 }
             }
 
@@ -201,14 +233,14 @@ export default class ColourControls extends React.Component {
 
             return (
                 <ControlGroup title="Colours">
-                    <SmallButton
-                        onClick={this.handleRemoveColour.bind(this)}
-                        disabled={settings.length > 1 ? false : true}>-</SmallButton>
-                    <SmallButton
-                        onClick={this.handleAddColour.bind(this)}
-                        disabled={settings.length < this.state.maxColours ? false : true}>+</SmallButton>
-                    {settings[active]}
-                    <br/>
+                    <Row>
+                        <SmallButton
+                            onClick={this.handleAddColour.bind(this)}
+                            disabled={settings.length < this.state.maxColours ? false : true}>Add</SmallButton>
+                        <SmallButton
+                            onClick={this.handleRemoveColour.bind(this)}
+                            disabled={settings.length > 1 ? false : true}>Remove</SmallButton>
+                    </Row>
 
                     <ColourGroup>
                         <ColourGroupInner>

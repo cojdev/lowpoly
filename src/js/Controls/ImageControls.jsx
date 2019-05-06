@@ -39,24 +39,23 @@ const StyledFileInput = styled.input`
 
     + label {
         display: block;
-        padding: 2em;
+        padding: 1em;
         border-radius: 4px;
-        /* border: 2px solid ${theme.colours.primary}; */
+        border: 2px solid #eee;
         color: ${theme.colours.primary};
         font-weight: 600;
         text-align: center;
         cursor: pointer;
-        box-shadow: inset 0 2px 5px rgba(10,20,40,0.05);
         position: relative;
 
         &:after {
             display: block;
             position: absolute;
             content: '';
-            top: .5rem;
-            left: .5rem;
-            right: .5rem;
-            bottom: .5rem;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
             border-radius: 2px;
             border: 1px dashed #eee;
         }

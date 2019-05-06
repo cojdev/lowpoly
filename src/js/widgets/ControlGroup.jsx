@@ -1,13 +1,14 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import animate from '../common/animate';
+import theme from '../common/theme';
 
 const StyledControlGroup = styled.section`
     /* border-bottom: 1px solid #ddd; */
 `;
 
 const Heading = styled.button`
-    line-height: 3;
+    line-height: 2.4;
     font-weight: bold;
     position: relative;
     background: transparent;
@@ -17,11 +18,16 @@ const Heading = styled.button`
     cursor: pointer;
     padding: 0 1rem;
     margin: 0;
-    font-size: 1em;
+    font-size: .9em;
     outline: none;
     text-align: left;
     color: #444;
     font-family: inherit;
+    transition: 150ms ease;
+
+    &:hover {
+        color: ${theme.colours.primary};
+    }
 `;
 
 const Arrow = styled.div`

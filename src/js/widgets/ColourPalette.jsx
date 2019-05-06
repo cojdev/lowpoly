@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import { hslToCss } from '../common/colour';
 
 const Palette = styled.div`
     display: flex;
     position: relative;
-    margin: 0 0 1em;
+    margin: 0 0 .5em;
     cursor: pointer;
     outline: none;
-    height: 20px;
+    height: 24px;
     border-radius: 3px;
     overflow: hidden;
 
@@ -19,7 +20,7 @@ const Palette = styled.div`
 const Colour = styled.div`
     flex-grow: 1;
     height: 100%;
-    background-color: ${props => props.background || '#ccc'};
+    background-color: ${props => hslToCss.apply(null, props.background) || '#ccc'};
 `;
 
 export default function ColourPalette(props) {

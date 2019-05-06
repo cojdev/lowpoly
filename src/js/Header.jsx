@@ -4,9 +4,8 @@ import theme from './common/theme';
 
 const StyledHeader = styled.header`
 
-	background-color: #fff;
+	background-color: #fbfbfb;
 	padding: 1rem;
-	border-bottom: 2px solid #eee;
     
 	h1 {
 		font-size: 1.5rem;
