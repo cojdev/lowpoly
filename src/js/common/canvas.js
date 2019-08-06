@@ -72,11 +72,12 @@ export default function drawCanvas(canvas, canvas2, callback) {
       context.closePath();
       context.fill();
 
-      // draw subtle gradient overlay
-      context.beginPath();
+      // draw gradient overlay
       const overlay = context.createLinearGradient(0, 0, 0, cvs.height);
       overlay.addColorStop(0, '#fff');
       overlay.addColorStop(1, '#ccc');
+
+      context.beginPath();
       context.fillStyle = overlay;
       context.fillRect(0, 0, cvs.width, cvs.height);
       context.closePath();
@@ -215,13 +216,11 @@ export default function drawCanvas(canvas, canvas2, callback) {
     }
   };
 
-  // clear the canvas
+  // clear canvases
   ctx.clearRect(0, 0, cvs.width, cvs.height);
 
-  // draw hidden canvas background
+  // draw hidden canvas and main canvas backgrounds
   drawBG(canvas2.getContext('2d'), canvas2, true);
-
-  // draw background on main canvas
   drawBG(ctx, cvs, false);
 
   // draw polygons on main canvas

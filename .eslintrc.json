@@ -31,6 +31,7 @@
         "no-mixed-operators": "off",
         "class-methods-use-this": "off",
         "no-console": "off",
-        "func-names": "off"
+        "func-names": "off",
+        "linebreak-style": "off"
     }
 }
