@@ -199,7 +199,7 @@ export default class ColourControls extends React.Component {
     const { settings, active } = this.state;
 
     if (settings) {
-      console.log('active: ', active, settings);
+      // console.log('active: ', active, settings);
       const activeColour = settings[active];
       const hsl = activeColour;
 
@@ -219,68 +219,68 @@ export default class ColourControls extends React.Component {
 
       const colourInputs = settings.map(
         (item, index) => (
-                    <ColourInput
-                        value={item}
-                        key={index}
-                        index={index}
-                        active={active === index}
-                        setActiveColour={this.setActiveColour.bind(this)}></ColourInput>
+          <ColourInput
+            value={item}
+            key={index}
+            index={index}
+            active={active === index}
+            setActiveColour={this.setActiveColour.bind(this)}></ColourInput>
         ),
       );
 
       return (
-                <ControlGroup title="Colours">
-                    <Row>
-                        <SmallButton
-                            onClick={this.handleAddColour.bind(this)}
-                            disabled={!(settings.length < this.state.maxColours)}>Add</SmallButton>
-                        <SmallButton
-                            onClick={this.handleRemoveColour.bind(this)}
-                            disabled={!(settings.length > 1)}>Remove</SmallButton>
-                    </Row>
+        <ControlGroup title="Colours">
+          <Row>
+            <SmallButton
+              onClick={this.handleAddColour.bind(this)}
+              disabled={!(settings.length < this.state.maxColours)}>Add</SmallButton>
+            <SmallButton
+              onClick={this.handleRemoveColour.bind(this)}
+              disabled={!(settings.length > 1)}>Remove</SmallButton>
+          </Row>
 
-                    <ColourGroup>
-                        <ColourGroupInner>
-                            {colourInputs}
-                        </ColourGroupInner>
-                    </ColourGroup>
+          <ColourGroup>
+            <ColourGroupInner>
+              {colourInputs}
+            </ColourGroupInner>
+          </ColourGroup>
 
-                    <Label>
-                        hue: {hsl[0]}
-                    </Label>
-                    <RangeInput
-                        min="0"
-                        max="360"
-                        name="hue"
-                        value={hsl[0]}
-                        onChange={this.handleChange.bind(this)}
-                        onMouseUp={this.handleMouseUp.bind(this)} />
-                    <ColourBar background={hueBarBg} />
+          <Label>
+            hue: {hsl[0]}
+          </Label>
+          <RangeInput
+            min="0"
+            max="360"
+            name="hue"
+            value={hsl[0]}
+            onChange={this.handleChange.bind(this)}
+            onMouseUp={this.handleMouseUp.bind(this)} />
+          <ColourBar background={hueBarBg} />
 
-                    <Label>
-                        saturation: {hsl[1]}
-                    </Label>
-                    <RangeInput
-                        min="0"
-                        max="100"
-                        name="saturation"
-                        value={hsl[1]}
-                        onChange={this.handleChange.bind(this)}
-                        onMouseUp={this.handleMouseUp.bind(this)} />
-                    <ColourBar background={satBarBg} />
+          <Label>
+            saturation: {hsl[1]}
+          </Label>
+          <RangeInput
+            min="0"
+            max="100"
+            name="saturation"
+            value={hsl[1]}
+            onChange={this.handleChange.bind(this)}
+            onMouseUp={this.handleMouseUp.bind(this)} />
+          <ColourBar background={satBarBg} />
 
-                    <Label>
-                        luminosity: {hsl[2]}
-                    </Label>
-                    <RangeInput
-                        min="0"
-                        max="100"
-                        name="luminosity"
-                        value={hsl[2]}
-                        onChange={this.handleChange.bind(this)}
-                        onMouseUp={this.handleMouseUp.bind(this)} />
-                    <ColourBar background={lumBarBg} />
-                </ControlGroup>
+          <Label>
+            luminosity: {hsl[2]}
+          </Label>
+          <RangeInput
+            min="0"
+            max="100"
+            name="luminosity"
+            value={hsl[2]}
+            onChange={this.handleChange.bind(this)}
+            onMouseUp={this.handleMouseUp.bind(this)} />
+          <ColourBar background={lumBarBg} />
+        </ControlGroup>
       );
     }
 

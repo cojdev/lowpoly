@@ -1,6 +1,8 @@
 import React from 'react';
-import { TextField, NumberField, Label, Dropdown } from '../widgets/Fields';
-import styled, {css} from 'styled-components';
+import styled, { css } from 'styled-components';
+import {
+ TextField, NumberField, Label, Dropdown 
+} from '../widgets/Fields';
 
 
 const StyledSelectInput = styled.div`
@@ -29,7 +31,9 @@ const StyledLabel = styled.label`
 
 const StyledDropdown = styled(Dropdown)`
     display: block;
+    -webkit-appearance: none;
     width: 100%;
+    background-color: #fff;
     border: 2px solid #eee;
     padding: 1ch;
     border-radius: 3px;
@@ -44,63 +48,64 @@ const StyledDropdown = styled(Dropdown)`
 `;
 
 export default class SelectInput extends React.Component {
+  constructor() {
+    super();
 
-    constructor() {
-        super();
+    this.state = {
+      value: '',
+      focus: false,
+    };
 
-        this.state = {
-            value: '',
-            focus: false,
-        };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
+  }
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleFocus = this.handleFocus.bind(this);
-        this.handleBlur = this.handleBlur.bind(this);
+  componentDidMount() {
+    this.setState({
+      value: (this.props.value !== undefined ? this.props.value : this.state.value),
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.value !== this.props.value) {
+      this.setState({ value: this.props.value });
     }
+  }
 
-    componentDidMount() {
-        this.setState({
-            value: (this.props.value !== undefined ? this.props.value : this.state.value),
-        })
-    }
+  handleFocus(e) {
+    this.setState({ focus: true });
+    if (this.props.onFocus !== undefined) this.props.onFocus.call(this, e);
+  }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.value !== this.props.value) {
-            this.setState({value: this.props.value});
-        }
-    }
+  handleBlur(e) {
+    this.setState({ focus: false });
+    if (this.props.onBlur !== undefined) this.props.onBlur.call(this, e);
+  }
 
-    handleFocus(e) {
-        this.setState({ focus: true });
-        if (this.props.onFocus !== undefined) this.props.onFocus.call(this, e);
-    }
+  handleChange(e) {
+    this.setState({ value: e.target.value });
+    if (this.props.onChange !== undefined) this.props.onChange.call(this, e);
+  }
 
-    handleBlur(e) {
-        this.setState({ focus: false });
-        if (this.props.onBlur !== undefined) this.props.onBlur.call(this, e);
-    }
+  render() {
+    const {
+      name, label, type, children,
+    } = this.props;
+    const { value, focus } = this.state;
 
-    handleChange(e) {
-        this.setState({ value: e.target.value });
-        if (this.props.onChange !== undefined) this.props.onChange.call(this, e);
-    }
+    const fieldProps = {
+      name,
+      value,
+      focus,
+      onChange: this.handleChange,
+      onFocus: this.handleFocus,
+      onBlur: this.handleBlur,
+    };
 
-    render() {
-        const { name, label, type, children } = this.props;
-        const { value, focus } = this.state;
+    // console.log(type);
 
-        const fieldProps = {
-            name,
-            value,
-            focus: focus,
-            onChange: this.handleChange,
-            onFocus: this.handleFocus,
-            onBlur: this.handleBlur,
-        };
-
-        // console.log(type);
-
-        return (
+    return (
             <StyledSelectInput focus={focus}>
                 <StyledLabel
                     focus={focus || value !== ''}
@@ -109,6 +114,6 @@ export default class SelectInput extends React.Component {
                     {children}
                 </StyledDropdown>
             </StyledSelectInput>
-        );
-    }
+    );
+  }
 }
