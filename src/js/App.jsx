@@ -66,123 +66,122 @@ const StyledControls = styled(Controls)`
 `;
 
 export default class App extends React.Component {
+  constructor() {
+    super();
 
-    constructor() {
-        super();
+    this.state = {
+      // default controls values
+      defaults: {
+        dimensions: {
+          width: 1280,
+          height: 720,
+        },
+        geometry: {
+          variance: 0,
+          cellSize: 100,
+          depth: 0,
+        },
+        colour: data.hslpalettes[0],
 
-        this.state = {
-            // default controls values
-            defaults: {
-                dimensions: {
-                    width: 1280,
-                    height: 720,
-                },
-                geometry: {
-                    variance: 35,
-                    cellSize: 50,
-                    depth: 20,
-                },
-                colour: data.hslpalettes[0],
+        image: null,
+        useImage: false,
+      },
+      presets: data.presets,
+      settings: {},
+      output: '',
+      controlsOpen: false,
+    };
 
-                image: null,
-                useImage: false,
-            },
-            presets: data.presets,
-            settings: {},
-            output: '',
-            controlsOpen: false,
-        };
+    // methods for setting application state
+    this.setters = {
+      setDimensions: this.setDimensions.bind(this),
+      setColours: this.setColours.bind(this),
+      setGeometry: this.setGeometry.bind(this),
+      setImage: this.setImage.bind(this),
+      setUseImage: this.setUseImage.bind(this),
+    };
 
-        // methods for setting application state
-        this.setters = {
-            setDimensions: this.setDimensions.bind(this),
-            setColours: this.setColours.bind(this),
-            setGeometry: this.setGeometry.bind(this),
-            setImage: this.setImage.bind(this),
-            setUseImage: this.setUseImage.bind(this),
-        }
+    this.toggleControls = this.toggleControls.bind(this);
+  }
 
-        this.toggleControls = this.toggleControls.bind(this);
-    }
+  componentWillMount() {
+    const defaults = Object.assign({}, this.state.defaults);
+    this.setState({ settings: defaults });
+  }
 
-    componentWillMount() {
-        const defaults = Object.assign({}, this.state.defaults);
-        this.setState({ settings: defaults });
-    }
-
-    /**
+  /**
      * Open and close the controls on mobile devices
      */
-    toggleControls() {
-        this.setState({ controlsOpen: !this.state.controlsOpen });
-    }
+  toggleControls() {
+    this.setState({ controlsOpen: !this.state.controlsOpen });
+  }
 
-    /**
+  /**
      * set dimensions of the image in pixels
      * @param {object} obj {width:Number, height:Number}
      */
-    setDimensions(obj) {
-        let settings = Object.assign({}, this.state.settings);
-        settings.dimensions = obj;
-        this.setState({ settings: settings });
-    }
+  setDimensions(obj) {
+    const settings = Object.assign({}, this.state.settings);
+    settings.dimensions = obj;
+    this.setState({ settings });
+  }
 
-    /**
+  /**
      * sets the colours in the palette
      * @param {array} arr array of colour hex values
      */
-    setColours(arr) {
-        let settings = Object.assign({}, this.state.settings);
-        // console.log(arr);
-        settings.colour = arr;
-        this.setState({ settings: settings });
-    }
+  setColours(arr) {
+    const settings = Object.assign({}, this.state.settings);
+    // console.log(arr);
+    settings.colour = arr;
+    this.setState({ settings });
+  }
 
-    /**
+  /**
      * set geometry
      * @param {number} option attribute being set
      * @param {number} value value
      */
-    setGeometry(option, value) {
-        let settings = Object.assign({}, this.state.settings);
-        settings.geometry[option] = parseInt(value);
-        this.setState({ settings: settings });
-    }
+  setGeometry(option, value) {
+    const settings = Object.assign({}, this.state.settings);
+    settings.geometry[option] = parseInt(value);
+    this.setState({ settings });
+  }
 
-    /**
+  /**
      * Sets the selected image
      * @param {string} image url for specified image
      */
-    setImage(image) {
-        let settings = Object.assign({}, this.state.settings);
-        settings.image = image;
-        this.setState({ settings: settings });
-    }
+  setImage(image) {
+    const settings = Object.assign({}, this.state.settings);
+    settings.image = image;
+    this.setState({ settings });
+  }
 
-    /**
+  /**
      * Toggle using uploaded image in generated picture
-     * @param {boolean} boolean 
+     * @param {boolean} boolean
      */
-    setUseImage(boolean) {
-        let settings = Object.assign({}, this.state.settings);
-        settings.useImage = boolean;
-        this.setState({ settings: settings });
-    }
+  setUseImage(boolean) {
+    const settings = Object.assign({}, this.state.settings);
+    settings.useImage = boolean;
+    this.setState({ settings });
+  }
 
-    /**
+  /**
      * Updates the output dataURI in state
-     * @param {string} value The data URL for the generated canvas 
+     * @param {string} value The data URL for the generated canvas
      */
-    updateOutput(value) {
-        this.setState({ output: value });
-    }
+  updateOutput(value) {
+    this.setState({ output: value });
+  }
 
-    render() {
-        const settings = this.state.settings;
-        const presets = this.state.presets;
-        const output = this.state.output;
+  render() {
+    const settings = this.state.settings;
+    const presets = this.state.presets;
+    const output = this.state.output;
 
-        return (
+    return (
             <Container>
                 <GlobalStyles />
                 <Display
@@ -196,6 +195,6 @@ export default class App extends React.Component {
                     toggleControls={this.toggleControls}
                     { ...this.setters } />
             </Container>
-        );
-    }
+    );
+  }
 }

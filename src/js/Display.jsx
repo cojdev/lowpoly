@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { callbackify } from 'util';
 import theme from './common/theme';
 import drawCanvas from './common/canvas';
+import Lowpoly from './Lowpoly';
 
 const StyledDisplay = styled.div`
   text-align: center;
@@ -42,11 +44,10 @@ export default class Display extends React.Component {
 
   componentDidMount() {
     const canvas = this.refs.canvas1;
-    const canvas2 = this.refs.canvas2;
 
     this.refs.loader.style.display = 'none';
 
-    this.drawCanvas(canvas, canvas2);
+    this.drawCanvas(canvas);
   }
 
   componentDidUpdate(previousProps, previousState) {
@@ -58,7 +59,7 @@ export default class Display extends React.Component {
       self.refs.loader.style.display = 'flex';
 
       // const draw =
-      window.setTimeout(this.drawCanvas.bind(this, canvas, canvas2, () => {
+      window.setTimeout(this.drawCanvas.bind(this, canvas, () => {
         self.refs.loader.style.display = 'none';
       }), 5);
     }
@@ -69,8 +70,21 @@ export default class Display extends React.Component {
    * @param {CanvasRenderingContext2D} context Canvas context
    * @param {HTMLCanvasElement} canvas Canvas element
    */
-  drawCanvas(canvas, canvas2, callback) {
-    drawCanvas.call(this, canvas, canvas2, callback);
+  drawCanvas(canvas, callback = () => null) {
+    // drawCanvas.call(this, canvas, canvas2, callback);
+    const {
+      geometry, colour, image, useImage,
+    } = this.props.settings;
+    const canv = new Lowpoly(canvas);
+    canv.render({
+      variance: geometry.variance,
+      cellSize: geometry.cellSize,
+      depth: geometry.depth,
+      image,
+      colours: colour,
+      useImage,
+    });
+    callback();
   }
 
   render() {

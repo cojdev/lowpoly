@@ -2,27 +2,27 @@ import { drawImageProp } from './common/helpers';
 import { hslToCss } from './common/colour';
 import Triangle from './Triangle';
 
-export default class Canvas {
+export default class Lowpoly {
   constructor(element) {
     this.element = element;
-    this.ctx = this.element.getctx('2d');
+    this.ctx = this.element.getContext('2d');
     this.points = [];
     this.triangles = [];
 
-    this.geometry = 0;
-    this.cellSize = 0;
+    // options
+    this.variance = 4;
+    this.cellSize = 50;
     this.depth = 0;
-
+    this.image = null;
     this.colours = [];
+    this.useImage = false;
+
 
     this.gridWidth = 0;
     this.gridHeight = 0;
 
     this.columnCount = 0;
     this.rowCount = 0;
-
-    this.image = null;
-    this.useImage = false;
   }
 
   drawTriangle(vertices) {
@@ -96,27 +96,27 @@ export default class Canvas {
     } = this;
     const ret = [];
 
-    for (let i = 0; i < rowCount; i++) {
-      for (let j = 0; j < columnCount; j++) {
-        const temp = { x: 0, y: 0 };
+    const pos = {};
 
+    for (let i = 0; i < rowCount; i++) {
+      pos.y = (i * cellSize * 0.866) - cellSize;
+
+      for (let j = 0; j < columnCount; j++) {
         // even rows
         if (i % 2 === 0) {
-          temp.x = (j * cellSize) - cellSize;
-          temp.x += (Math.random() - 0.5) * variance * cellSize * 2;
+          pos.x = (j * cellSize) - cellSize;
+          pos.x += (Math.random() - 0.5) * variance * cellSize * 2;
         } else {
           // odd rows
-          temp.x = (j * cellSize) - cellSize - (cellSize / 2);
-          temp.x += (Math.random() - 0.5) * variance * cellSize * 2;
+          pos.x = (j * cellSize) - cellSize + (cellSize / 2);
+          pos.x += (Math.random() - 0.5) * variance * cellSize * 2;
         }
-
-        temp.y = (i * cellSize * 0.866) - cellSize;
-        temp.y += (Math.random() - 0.5) * variance * cellSize * 2;
-
+        const temp = { ...pos };
         ret.push(temp);
       }
+      pos.y += (Math.random() - 0.5) * variance * cellSize * 2;
     }
-
+    // console.log(ret);
     this.points = ret;
   }
 
@@ -124,20 +124,31 @@ export default class Canvas {
     const { points, rowCount, columnCount } = this;
 
     const ret = [];
+    // console.log(points);
 
     for (let i = 0; i < points.length; i++) {
       // don't add squares/triangles to the end of a row
-      if ((i + 1) % columnCount !== 0 && i < (rowCount - 1 * columnCount)) {
-        const square = [points[i], points[i + 1], points[rowCount + i], points[rowCount + i - 1]];
+      if (i % columnCount !== columnCount - 1 && i < ((rowCount - 1) * columnCount)) {
+        const square = [points[i], points[i + 1], points[columnCount + i + 1], points[columnCount + i]];
+
+        let tri1;
+        let tri2;
 
         // create two triangles from the square;
-        const tri1 = new Triangle([square[0], square[1], square[3]]);
-        const tri2 = new Triangle([square[1], square[2], square[3]]);
+        if (Math.floor(i / columnCount) % 2 !== 0) {
+          tri1 = new Triangle([square[0], square[2], square[3]]);
+          tri2 = new Triangle([square[0], square[1], square[2]]);
+        } else {
+          tri1 = new Triangle([square[0], square[1], square[3]]);
+          tri2 = new Triangle([square[1], square[2], square[3]]);
+        }
 
         ret.push(tri1);
         ret.push(tri2);
       }
     }
+
+    // console.log(ret);
 
     this.triangles = ret;
   }
@@ -145,6 +156,8 @@ export default class Canvas {
   drawCell(cell) {
     const { element, ctx, depth } = this;
     const centre = cell.getCentre();
+
+    // console.log(cell);
 
     // boundaries
     if (centre.x < 0) centre.x = 0;
@@ -162,11 +175,15 @@ export default class Canvas {
       ${alpha / 255}
     )`;
 
-    this.drawTriangle(cell);
+    this.drawTriangle(cell.vertices);
   }
 
   render(options, callback) {
     Object.assign(this, options);
+
+    this.cellSize = (this.cellSize * 3) + 30;
+    this.variance = this.variance / 100;
+    this.depth = this.depth / 200;
 
     this.gridWidth = this.element.width + this.cellSize * 2;
     this.gridHeight = this.element.height + this.cellSize * 2;
@@ -174,18 +191,22 @@ export default class Canvas {
     this.columnCount = Math.ceil(this.gridWidth / this.cellSize) + 2;
     this.rowCount = Math.ceil(this.gridHeight / (this.cellSize * 0.865));
 
+    this.generatePoints();
+    // console.log(this.points);
+    this.generateTriangles();
+
     const { element, ctx, triangles } = this;
 
     // clear canvases
     ctx.clearRect(0, 0, element.width, element.height);
     this.drawBackground();
 
-    this.generatePoints();
-    this.generateTriangles();
+    // console.log(this);
 
     // draw polygons on main canvas
+    // console.log(triangles);
     for (let i = 0; i < triangles.length; i++) {
-      this.drawCell(i);
+      this.drawCell(triangles[i]);
     }
 
     // generate data url of image
