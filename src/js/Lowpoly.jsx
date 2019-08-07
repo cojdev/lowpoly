@@ -168,6 +168,10 @@ export default class Lowpoly {
   drawCell(cell) {
     const { element, ctx, depth } = this;
     const centre = cell.getCentre();
+    // const random = new PRNG(0);
+
+    centre.x += Math.random() * 100 - 50;
+    centre.y += Math.random() * 100 - 50;
 
     // console.log(cell);
 
@@ -203,6 +207,7 @@ export default class Lowpoly {
     Object.assign(this, options);
     let t0;
     let t1;
+    const tracker = {};
 
     this.cellSize = (this.cellSize * 3) + 30;
     this.variance = this.variance / 100;
@@ -217,13 +222,13 @@ export default class Lowpoly {
     t0 = performance.now();
     this.generatePoints();
     t1 = performance.now();
-    console.log(`generatePoints: ${t1 - t0} ms`);
+    tracker.generatePoints = t1 - t0;
 
     // console.log(this.points);
     t0 = performance.now();
     this.generateTriangles();
     t1 = performance.now();
-    console.log(`generateTriangles: ${t1 - t0} ms`);
+    tracker.generateTriangles = t1 - t0;
 
     const { element, ctx, triangles } = this;
 
@@ -233,12 +238,12 @@ export default class Lowpoly {
     t0 = performance.now();
     await this.drawBackground();
     t1 = performance.now();
-    console.log(`drawBackground: ${t1 - t0} ms`);
+    tracker.drawBackground = t1 - t0;
 
     t0 = performance.now();
     this.imageData = ctx.getImageData(0, 0, element.width, element.height).data;
     t1 = performance.now();
-    console.log(`getImageData: ${t1 - t0} ms`);
+    tracker.getImageData = t1 - t0;
 
     // console.log(this);
 
@@ -249,13 +254,15 @@ export default class Lowpoly {
       this.drawCell(triangles[i]);
     }
     t1 = performance.now();
-    console.log(`drawCell: ${t1 - t0} ms`);
+    tracker.drawCell = t1 - t0;
+
+    console.table(tracker);
 
     // generate data url of image
     this.dataUrl = element.toDataURL();
 
     if (callback) {
-      callback();
+      callback(this.dataUrl);
     }
   }
 }
