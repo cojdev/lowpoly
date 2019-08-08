@@ -73,15 +73,15 @@ export default class App extends React.Component {
       // default controls values
       defaults: {
         dimensions: {
-          width: 1280,
-          height: 720,
+          width: 1920,
+          height: 1080,
         },
         geometry: {
-          variance: 0,
-          cellSize: 100,
-          depth: 0,
+          variance: 30,
+          cellSize: 40,
+          depth: 10,
         },
-        colour: data.hslpalettes[0],
+        colour: data.palettes[0],
 
         image: null,
         useImage: false,

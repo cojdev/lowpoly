@@ -23,15 +23,19 @@ export default class Lowpoly {
 
     this.columnCount = 0;
     this.rowCount = 0;
+
+    this.ctx.strokeStyle = '#fff';
   }
 
   drawTriangle(vertices) {
-    this.ctx.beginPath();
-    this.ctx.moveTo(vertices[0].x, vertices[0].y);
-    this.ctx.lineTo(vertices[1].x, vertices[1].y);
-    this.ctx.lineTo(vertices[2].x, vertices[2].y);
-    this.ctx.closePath();
-    this.ctx.fill();
+    const { ctx } = this;
+    ctx.beginPath();
+    ctx.moveTo(vertices[0].x, vertices[0].y);
+    ctx.lineTo(vertices[1].x, vertices[1].y);
+    ctx.lineTo(vertices[2].x, vertices[2].y);
+    ctx.closePath();
+    ctx.fill();
+    // ctx.stroke();
   }
 
   drawBackground() {
@@ -94,78 +98,7 @@ export default class Lowpoly {
     });
   }
 
-  // generate a grid of point objects
-  generatePoints() {
-    const {
-      rowCount, columnCount, cellSize, variance,
-    } = this;
-    const ret = [];
-
-    const random = new PRNG(0);
-
-    for (let i = 0; i < rowCount; i++) {
-      for (let j = 0; j < columnCount; j++) {
-        const temp = {};
-        // get y position and add variance
-        temp.y = (i * cellSize * 0.866) - cellSize;
-        temp.y += (random.generate() - 0.5) * variance * cellSize * 2;
-        // even rows
-        if (i % 2 === 0) {
-          temp.x = (j * cellSize) - cellSize;
-          temp.x += (random.generate() - 0.5) * variance * cellSize * 2;
-        } else {
-          // odd rows
-          temp.x = (j * cellSize) - cellSize + (cellSize / 2);
-          temp.x += (random.generate() - 0.5) * variance * cellSize * 2;
-        }
-
-        ret.push(temp);
-      }
-    }
-    // console.log(ret);
-    this.points = ret;
-  }
-
-  generateTriangles() {
-    const { points, rowCount, columnCount } = this;
-
-    const ret = [];
-    // console.log(points);
-
-    for (let i = 0; i < points.length; i++) {
-      const currentRow = Math.floor(i / columnCount);
-
-      // don't add squares/triangles to the end of a row
-      if (i % columnCount !== columnCount - 1 && i < ((rowCount - 1) * columnCount)) {
-        const square = [
-          points[i],
-          points[i + 1],
-          points[columnCount + i + 1],
-          points[columnCount + i],
-        ];
-
-        let tri1;
-        let tri2;
-
-        // create two triangles from the square;
-        if (currentRow % 2 !== 0) {
-          tri1 = new Triangle([square[0], square[2], square[3]]);
-          tri2 = new Triangle([square[0], square[1], square[2]]);
-        } else {
-          tri1 = new Triangle([square[0], square[1], square[3]]);
-          tri2 = new Triangle([square[1], square[2], square[3]]);
-        }
-
-        ret.push(tri1, tri2);
-      }
-    }
-
-    // console.log(ret);
-
-    this.triangles = ret;
-  }
-
-  drawCell(cell) {
+  drawPoly(cell) {
     const { element, ctx, depth } = this;
     const centre = cell.getCentre();
     // const random = new PRNG(0);
@@ -203,6 +136,73 @@ export default class Lowpoly {
     this.drawTriangle(cell.vertices);
   }
 
+  generatePoints() {
+    const {
+      rowCount, columnCount, cellSize, variance,
+    } = this;
+    const ret = [];
+
+    const random = new PRNG(0);
+
+    for (let i = 0; i < rowCount; i++) {
+      for (let j = 0; j < columnCount; j++) {
+        const temp = {};
+        // get y position and add variance
+        temp.y = (i * cellSize * 0.866) - cellSize;
+        temp.y += (random.generate() - 0.5) * variance * cellSize * 2;
+        // even rows
+        if (i % 2 === 0) {
+          temp.x = (j * cellSize) - cellSize;
+          temp.x += (random.generate() - 0.5) * variance * cellSize * 2;
+        } else {
+          // odd rows
+          temp.x = (j * cellSize) - cellSize + (cellSize / 2);
+          temp.x += (random.generate() - 0.5) * variance * cellSize * 2;
+        }
+
+        ret.push(temp);
+      }
+    }
+
+    this.points = ret;
+  }
+
+  generateTriangles() {
+    const { points, rowCount, columnCount } = this;
+
+    const ret = [];
+
+    for (let i = 0; i < points.length; i++) {
+      const currentRow = Math.floor(i / columnCount);
+
+      // don't add squares/triangles to the end of a row
+      if (i % columnCount !== columnCount - 1 && i < ((rowCount - 1) * columnCount)) {
+        const square = [
+          points[i],
+          points[i + 1],
+          points[columnCount + i + 1],
+          points[columnCount + i],
+        ];
+
+        let tri1;
+        let tri2;
+
+        // create two triangles from the square;
+        if (currentRow % 2 !== 0) {
+          tri1 = new Triangle([square[0], square[2], square[3]]);
+          tri2 = new Triangle([square[0], square[1], square[2]]);
+        } else {
+          tri1 = new Triangle([square[0], square[1], square[3]]);
+          tri2 = new Triangle([square[1], square[2], square[3]]);
+        }
+
+        ret.push(tri1, tri2);
+      }
+    }
+
+    this.triangles = ret;
+  }
+
   async render(options, callback) {
     Object.assign(this, options);
     let t0;
@@ -224,7 +224,6 @@ export default class Lowpoly {
     t1 = performance.now();
     tracker.generatePoints = t1 - t0;
 
-    // console.log(this.points);
     t0 = performance.now();
     this.generateTriangles();
     t1 = performance.now();
@@ -232,7 +231,6 @@ export default class Lowpoly {
 
     const { element, ctx, triangles } = this;
 
-    // clear canvases
     ctx.clearRect(0, 0, element.width, element.height);
 
     t0 = performance.now();
@@ -245,16 +243,13 @@ export default class Lowpoly {
     t1 = performance.now();
     tracker.getImageData = t1 - t0;
 
-    // console.log(this);
-
-    // draw polygons on main canvas
-    // console.log(triangles);
+    // draw polys on main canvas
     t0 = performance.now();
     for (let i = 0; i < triangles.length; i++) {
-      this.drawCell(triangles[i]);
+      this.drawPoly(triangles[i]);
     }
     t1 = performance.now();
-    tracker.drawCell = t1 - t0;
+    tracker.drawPoly = t1 - t0;
 
     console.table(tracker);
 

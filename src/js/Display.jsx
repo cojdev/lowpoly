@@ -30,10 +30,6 @@ const Canvas = styled.canvas`
     0 5px 20px rgba(hexToRgb(#000), .1);
 `;
 
-const HiddenCanvas = styled.canvas`
-  display: none;
-`;
-
 export default class Display extends React.Component {
   constructor() {
     super();
@@ -52,7 +48,6 @@ export default class Display extends React.Component {
 
   componentDidUpdate(previousProps, previousState) {
     const canvas = this.refs.canvas1;
-    const canvas2 = this.refs.canvas2;
     const self = this;
 
     if (previousProps.settings !== this.props.settings) {
@@ -83,6 +78,8 @@ export default class Display extends React.Component {
       image,
       colours: colour,
       useImage,
+    }, (dataURL) => {
+      this.props.updateOutput(dataURL);
     });
     callback();
   }
@@ -100,10 +97,6 @@ export default class Display extends React.Component {
         </div>
         <Canvas
           ref="canvas1"
-          width={width}
-          height={height} />
-        <HiddenCanvas
-          ref="canvas2"
           width={width}
           height={height} />
       </StyledDisplay>

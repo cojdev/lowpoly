@@ -16,7 +16,7 @@ export default class PaletteControls extends React.Component {
     render() {
         return (
             <ControlGroup title="Palettes">
-                {data.hslpalettes.map((item, index) => <ColourPalette key={index} colours={item} handleSetPalette={this.handleSetPalette.bind(this)} />)}
+                {data.palettes.map((item, index) => <ColourPalette key={index} colours={item} handleSetPalette={this.handleSetPalette.bind(this)} />)}
             </ControlGroup>
         );
     }

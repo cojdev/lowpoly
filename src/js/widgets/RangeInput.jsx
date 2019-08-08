@@ -2,46 +2,46 @@ import React from 'react';
 import { RangeSlider } from './Fields';
 
 export default class RangeInput extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            value: 0,
-        }
-    }
+  constructor() {
+    super();
+    this.state = {
+      value: 0,
+    };
+  }
 
-    componentDidMount() {
-        this.setState({
-            value: (this.props.value !== undefined ? this.props.value : this.state.value),
-            min: (this.props.min !== undefined ? this.props.min : this.state.min),
-            max: (this.props.max !== undefined ? this.props.max : this.state.max),
-        })
-    }
+  componentDidMount() {
+    this.setState({
+      value: (this.props.value !== undefined ? this.props.value : this.state.value),
+      min: (this.props.min !== undefined ? this.props.min : this.state.min),
+      max: (this.props.max !== undefined ? this.props.max : this.state.max),
+    });
+  }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.value !== this.props.value) {
-            this.setState({value: this.props.value});
-        }
+  componentDidUpdate(prevProps) {
+    if (prevProps.value !== this.props.value) {
+      this.setState({ value: this.props.value });
     }
+  }
 
-    handleChange(e) {
-        this.setState({ value: e.target.value });
-        this.props.onChange.call(this, e);
-    }
+  handleChange(e) {
+    this.setState({ value: e.target.value });
+    this.props.onChange.call(this, e);
+  }
 
-    handleMouseUp(e) {
-        console.log('up');
-        this.props.onMouseUp.call(this, e);
-    }
+  handleMouseUp(e) {
+    console.log('up');
+    this.props.onMouseUp.call(this, e);
+  }
 
-    render() {
-        return (
-            <RangeSlider
-                value={this.state.value}
-                min={this.props.min !== undefined ? this.props.min : 0}
-                max={this.props.max !== undefined ? this.props.max : 100}
-                name={this.props.name !== undefined ? this.props.name : ''}
-                onChange={this.handleChange.bind(this)}
-                onMouseUp={this.handleMouseUp.bind(this)} />
-        );
-    }
+  render() {
+    return (
+      <RangeSlider
+        value={this.state.value}
+        min={this.props.min !== undefined ? this.props.min : 0}
+        max={this.props.max !== undefined ? this.props.max : 100}
+        name={this.props.name !== undefined ? this.props.name : ''}
+        onChange={this.handleChange.bind(this)}
+        onMouseUp={this.handleMouseUp.bind(this)} />
+    );
+  }
 }
