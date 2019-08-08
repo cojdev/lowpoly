@@ -75,6 +75,7 @@ export default class Display extends React.Component {
       variance: geometry.variance,
       cellSize: geometry.cellSize,
       depth: geometry.depth,
+      dither: geometry.dither,
       image,
       colours: colour,
       useImage,

@@ -80,6 +80,7 @@ export default class App extends React.Component {
           variance: 30,
           cellSize: 40,
           depth: 10,
+          dither: 10,
         },
         colour: data.palettes[0],
 

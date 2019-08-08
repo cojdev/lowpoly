@@ -21,13 +21,11 @@ export default class GeometryControls extends React.Component {
 
     this.state = {
       settings: {},
-      mouseX: 0,
-      mouseY: 0,
     };
   }
 
   componentDidMount() {
-    const settings = this.props.settings;
+    const settings = duplicate(this.props.settings);
 
     this.setState({ settings });
   }
@@ -41,18 +39,12 @@ export default class GeometryControls extends React.Component {
   }
 
   handleBlur(option, e) {
-    const value = e.target.value;
+    const { value } = e.target;
     this.props.setGeometry.call(this, option, value);
   }
 
-  getMousePos(e) {
-    this.setState({ mouseX: e.pageX, mouseY: e.pageY }, () => {
-      // console.log(this.state.mouseX + ', ' + this.state.mouseY);
-    });
-  }
-
   render() {
-    const settings = this.state.settings;
+    const { settings } = this.state;
 
     const options = Object.keys(settings).map((item, index) => (
       <div
@@ -69,8 +61,7 @@ export default class GeometryControls extends React.Component {
     ));
 
     return (
-      <StyledControlGroup title="Geometry"
-        onMouseMove={this.getMousePos.bind(this)}>
+      <StyledControlGroup title="Geometry">
         {options}
       </StyledControlGroup>
     );

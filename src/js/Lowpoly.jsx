@@ -99,12 +99,16 @@ export default class Lowpoly {
   }
 
   drawPoly(cell) {
-    const { element, ctx, depth } = this;
+    const {
+      element, ctx, depth, dither,
+    } = this;
     const centre = cell.getCentre();
     // const random = new PRNG(0);
+    const ditherX = (dither / 200) * element.width;
+    const ditherY = (dither / 200) * element.height;
 
-    centre.x += Math.random() * 100 - 50;
-    centre.y += Math.random() * 100 - 50;
+    centre.x += Math.random() * ditherX - ditherX / 2;
+    centre.y += Math.random() * ditherY - ditherY / 2;
 
     // console.log(cell);
 
