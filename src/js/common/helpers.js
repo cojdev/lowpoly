@@ -127,3 +127,9 @@ export class PRNG {
     return min + ((this.next() - 1) / 2147483646) * (max - min);
   }
 }
+
+/**
+ * Capitalises the first letter of a string
+ * @param {string} string Input string
+ */
+export const capitalise = string => string.charAt(0).toUpperCase() + string.slice(1);

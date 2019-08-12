@@ -11,37 +11,37 @@ import theme from './common/theme';
 
 const GlobalStyles = createGlobalStyle`
     *,*::before,*::after {
-        box-sizing: border-box;
+      box-sizing: border-box;
     }
 
     html,
     body {
-        margin: 0;
-        padding: 0;
+      margin: 0;
+      padding: 0;
     }
 
     html {
-        font-family: ${theme.fonts.base};
-        color: #333;
-        background: #f6f6f6;
-        font-size: 16px;
+      font-family: ${theme.fonts.base};
+      color: #333;
+      background: #f6f6f6;
+      font-size: 16px;
     }
 
     a {
-        color: #48b;
-        text-decoration: none;
-        :hover {
-            text-decoration: underline;
-        }
+      color: #48b;
+      text-decoration: none;
+      :hover {
+        text-decoration: underline;
+      }
     }
 
     button {
-        outline: none !important;
-        font-family: inherit;
+      outline: none !important;
+      font-family: inherit;
     }
 
     input {
-        font-family: inherit;
+      font-family: inherit;
     }
 `;
 
@@ -51,18 +51,18 @@ const Container = styled.div`
 
 const StyledControls = styled(Controls)`
 
-    @media screen and (max-width: 800px) {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        transform: translateX(calc(100% - 5rem));
-        transition: transform ${theme.controls.transition};
+  @media screen and (max-width: 800px) {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateX(calc(100% - 5rem));
+    transition: transform ${theme.controls.transition};
 
-        ${props => props.open && css`
-            transform: none;
-        `}
-    }
+    ${props => props.open && css`
+      transform: none;
+    `}
+  }
 `;
 
 export default class App extends React.Component {
@@ -93,6 +93,8 @@ export default class App extends React.Component {
       controlsOpen: false,
     };
 
+    this.state.settings = Object.assign({}, this.state.defaults);
+
     // methods for setting application state
     this.setters = {
       setDimensions: this.setDimensions.bind(this),
@@ -105,22 +107,17 @@ export default class App extends React.Component {
     this.toggleControls = this.toggleControls.bind(this);
   }
 
-  componentWillMount() {
-    const defaults = Object.assign({}, this.state.defaults);
-    this.setState({ settings: defaults });
-  }
-
   /**
-     * Open and close the controls on mobile devices
-     */
+   * Open and close the controls on mobile devices
+   */
   toggleControls() {
     this.setState({ controlsOpen: !this.state.controlsOpen });
   }
 
   /**
-     * set dimensions of the image in pixels
-     * @param {object} obj {width:Number, height:Number}
-     */
+   * set dimensions of the image in pixels
+   * @param {object} obj {width:Number, height:Number}
+   */
   setDimensions(obj) {
     const settings = Object.assign({}, this.state.settings);
     settings.dimensions = obj;
@@ -128,9 +125,9 @@ export default class App extends React.Component {
   }
 
   /**
-     * sets the colours in the palette
-     * @param {array} arr array of colour hex values
-     */
+   * sets the colours in the palette
+   * @param {array} arr array of colour hex values
+   */
   setColours(arr) {
     const settings = Object.assign({}, this.state.settings);
     // console.log(arr);
@@ -139,20 +136,20 @@ export default class App extends React.Component {
   }
 
   /**
-     * set geometry
-     * @param {number} option attribute being set
-     * @param {number} value value
-     */
+   * set geometry
+   * @param {number} option attribute being set
+   * @param {number} value value
+   */
   setGeometry(option, value) {
     const settings = Object.assign({}, this.state.settings);
-    settings.geometry[option] = parseInt(value);
+    settings.geometry[option] = parseInt(value, 10);
     this.setState({ settings });
   }
 
   /**
-     * Sets the selected image
-     * @param {string} image url for specified image
-     */
+   * Sets the selected image
+   * @param {string} image url for specified image
+   */
   setImage(image) {
     const settings = Object.assign({}, this.state.settings);
     settings.image = image;
@@ -160,9 +157,9 @@ export default class App extends React.Component {
   }
 
   /**
-     * Toggle using uploaded image in generated picture
-     * @param {boolean} boolean
-     */
+   * Toggle using uploaded image in generated picture
+   * @param {boolean} boolean
+   */
   setUseImage(boolean) {
     const settings = Object.assign({}, this.state.settings);
     settings.useImage = boolean;
@@ -170,32 +167,30 @@ export default class App extends React.Component {
   }
 
   /**
-     * Updates the output dataURI in state
-     * @param {string} value The data URL for the generated canvas
-     */
+   * Updates the output dataURI in state
+   * @param {string} value The data URL for the generated canvas
+   */
   updateOutput(value) {
     this.setState({ output: value });
   }
 
   render() {
-    const settings = this.state.settings;
-    const presets = this.state.presets;
-    const output = this.state.output;
+    const { settings, presets, output } = this.state;
 
     return (
-            <Container>
-                <GlobalStyles />
-                <Display
-                    settings={settings}
-                    updateOutput={this.updateOutput.bind(this)} />
-                <StyledControls
-                    settings={settings}
-                    presets={presets}
-                    output={output}
-                    open={this.state.controlsOpen}
-                    toggleControls={this.toggleControls}
-                    { ...this.setters } />
-            </Container>
+      <Container>
+        <GlobalStyles />
+        <Display
+          settings={settings}
+          updateOutput={this.updateOutput.bind(this)} />
+        <StyledControls
+          settings={settings}
+          presets={presets}
+          output={output}
+          open={this.state.controlsOpen}
+          toggleControls={this.toggleControls}
+          {...this.setters} />
+      </Container>
     );
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
+import styled, { css } from 'styled-components';
 import { TextField, NumberField, Label } from '../widgets/Fields';
-import styled, {css} from 'styled-components';
 
 
 const StyledSingleInput = styled.div`
@@ -8,7 +8,7 @@ const StyledSingleInput = styled.div`
     margin-top: 1rem;
 `;
 
-const StyledLabel = styled.label`
+const StyledLabel = styled(Label)`
     position: absolute;
     top: 1ch;
     left: 1ch;
@@ -54,83 +54,82 @@ const StyledTextField = styled(TextField)`
 `;
 
 export default class SingleInput extends React.Component {
+  constructor() {
+    super();
 
-    constructor() {
-        super();
+    this.state = {
+      value: '',
+      focus: false,
+    };
 
-        this.state = {
-            value: '',
-            focus: false,
-        };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
+  }
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleFocus = this.handleFocus.bind(this);
-        this.handleBlur = this.handleBlur.bind(this);
+  componentDidMount() {
+    this.setState({
+      value: (this.props.value !== undefined ? this.props.value : this.state.value),
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.value !== this.props.value) {
+      this.setState({ value: this.props.value });
+    }
+  }
+
+  handleFocus(e) {
+    this.setState({ focus: true });
+    if (this.props.onFocus !== undefined) this.props.onFocus.call(this, e);
+  }
+
+  handleBlur(e) {
+    this.setState({ focus: false });
+    if (this.props.onBlur !== undefined) this.props.onBlur.call(this, e);
+  }
+
+  handleChange(e) {
+    this.setState({ value: e.target.value });
+    if (this.props.onChange !== undefined) this.props.onChange.call(this, e);
+  }
+
+  render() {
+    const { name, label, type } = this.props;
+    const { value, focus } = this.state;
+
+    const fieldProps = {
+      name,
+      value,
+      focus,
+      onChange: this.handleChange,
+      onFocus: this.handleFocus,
+      onBlur: this.handleBlur,
+    };
+
+    let input;
+
+    // console.log(type);
+
+    switch (type) {
+      case 'text':
+        input = <StyledTextField {...fieldProps} />;
+        break;
+      case 'number':
+        input = <StyledNumberField {...fieldProps} />;
+        break;
+      default:
+        input = <StyledTextField {...fieldProps} />;
+        break;
     }
 
-    componentDidMount() {
-        this.setState({
-            value: (this.props.value !== undefined ? this.props.value : this.state.value),
-        })
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.value !== this.props.value) {
-            this.setState({value: this.props.value});
-        }
-    }
-
-    handleFocus(e) {
-        this.setState({ focus: true });
-        if (this.props.onFocus !== undefined) this.props.onFocus.call(this, e);
-    }
-
-    handleBlur(e) {
-        this.setState({ focus: false });
-        if (this.props.onBlur !== undefined) this.props.onBlur.call(this, e);
-    }
-
-    handleChange(e) {
-        this.setState({ value: e.target.value });
-        if (this.props.onChange !== undefined) this.props.onChange.call(this, e);
-    }
-
-    render() {
-        const { name, label, type } = this.props;
-        const { value, focus } = this.state;
-
-        const fieldProps = {
-            name,
-            value,
-            focus: focus,
-            onChange: this.handleChange,
-            onFocus: this.handleFocus,
-            onBlur: this.handleBlur,
-        };
-
-        let input;
-
-        // console.log(type);
-
-        switch (type) {
-            case 'text':
-                input = <StyledTextField {...fieldProps} />;
-                break;
-            case 'number':
-                input = <StyledNumberField {...fieldProps} />;
-                break;
-            default:
-                input = <StyledTextField {...fieldProps} />;
-                break;
-        }
-
-        return (
+    return (
             <StyledSingleInput focus={focus}>
                 <StyledLabel
                     focus={focus || value !== ''}
                     htmlFor={name}>{label}</StyledLabel>
                 {input}
             </StyledSingleInput>
-        );
-    }
+    );
+  }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ControlGroup from '../widgets/ControlGroup';
 import { Checkbox, Label } from '../widgets/Fields';
-import theme from '../common/theme';
+import theme, { colours } from '../common/theme';
 
 const StyledControlGroup = styled(ControlGroup)`
 
@@ -42,7 +42,7 @@ const StyledFileInput = styled.input`
         padding: 1em;
         border-radius: 4px;
         border: 2px solid #eee;
-        color: ${theme.colours.primary};
+        color: ${colours.primary};
         font-weight: 600;
         text-align: center;
         cursor: pointer;
@@ -70,91 +70,87 @@ const Image = styled.img`
     max-height: 200px;
 `;
 
-String.prototype.capitalise = function () {
-    return this.charAt(0).toUpperCase() + this.slice(1);
-}
-
 export default class ImageControls extends React.Component {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.state = {
-            settings: null,
-            value: '',
-            useImage: false,
-        };
+    this.state = {
+      settings: null,
+      value: '',
+      useImage: false,
+    };
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleDrop = this.handleDrop.bind(this);
-        this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleDrop = this.handleDrop.bind(this);
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+  }
+
+  componentDidMount() {
+    const { settings } = this.props;
+    const { useImage } = this.props;
+
+    this.setState({ settings, useImage });
+  }
+
+  handleChange(e) {
+    if (e.target.files && e.target.files[0]) {
+      const reader = new FileReader();
+
+      reader.onload = (f) => {
+        this.props.setImage.call(this, f.target.result);
+        this.setState({ settings: f.target.result });
+      };
+
+      reader.readAsDataURL(e.target.files[0]);
     }
+  }
 
-    componentDidMount() {
-        const settings = this.props.settings;
-        const useImage = this.props.useImage;
+  handleDrop(e) {
+    // Prevent default behavior (Prevent file from being opened)
+    e.preventDefault();
 
-        this.setState({ settings: settings, useImage });
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      const reader = new FileReader();
+
+      reader.onload = (f) => {
+        this.props.setImage.call(this, f.target.result);
+        this.setState({ settings: f.target.result });
+      };
+
+      reader.readAsDataURL(e.dataTransfer.files[0]);
     }
+  }
 
-    handleChange(e) {
-        if (e.target.files && e.target.files[0]) {
-            const reader = new FileReader();
+  handleDragOver(e) {
+    // Prevent default behavior (Prevent file from being opened)
+    e.preventDefault();
+  }
 
-            reader.onload = (e) => {
-                this.props.setImage.call(this, e.target.result);
-                this.setState({ settings: e.target.result });
-            }
+  handleCheckboxChange(e) {
+    this.props.setUseImage.call(this, e.target.checked);
+    this.setState({ useImage: e.target.checked });
+  }
 
-            reader.readAsDataURL(e.target.files[0]);
-        }
-    }
+  render() {
+    const { settings, value, useImage } = this.state;
 
-    handleDrop(e) {
-        // Prevent default behavior (Prevent file from being opened)
-        e.preventDefault();
+    return (
+      <StyledControlGroup
+        title="Image">
 
-        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-            const reader = new FileReader();
-
-            reader.onload = (e) => {
-                this.props.setImage.call(this, e.target.result);
-                this.setState({ settings: e.target.result });
-            }
-
-            reader.readAsDataURL(e.dataTransfer.files[0]);
-        }
-    }
-
-    handleDragOver(e) {
-        // Prevent default behavior (Prevent file from being opened)
-        e.preventDefault();
-    }
-
-    handleCheckboxChange(e) {
-        this.props.setUseImage.call(this, e.target.checked);
-        this.setState({ useImage: e.target.checked });
-    }
-
-    render() {
-
-        const { settings, value, useImage } = this.state;
-
-        return (
-            <StyledControlGroup
-                title="Image">
-
-                {settings ? (
-                    <PreviewWrap>
-                        <Preview>
-                            <Image src={settings} />
-                        </Preview>
-                    </PreviewWrap>
-                ) : ''}
-                <StyledFileInput id="file" type="file" value={value} onChange={this.handleChange} />
-                <label htmlFor="file" onDrop={this.handleDrop} onDragOver={this.handleDragOver}>Select an Image...</label>
-                <br />
-                <Label><Checkbox checked={useImage} onChange={this.handleCheckboxChange} /> Use image</Label>
-            </StyledControlGroup>
-        );
-    }
+        {settings ? (
+          <PreviewWrap>
+            <Preview>
+              <Image src={settings} />
+            </Preview>
+          </PreviewWrap>
+        ) : ''}
+        <StyledFileInput id="file" type="file" value={value} onChange={this.handleChange} />
+        <label htmlFor="file" onDrop={this.handleDrop} onDragOver={this.handleDragOver}>Select an Image...</label>
+        <br />
+        <Checkbox id="use-image-checkbox" checked={useImage} onChange={this.handleCheckboxChange} />
+        <Label htmlFor="use-image-checkbox">Use image</Label>
+      </StyledControlGroup>
+    );
+  }
 }

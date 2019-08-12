@@ -32,6 +32,8 @@
         "class-methods-use-this": "off",
         "no-console": "off",
         "func-names": "off",
-        "linebreak-style": "off"
+        "linebreak-style": "off",
+        "no-param-reassign": ["error", {"props": false}],
+        "react/prop-types": "off"
     }
 }

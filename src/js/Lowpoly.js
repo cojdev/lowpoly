@@ -1,5 +1,5 @@
 import { drawImageProp, PRNG } from './common/helpers';
-import { hslToCss, getRandomHex } from './common/colour';
+import { hslToCss } from './common/colour';
 import Triangle from './Triangle';
 
 export default class Lowpoly {
@@ -16,7 +16,6 @@ export default class Lowpoly {
     this.image = null;
     this.colours = [];
     this.useImage = false;
-
 
     this.gridWidth = 0;
     this.gridHeight = 0;
@@ -35,7 +34,6 @@ export default class Lowpoly {
     ctx.lineTo(vertices[2].x, vertices[2].y);
     ctx.closePath();
     ctx.fill();
-    // ctx.stroke();
   }
 
   drawBackground() {
@@ -51,7 +49,6 @@ export default class Lowpoly {
 
       return new Promise((resolve) => {
         baseImage.onload = () => {
-          // use image instead of gradient
           // drawImageProp simulates background-size: cover
           drawImageProp(ctx, baseImage);
           resolve();
@@ -70,7 +67,8 @@ export default class Lowpoly {
           hslToCss(...colours[i]),
         );
       } else {
-        gradient = colours[i];
+        // use a single colour
+        gradient = hslToCss(...colours[i]);
       }
     }
 

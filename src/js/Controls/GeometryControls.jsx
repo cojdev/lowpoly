@@ -2,14 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import ControlGroup from '../widgets/ControlGroup';
 import { Label, RangeSlider } from '../widgets/Fields';
+import { capitalise } from '../common/helpers';
 
 const StyledControlGroup = styled(ControlGroup)`
 
 `;
-
-String.prototype.capitalise = function () {
-  return this.charAt(0).toUpperCase() + this.slice(1);
-};
 
 const duplicate = function (obj) {
   return Object.assign({}, obj);
@@ -49,7 +46,7 @@ export default class GeometryControls extends React.Component {
     const options = Object.keys(settings).map((item, index) => (
       <div
         key={index}>
-        <Label htmlFor={item}>{item.capitalise()}: {settings[item]}</Label>
+        <Label htmlFor={item}>{capitalise(item)}: {settings[item]}</Label>
         <RangeSlider
           id={item}
           min="0"
