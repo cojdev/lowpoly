@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import ControlGroup from '../widgets/ControlGroup';
 import { Checkbox, Label } from '../widgets/Fields';
-import theme, { colours } from '../common/theme';
+import { colours } from '../common/theme';
+import Button from '../widgets/Button';
 
 const StyledControlGroup = styled(ControlGroup)`
 
@@ -150,6 +151,7 @@ export default class ImageControls extends React.Component {
         <br />
         <Checkbox id="use-image-checkbox" checked={useImage} onChange={this.handleCheckboxChange} />
         <Label htmlFor="use-image-checkbox">Use image</Label>
+        <Button></Button>
       </StyledControlGroup>
     );
   }

@@ -3,9 +3,7 @@ import styled, { css } from 'styled-components';
 import animate from '../common/animate';
 import theme from '../common/theme';
 
-const StyledControlGroup = styled.section`
-    /* border-bottom: 1px solid #ddd; */
-`;
+const StyledControlGroup = styled.section``;
 
 const Heading = styled.button`
     line-height: 2.4;
@@ -70,35 +68,39 @@ const ContentInner = styled.div`
 `;
 
 export default class ControlGroup extends React.Component {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.state = {
-            open: true,
-        };
+    this.state = {
+      open: true,
+    };
 
-        this.content = React.createRef();
+    this.content = React.createRef();
+  }
+
+  toggleOpen() {
+    if (this.state.open) {
+      animate.slideUp(this.content.current);
+    } else {
+      animate.slideDown(this.content.current);
     }
+    this.setState({ open: !this.state.open });
+  }
 
-    toggleOpen() {
-        this.state.open ? animate.slideUp(this.content.current) : animate.slideDown(this.content.current);
-        this.setState({ open: !this.state.open });
-    }
-
-    render() {
-        return (
-            <StyledControlGroup className={this.props.className}>
-                <Heading
-                onClick={this.toggleOpen.bind(this)}
-                    open={this.state.open}>
-                    {this.props.title}
-                    <Arrow open={this.state.open} />
-                </Heading>
-                    {this.state.open ?
-                        '' :
-                        ''}
-                <Content ref={this.content}><ContentInner>{this.props.children}</ContentInner></Content>
-            </StyledControlGroup>
-        );
-    }
+  render() {
+    return (
+      <StyledControlGroup className={this.props.className}>
+        <Heading
+          onClick={this.toggleOpen.bind(this)}
+          open={this.state.open}>
+          {this.props.title}
+          <Arrow open={this.state.open} />
+        </Heading>
+        {this.state.open
+          ? ''
+          : ''}
+        <Content ref={this.content}><ContentInner>{this.props.children}</ContentInner></Content>
+      </StyledControlGroup>
+    );
+  }
 }

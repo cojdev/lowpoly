@@ -7,11 +7,10 @@ import * as colour from '../common/colour';
 import ColourInput from '../widgets/ColourInput';
 import { Label } from '../widgets/Fields';
 import RangeInput from '../widgets/RangeInput';
-import ColourPalette from '../widgets/ColourPalette';
 import ControlGroup from '../widgets/ControlGroup';
-import { Button } from '../widgets/Button';
+import Button from '../widgets/Button';
 
-import data from '../data';
+// import data from '../data';
 
 const Row = styled.div`
     display: flex;
@@ -19,8 +18,7 @@ const Row = styled.div`
     margin: -.5ch;
 `;
 
-const SmallButton = styled.button`
-    ${Button}
+const SmallButton = styled(Button)`
 
     display: inline-block;
     padding: .5ch .5rem;
@@ -31,16 +29,6 @@ const SmallButton = styled.button`
         background: #eee;
         color: #888;
     `}
-`;
-
-const AddButton = styled.button`
-    ${Button}
-
-    display: inline-block;
-    width: 2rem;
-    padding: .5ch .5rem;
-    height: 2rem;
-    margin-left: 1ch;
 `;
 
 const ColourGroup = styled.div`
@@ -59,23 +47,18 @@ const ColourGroupInner = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    /* z-index: -1; */
     display: flex;
     background: #ccc;
 `;
 
 const ColourBar = styled.div.attrs(props => ({
-  style: {
-    background: props.background,
-  },
+  style: { background: props.background },
 }))`
     display: block;
     width: 100%;
     height: 5px;
     border-radius: 10px;
 `;
-
-const Heading = styled.h3``;
 
 export default class ColourControls extends React.Component {
   constructor() {
@@ -92,7 +75,6 @@ export default class ColourControls extends React.Component {
 
   componentDidMount() {
     const settings = this.props.settings.slice();
-
     this.setState({ settings });
   }
 
@@ -115,8 +97,8 @@ export default class ColourControls extends React.Component {
   }
 
   /**
-       * Add a colour to current palette
-       */
+   * Add a colour to current palette
+   */
   handleAddColour() {
     const settings = this.state.settings.slice();
 
@@ -127,15 +109,15 @@ export default class ColourControls extends React.Component {
   }
 
   /**
-       * Select a colour in the active palette triggered by an event
-       */
+   * Select a colour in the active palette triggered by an event
+   */
   setActiveColour(e) {
     this.setState({ active: parseInt(e.target.getAttribute('data-id'), 10) });
   }
 
   /**
-       * Remove a colour from the current palette
-       */
+   * Remove a colour from the current palette
+   */
   handleRemoveColour() {
     const settings = this.state.settings.slice();
     const { active } = this.state;
@@ -154,8 +136,8 @@ export default class ColourControls extends React.Component {
   }
 
   /**
-       * Handle change in colour component values
-       */
+   * Handle change in colour component values
+   */
   handleChange(e) {
     const { target } = e;
     const { active } = this.state;
@@ -164,17 +146,9 @@ export default class ColourControls extends React.Component {
     // deep clone global colours
     const colours = this.props.settings.slice().map(item => item.slice());
 
-    switch (target.name) {
-      case 'hue':
-        colours[active][0] = value;
-        break;
-      case 'saturation':
-        colours[active][1] = value;
-        break;
-      case 'luminosity':
-        colours[active][2] = value;
-        break;
-    }
+    if (target.name === 'hue') colours[active][0] = value;
+    if (target.name === 'saturation') colours[active][1] = value;
+    if (target.name === 'luminosity') colours[active][2] = value;
 
     this.setState({ settings: colours });
   }
@@ -199,7 +173,6 @@ export default class ColourControls extends React.Component {
     const { settings, active } = this.state;
 
     if (settings) {
-      // console.log('active: ', active, settings);
       const activeColour = settings[active];
       const hsl = activeColour;
 

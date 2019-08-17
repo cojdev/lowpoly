@@ -26,13 +26,13 @@ export function uuid(length = 6) {
 
 /**
  * create a copy of a primitive
- * @param {any} obj
+ * @param {object|array} obj
  */
 export const clone = function (obj) {
   if (typeof obj === 'object') {
     return Object.assign({}, obj);
   }
-  if (typeof obj === 'array') {
+  if (Array.isArray(obj)) {
     return obj.slice();
   }
   return obj;
@@ -45,12 +45,13 @@ export const clone = function (obj) {
  *
  * If image and context are only arguments rectangle will equal canvas
 */
-export function drawImageProp(ctx, img, x, y, w, h, offsetX = 0.5, offsetY = 0.5) {
-  if (arguments.length === 2) {
-    x = y = 0;
-    w = ctx.canvas.width;
-    h = ctx.canvas.height;
-  }
+export function drawImageProp(ctx, img, xpos, ypos, width, height, offX = 0.5, offY = 0.5) {
+  const x = xpos || 0;
+  const y = ypos || 0;
+  const w = width || ctx.canvas.width;
+  const h = height || ctx.canvas.height;
+  let offsetX = offX || 0;
+  let offsetY = offY || 0;
 
   // keep bounds [0.0, 1.0]
   if (offsetX < 0) offsetX = 0;
@@ -59,13 +60,8 @@ export function drawImageProp(ctx, img, x, y, w, h, offsetX = 0.5, offsetY = 0.5
   if (offsetY > 1) offsetY = 1;
 
   const iw = img.width;
-
-
   const ih = img.height;
-
-
   const r = Math.min(w / iw, h / ih);
-
 
   let nw = iw * r;
   // new prop. width

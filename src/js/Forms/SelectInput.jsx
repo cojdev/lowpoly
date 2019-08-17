@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import {
- TextField, NumberField, Label, Dropdown 
+  Label, Dropdown,
 } from '../widgets/Fields';
 
 
@@ -10,7 +10,7 @@ const StyledSelectInput = styled.div`
     margin-top: 1rem;
 `;
 
-const StyledLabel = styled.label`
+const StyledLabel = styled(Label)`
     position: absolute;
     top: 0;
     left: 1ch;
@@ -89,31 +89,42 @@ export default class SelectInput extends React.Component {
   }
 
   render() {
-    const {
-      name, label, type, children,
-    } = this.props;
+    const { name, label } = this.props;
     const { value, focus } = this.state;
 
     const fieldProps = {
       name,
       value,
       focus,
+      placeholder: 'Select...',
       onChange: this.handleChange,
       onFocus: this.handleFocus,
       onBlur: this.handleBlur,
     };
 
-    // console.log(type);
+    const options = Object.entries(this.props.options).map((item, index) => (
+      <optgroup key={index} label={item[0]}>
+
+        {Object.entries(item[1]).map((item2, index2) => (
+          <option
+            value={item2[0]}
+            key={index2}>{item2[0]}</option>
+        ))}
+
+      </optgroup>
+    ));
 
     return (
-            <StyledSelectInput focus={focus}>
-                <StyledLabel
-                    focus={focus || value !== ''}
-                    htmlFor={name}>{label}</StyledLabel>
-                <StyledDropdown {...fieldProps}>
-                    {children}
-                </StyledDropdown>
-            </StyledSelectInput>
+      <StyledSelectInput focus={focus}>
+        <StyledLabel
+          focus={focus || value !== ''}
+          htmlFor={name}>{label}</StyledLabel>
+        <StyledDropdown {...fieldProps}>
+          <option
+            value="null">{fieldProps.placeholder}</option>
+          {options}
+        </StyledDropdown>
+      </StyledSelectInput>
     );
   }
 }

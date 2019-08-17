@@ -1,17 +1,10 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import ControlGroup from '../widgets/ControlGroup';
-import {
-  TextField, Dropdown, NumberField, Label,
-} from '../widgets/Fields';
-import { Button } from '../widgets/Button';
+import Button from '../widgets/Button';
 import { row, column } from '../common/mixins';
 import SingleInput from '../Forms/SingleInput';
 import SelectInput from '../Forms/SelectInput';
-
-const StyledControlGroup = styled(ControlGroup)`
-
-`;
 
 const Row = styled.div`
     ${row};
@@ -19,12 +12,10 @@ const Row = styled.div`
 
 const Column = styled.div`
     ${column};
-    width: calc(50% - 1em);
+    width: calc(${props => props.width * 100 || 50}% - .5rem);
 `;
 
-const SetButton = styled.button`
-    ${Button};
-`;
+const SetButton = styled(Button)``;
 
 export default class DimensionControls extends React.Component {
   constructor(props) {
@@ -43,11 +34,11 @@ export default class DimensionControls extends React.Component {
   }
 
   handlePreset(e) {
+    const { presets } = this.props;
     if (e.target.value !== 'null') {
-      let p;
-      this.props.presets.forEach((item) => {
-        p = item.values.find(item2 => item2.label === e.target.value) || p;
-      });
+      const p = Object.values(presets)
+        .find(item => item[e.target.value] !== undefined)[e.target.value];
+
       const dims = [p.width, p.height];
       this.setState({
         width: dims[0],
@@ -70,32 +61,23 @@ export default class DimensionControls extends React.Component {
   }
 
   render() {
-    const presets = this.props.presets.map((item, index) => (
-      <optgroup key={index} label={item.label}>
-
-        {item.values.map((item2, index2) => {
-          const value = item2.label;
-
-          return (
-            <option
-              value={value}
-              key={index2}>{item2.label}</option>
-          );
-        })}
-
-      </optgroup>
-    ));
+    const { presets } = this.props;
 
     return (
-      <StyledControlGroup title="Dimensions">
-        <SelectInput
-          name="presets"
-          label="Presets"
-          onChange={this.handlePreset.bind(this)}>
-          {presets}
-        </SelectInput>
+      <ControlGroup title="Dimensions">
         <Row>
-          <Column>
+
+          {/* Presets */}
+          <Column width={0.5}>
+            <SelectInput
+              name="presets"
+              label="Presets"
+              onChange={this.handlePreset.bind(this)}
+              options={presets} />
+          </Column>
+
+          {/* Width */}
+          <Column width={0.25}>
             <SingleInput
               type="number"
               name="width"
@@ -103,7 +85,9 @@ export default class DimensionControls extends React.Component {
               value={this.state.width}
               onChange={this.handleWidth.bind(this)} />
           </Column>
-          <Column>
+
+          {/* Height */}
+          <Column width={0.25}>
             <SingleInput
               type="number"
               name="height"
@@ -116,7 +100,7 @@ export default class DimensionControls extends React.Component {
         <SetButton
           onClick={this.handleSubmit.bind(this)}>Resize</SetButton>
 
-      </StyledControlGroup>
+      </ControlGroup>
     );
   }
 }

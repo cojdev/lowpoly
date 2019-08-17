@@ -1,6 +1,5 @@
-/* eslint-disable no-param-reassign */
 export default {
-  slideUp: (elem) => {
+  slideUp(elem) {
     const height = elem.offsetHeight;
 
     elem.style.height = `${height}px`;
@@ -9,7 +8,7 @@ export default {
       elem.style.height = '0px';
     });
   },
-  slideDown: (elem) => {
+  slideDown(elem) {
     const height = elem.children[0].scrollHeight;
     elem.style.height = '0px';
 

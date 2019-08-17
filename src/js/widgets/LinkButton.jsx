@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import styles from './styles';
 
-export const StyledButton = styled.button`
+export const StyledButton = styled.a`
   ${styles.button}
 `;
 
-const Button = props => (
+const LinkButton = props => (
   <StyledButton {...props}>{props.children}</StyledButton>
 );
 
-export default Button;
+export default LinkButton;

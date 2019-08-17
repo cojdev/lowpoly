@@ -66,7 +66,6 @@ export default class Display extends React.Component {
    * @param {HTMLCanvasElement} canvas Canvas element
    */
   drawCanvas(canvas, callback = () => null) {
-    // drawCanvas.call(this, canvas, canvas2, callback);
     const {
       geometry, colour, image, useImage,
     } = this.props.settings;

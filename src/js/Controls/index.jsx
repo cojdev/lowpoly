@@ -11,6 +11,7 @@ import { CallToAction } from '../widgets/CallToAction';
 import ImageControls from './ImageControls';
 import { Button } from '../widgets/Button';
 import PaletteControls from './PaletteControls';
+import LinkButton from '../widgets/LinkButton';
 
 const Container = styled.section`
     padding: 0;
@@ -72,9 +73,7 @@ const StyledControls = styled.section`
     }
 `;
 
-const DownloadButton = styled.a`
-    ${Button};
-`;
+const DownloadButton = styled(LinkButton)``;
 
 const Footer = styled.footer`
 	color: #888;
@@ -102,32 +101,31 @@ const Footer = styled.footer`
 `;
 
 export default class Controls extends React.Component {
+  constructor(props) {
+    super(props);
+    this.setDimensions = props.setDimensions.bind(this);
+    this.setColours = props.setColours.bind(this);
+    this.setImage = props.setImage.bind(this);
+    this.setUseImage = props.setUseImage.bind(this);
+    this.setGeometry = props.setGeometry.bind(this);
+  }
 
-    constructor(props) {
-        super(props);
-        this.setDimensions = props.setDimensions.bind(this);
-        this.setColours = props.setColours.bind(this);
-        this.setImage = props.setImage.bind(this);
-        this.setUseImage = props.setUseImage.bind(this);
-        this.setGeometry = props.setGeometry.bind(this);
-    }
+  render() {
+    const { settings, presets } = this.props;
 
-    render() {
-        const { settings, presets } = this.props;
-        
-        const setDimensions = this.setDimensions;
-        const setColours = this.setColours;
-        const setImage = this.setImage;
-        const setUseImage = this.setUseImage;
-        const setGeometry = this.setGeometry;
+    const setDimensions = this.setDimensions;
+    const setColours = this.setColours;
+    const setImage = this.setImage;
+    const setUseImage = this.setUseImage;
+    const setGeometry = this.setGeometry;
 
-        return (
+    return (
             <Container className={this.props.className}>
                 <ButtonWrap>
                     <ToggleButton
                         onClick={this.props.toggleControls}
                         open={this.props.open}>
-                        <img src={this.props.open ? 'assets/x.svg' : 'assets/menu.svg'} />    
+                        <img src={this.props.open ? 'assets/x.svg' : 'assets/menu.svg'} />
                     </ToggleButton>
                 </ButtonWrap>
                 <StyledControls>
@@ -163,6 +161,6 @@ export default class Controls extends React.Component {
                     </Footer>
                 </StyledControls>
             </Container>
-        );
-    }
+    );
+  }
 }

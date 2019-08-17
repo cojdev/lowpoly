@@ -1,42 +1,31 @@
 import React from 'react';
-import styled from 'styled-components';
 import ControlGroup from '../widgets/ControlGroup';
 import { Label, RangeSlider } from '../widgets/Fields';
-import { capitalise } from '../common/helpers';
-
-const StyledControlGroup = styled(ControlGroup)`
-
-`;
-
-const duplicate = function (obj) {
-  return Object.assign({}, obj);
-};
+import { capitalise, clone } from '../common/helpers';
 
 export default class GeometryControls extends React.Component {
   constructor() {
     super();
 
-    this.state = {
-      settings: {},
-    };
+    this.state = { settings: {} };
   }
 
   componentDidMount() {
-    const settings = duplicate(this.props.settings);
+    const settings = clone(this.props.settings);
 
     this.setState({ settings });
   }
 
   handleChange(option, e) {
-    const settings = duplicate(this.state.settings);
+    const settings = clone(this.state.settings);
 
     settings[option] = e.target.value;
-
     this.setState({ settings });
   }
 
   handleBlur(option, e) {
     const { value } = e.target;
+
     this.props.setGeometry.call(this, option, value);
   }
 
@@ -57,10 +46,6 @@ export default class GeometryControls extends React.Component {
       </div>
     ));
 
-    return (
-      <StyledControlGroup title="Geometry">
-        {options}
-      </StyledControlGroup>
-    );
+    return (<ControlGroup title="Geometry">{options}</ControlGroup>);
   }
 }

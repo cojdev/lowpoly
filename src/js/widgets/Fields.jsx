@@ -38,7 +38,7 @@ export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
   display: none;
 
   + label {
-    padding-left: 1.5rem;
+    padding-left: 2rem;
     position: relative;
     cursor: pointer;
 
