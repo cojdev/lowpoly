@@ -40,7 +40,7 @@ export default class RangeInput extends React.Component {
         value={this.state.value}
         min={this.state.min}
         max={this.state.max}
-        name={this.state.name}
+        name={this.props.name}
         onChange={this.handleChange.bind(this)}
         onMouseUp={this.handleMouseUp.bind(this)} />
     );

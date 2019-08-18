@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { row, column } from '../widgets/styles';
+import { row, column } from './styles';
 
 export const Row = styled.div`
   ${row};

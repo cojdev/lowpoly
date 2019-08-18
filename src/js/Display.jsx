@@ -37,13 +37,10 @@ export default class Display extends React.Component {
     };
 
     this.canvas = React.createRef();
-    this.loader = React.createRef();
   }
 
   componentDidMount() {
     const canvas = this.canvas.current;
-
-    this.loader.current.style.display = 'none';
 
     this.drawCanvas(canvas);
   }
@@ -52,12 +49,7 @@ export default class Display extends React.Component {
     const canvas = this.canvas.current;
 
     if (previousProps.settings !== this.props.settings) {
-      this.loader.current.style.display = 'flex';
-
-      // const draw =
-      window.setTimeout(this.drawCanvas.bind(this, canvas, () => {
-        this.loader.current.style.display = 'none';
-      }), 5);
+      this.drawCanvas.call(this, canvas);
     }
   }
 
@@ -90,12 +82,6 @@ export default class Display extends React.Component {
 
     return (
       <StyledDisplay>
-        <div
-          className="loader"
-          ref={this.loader}>
-          <div
-            className="spinner"></div>
-        </div>
         <Canvas
           ref={this.canvas}
           width={width}
