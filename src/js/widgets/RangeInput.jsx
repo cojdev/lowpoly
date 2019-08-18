@@ -6,14 +6,16 @@ export default class RangeInput extends React.Component {
     super();
     this.state = {
       value: 0,
+      min: 0,
+      max: 100,
     };
   }
 
   componentDidMount() {
     this.setState({
-      value: (this.props.value !== undefined ? this.props.value : this.state.value),
-      min: (this.props.min !== undefined ? this.props.min : this.state.min),
-      max: (this.props.max !== undefined ? this.props.max : this.state.max),
+      value: (this.props.value || this.state.value),
+      min: (this.props.min || this.state.min),
+      max: (this.props.max || this.state.max),
     });
   }
 
@@ -29,7 +31,6 @@ export default class RangeInput extends React.Component {
   }
 
   handleMouseUp(e) {
-    console.log('up');
     this.props.onMouseUp.call(this, e);
   }
 
@@ -37,9 +38,9 @@ export default class RangeInput extends React.Component {
     return (
       <RangeSlider
         value={this.state.value}
-        min={this.props.min !== undefined ? this.props.min : 0}
-        max={this.props.max !== undefined ? this.props.max : 100}
-        name={this.props.name !== undefined ? this.props.name : ''}
+        min={this.state.min}
+        max={this.state.max}
+        name={this.state.name}
         onChange={this.handleChange.bind(this)}
         onMouseUp={this.handleMouseUp.bind(this)} />
     );

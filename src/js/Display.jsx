@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { callbackify } from 'util';
 import theme from './common/theme';
-import drawCanvas from './common/canvas';
 import Lowpoly from './Lowpoly';
 
 const StyledDisplay = styled.div`
@@ -33,29 +31,32 @@ const Canvas = styled.canvas`
 export default class Display extends React.Component {
   constructor() {
     super();
+
     this.state = {
       loaded: false,
     };
+
+    this.canvas = React.createRef();
+    this.loader = React.createRef();
   }
 
   componentDidMount() {
-    const canvas = this.refs.canvas1;
+    const canvas = this.canvas.current;
 
-    this.refs.loader.style.display = 'none';
+    this.loader.current.style.display = 'none';
 
     this.drawCanvas(canvas);
   }
 
-  componentDidUpdate(previousProps, previousState) {
-    const canvas = this.refs.canvas1;
-    const self = this;
+  componentDidUpdate(previousProps) {
+    const canvas = this.canvas.current;
 
     if (previousProps.settings !== this.props.settings) {
-      self.refs.loader.style.display = 'flex';
+      this.loader.current.style.display = 'flex';
 
       // const draw =
       window.setTimeout(this.drawCanvas.bind(this, canvas, () => {
-        self.refs.loader.style.display = 'none';
+        this.loader.current.style.display = 'none';
       }), 5);
     }
   }
@@ -90,13 +91,13 @@ export default class Display extends React.Component {
     return (
       <StyledDisplay>
         <div
-          className='loader'
-          ref='loader'>
+          className="loader"
+          ref={this.loader}>
           <div
             className="spinner"></div>
         </div>
         <Canvas
-          ref="canvas1"
+          ref={this.canvas}
           width={width}
           height={height} />
       </StyledDisplay>

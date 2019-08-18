@@ -10,54 +10,46 @@ import RangeInput from '../widgets/RangeInput';
 import ControlGroup from '../widgets/ControlGroup';
 import Button from '../widgets/Button';
 
-// import data from '../data';
-
-const Row = styled.div`
-    display: flex;
-    align-items: center;
-    margin: -.5ch;
-`;
-
 const SmallButton = styled(Button)`
+  display: inline-block;
+  padding: .5ch .5rem;
+  margin: 0 .5ch;
+  width: auto;
 
-    display: inline-block;
-    padding: .5ch .5rem;
-    margin: 0 .5ch;
-    width: auto;
-    
-    ${props => props.disabled && css`
-        background: #eee;
-        color: #888;
-    `}
+  :first-child {
+    margin-left: 0;
+  }
+  
+  ${props => props.disabled && css`
+    background: #eee;
+    color: #888;
+  `}
 `;
 
 const ColourGroup = styled.div`
-    width: 100%;
-    height: 2rem;
-    position: relative;
-    margin: 1em 0;
-    overflow: hidden;
-    border-radius: 3px;
-    box-shadow: inset 0 5px 15px rgba(0,0,0,.1);
+  width: 100%;
+  height: 2rem;
+  position: relative;
+  margin: 1em 0;
+  border-radius: 3px;
 `;
 
 const ColourGroupInner = styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    background: #ccc;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
 `;
 
 const ColourBar = styled.div.attrs(props => ({
   style: { background: props.background },
 }))`
-    display: block;
-    width: 100%;
-    height: 5px;
-    border-radius: 10px;
+  display: block;
+  width: 100%;
+  height: 8px;
+  border-radius: 10px;
 `;
 
 export default class ColourControls extends React.Component {
@@ -142,7 +134,6 @@ export default class ColourControls extends React.Component {
     const { target } = e;
     const { active } = this.state;
     const value = parseInt(target.value, 10);
-
     // deep clone global colours
     const colours = this.props.settings.slice().map(item => item.slice());
 
@@ -174,7 +165,6 @@ export default class ColourControls extends React.Component {
 
     if (settings) {
       const activeColour = settings[active];
-      const hsl = activeColour;
 
       let hueBarBg = 'linear-gradient(to right,';
       let satBarBg = 'linear-gradient(to right,';
@@ -203,14 +193,12 @@ export default class ColourControls extends React.Component {
 
       return (
         <ControlGroup title="Colours">
-          <Row>
-            <SmallButton
-              onClick={this.handleAddColour.bind(this)}
-              disabled={!(settings.length < this.state.maxColours)}>Add</SmallButton>
-            <SmallButton
-              onClick={this.handleRemoveColour.bind(this)}
-              disabled={!(settings.length > 1)}>Remove</SmallButton>
-          </Row>
+          <SmallButton
+            onClick={this.handleAddColour.bind(this)}
+            disabled={!(settings.length < this.state.maxColours)}>Add</SmallButton>
+          <SmallButton
+            onClick={this.handleRemoveColour.bind(this)}
+            disabled={!(settings.length > 1)}>Remove</SmallButton>
 
           <ColourGroup>
             <ColourGroupInner>
@@ -218,38 +206,32 @@ export default class ColourControls extends React.Component {
             </ColourGroupInner>
           </ColourGroup>
 
-          <Label>
-            hue: {hsl[0]}
-          </Label>
+          <Label>hue ({activeColour[0]})</Label>
           <RangeInput
             min="0"
             max="360"
             name="hue"
-            value={hsl[0]}
+            value={activeColour[0]}
             onChange={this.handleChange.bind(this)}
             onMouseUp={this.handleMouseUp.bind(this)} />
           <ColourBar background={hueBarBg} />
 
-          <Label>
-            saturation: {hsl[1]}
-          </Label>
+          <Label>saturation ({activeColour[1]})</Label>
           <RangeInput
             min="0"
             max="100"
             name="saturation"
-            value={hsl[1]}
+            value={activeColour[1]}
             onChange={this.handleChange.bind(this)}
             onMouseUp={this.handleMouseUp.bind(this)} />
           <ColourBar background={satBarBg} />
 
-          <Label>
-            luminosity: {hsl[2]}
-          </Label>
+          <Label>luminosity ({activeColour[2]})</Label>
           <RangeInput
             min="0"
             max="100"
             name="luminosity"
-            value={hsl[2]}
+            value={activeColour[2]}
             onChange={this.handleChange.bind(this)}
             onMouseUp={this.handleMouseUp.bind(this)} />
           <ColourBar background={lumBarBg} />

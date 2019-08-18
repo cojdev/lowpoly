@@ -2,18 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import ControlGroup from '../widgets/ControlGroup';
 import Button from '../widgets/Button';
-import { row, column } from '../common/mixins';
+import { Row, Column } from '../common/mixins';
 import SingleInput from '../Forms/SingleInput';
 import SelectInput from '../Forms/SelectInput';
-
-const Row = styled.div`
-    ${row};
-`;
-
-const Column = styled.div`
-    ${column};
-    width: calc(${props => props.width * 100 || 50}% - .5rem);
-`;
 
 const SetButton = styled(Button)``;
 
@@ -68,7 +59,7 @@ export default class DimensionControls extends React.Component {
         <Row>
 
           {/* Presets */}
-          <Column width={0.5}>
+          <Column width={0.45}>
             <SelectInput
               name="presets"
               label="Presets"
@@ -77,7 +68,7 @@ export default class DimensionControls extends React.Component {
           </Column>
 
           {/* Width */}
-          <Column width={0.25}>
+          <Column width={0.275}>
             <SingleInput
               type="number"
               name="width"
@@ -87,7 +78,7 @@ export default class DimensionControls extends React.Component {
           </Column>
 
           {/* Height */}
-          <Column width={0.25}>
+          <Column width={0.275}>
             <SingleInput
               type="number"
               name="height"

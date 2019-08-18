@@ -42,10 +42,10 @@ export default class Lowpoly {
     ctx.clearRect(0, 0, element.width, element.height);
 
     // using an image
-    if (this.image && this.useImage) {
+    if (this.image.src && this.useImage) {
       const baseImage = new Image();
       baseImage.crossOrigin = 'Anonymous';
-      baseImage.src = this.image;
+      baseImage.src = this.image.src;
 
       return new Promise((resolve) => {
         baseImage.onload = () => {

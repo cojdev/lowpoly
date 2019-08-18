@@ -1,12 +1,11 @@
-import { css } from 'styled-components';
+import styled from 'styled-components';
+import { row, column } from '../widgets/styles';
 
-export const row = css`
-  margin: 0 -.25rem;
-  display: flex;
-  flex-wrap: wrap;
+export const Row = styled.div`
+  ${row};
 `;
 
-export const column = css`
-  display: block;
-  margin: 0 .25rem;
+export const Column = styled.div`
+  ${column};
+  width: calc(${props => props.width * 100 || 50}% - .5rem);
 `;

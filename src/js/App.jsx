@@ -83,8 +83,11 @@ export default class App extends React.Component {
           dither: 10,
         },
         colour: data.palettes[0],
-
-        image: null,
+        image: {
+          src: null,
+          height: 0,
+          width: 0,
+        },
         useImage: false,
       },
       presets: data.presets,

@@ -4,10 +4,7 @@ import ControlGroup from '../widgets/ControlGroup';
 import { Checkbox, Label } from '../widgets/Fields';
 import { colours } from '../common/theme';
 import Button from '../widgets/Button';
-
-const StyledControlGroup = styled(ControlGroup)`
-
-`;
+import { Row, Column } from '../common/mixins';
 
 const PreviewWrap = styled.div`
     display: flex;
@@ -36,39 +33,39 @@ const Preview = styled.div`
 `;
 
 const StyledFileInput = styled.input`
-    display: none;
+  display: none;
 
-    + label {
-        display: block;
-        padding: 1em;
-        border-radius: 4px;
-        border: 2px solid #eee;
-        color: ${colours.primary};
-        font-weight: 600;
-        text-align: center;
-        cursor: pointer;
-        position: relative;
+  + label {
+    display: block;
+    padding: 1em;
+    border-radius: 4px;
+    border: 2px solid #eee;
+    color: ${colours.primary};
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
 
-        &:after {
-            display: block;
-            position: absolute;
-            content: '';
-            top: 4px;
-            left: 4px;
-            right: 4px;
-            bottom: 4px;
-            border-radius: 2px;
-            border: 1px dashed #eee;
-        }
+    &:after {
+      display: block;
+      position: absolute;
+      content: '';
+      top: 4px;
+      left: 4px;
+      right: 4px;
+      bottom: 4px;
+      border-radius: 2px;
+      border: 1px dashed #eee;
     }
+  }
 `;
 
-const Image = styled.img`
-    display: block;
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 200px;
+const Thumbnail = styled.img`
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 200px;
 `;
 
 export default class ImageControls extends React.Component {
@@ -84,6 +81,7 @@ export default class ImageControls extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+    this.handleResizeCanvas = this.handleResizeCanvas.bind(this);
   }
 
   componentDidMount() {
@@ -98,8 +96,15 @@ export default class ImageControls extends React.Component {
       const reader = new FileReader();
 
       reader.onload = (f) => {
-        this.props.setImage.call(this, f.target.result);
-        this.setState({ settings: f.target.result });
+        const img = new Image();
+
+        img.onload = () => {
+          const newImage = (({ src, width, height }) => ({ src, width, height }))(img);
+          this.props.setImage.call(this, newImage);
+          this.setState({ settings: newImage });
+        };
+
+        img.src = f.target.result;
       };
 
       reader.readAsDataURL(e.target.files[0]);
@@ -114,8 +119,15 @@ export default class ImageControls extends React.Component {
       const reader = new FileReader();
 
       reader.onload = (f) => {
-        this.props.setImage.call(this, f.target.result);
-        this.setState({ settings: f.target.result });
+        const img = new Image();
+
+        img.onload = () => {
+          const newImage = (({ src, width, height }) => ({ src, width, height }))(img);
+          this.props.setImage.call(this, newImage);
+          this.setState({ settings: newImage });
+        };
+
+        img.src = f.target.result;
       };
 
       reader.readAsDataURL(e.dataTransfer.files[0]);
@@ -132,27 +144,36 @@ export default class ImageControls extends React.Component {
     this.setState({ useImage: e.target.checked });
   }
 
+  handleResizeCanvas() {
+    const { width, height } = this.state.settings;
+    this.props.setDimensions.call(this, { width, height });
+  }
+
   render() {
     const { settings, value, useImage } = this.state;
 
     return (
-      <StyledControlGroup
-        title="Image">
-
+      <ControlGroup title="Image">
         {settings ? (
           <PreviewWrap>
             <Preview>
-              <Image src={settings} />
+              <Thumbnail src={settings.src} />
             </Preview>
           </PreviewWrap>
         ) : ''}
         <StyledFileInput id="file" type="file" value={value} onChange={this.handleChange} />
         <label htmlFor="file" onDrop={this.handleDrop} onDragOver={this.handleDragOver}>Select an Image...</label>
         <br />
-        <Checkbox id="use-image-checkbox" checked={useImage} onChange={this.handleCheckboxChange} />
-        <Label htmlFor="use-image-checkbox">Use image</Label>
-        <Button></Button>
-      </StyledControlGroup>
+        <Row>
+          <Column>
+            <Checkbox id="use-image-checkbox" checked={useImage} onChange={this.handleCheckboxChange} />
+            <Label htmlFor="use-image-checkbox">Use image</Label>
+          </Column>
+          <Column>
+            <Button onClick={this.handleResizeCanvas}>Resize to image</Button>
+          </Column>
+        </Row>
+      </ControlGroup>
     );
   }
 }

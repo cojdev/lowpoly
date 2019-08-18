@@ -31,4 +31,15 @@ export const button = css`
   }
 `;
 
-export default { button };
+export const row = css`
+  margin: 0 -.25rem;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+export const column = css`
+  display: block;
+  margin: 0 .25rem;
+`;
+
+export default { button, row, column };
