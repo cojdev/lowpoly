@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import theme, { colours } from '../common/theme';
+import { colours } from '../common/theme';
 import { hexToRgb } from '../common/colour';
 
 const field = css`
@@ -18,7 +18,9 @@ const field = css`
 
   :focus {
     outline: none;
-    box-shadow: inset 0 0 0 2px ${theme.colours.primary}, 0 0 0 4px rgba(${hexToRgb(theme.colours.primary).join(', ')}, .1);
+    box-shadow:
+      inset 0 0 0 2px ${colours.primary},
+      0 0 0 4px rgba(${hexToRgb(colours.primary).join(', ')}, .1);
   } */
 `;
 

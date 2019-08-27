@@ -1,7 +1,8 @@
 import React from 'react';
 import ControlGroup from '../widgets/ControlGroup';
-import { Label, RangeSlider } from '../widgets/Fields';
+import { Label } from '../widgets/Fields';
 import { capitalise, clone } from '../common/helpers';
+import RangeInput from '../widgets/RangeInput';
 
 export default class GeometryControls extends React.Component {
   constructor() {
@@ -36,7 +37,7 @@ export default class GeometryControls extends React.Component {
       <div
         key={index}>
         <Label htmlFor={item}>{capitalise(item)}: {settings[item]}</Label>
-        <RangeSlider
+        <RangeInput
           id={item}
           min="0"
           max="100"

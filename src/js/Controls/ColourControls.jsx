@@ -43,15 +43,6 @@ const ColourGroupInner = styled.div`
   display: flex;
 `;
 
-const ColourBar = styled.div.attrs(props => ({
-  style: { background: props.background },
-}))`
-  display: block;
-  width: 100%;
-  height: 8px;
-  border-radius: 10px;
-`;
-
 export default class ColourControls extends React.Component {
   constructor() {
     super();
@@ -213,8 +204,8 @@ export default class ColourControls extends React.Component {
             name="hue"
             value={activeColour[0]}
             onChange={this.handleChange.bind(this)}
-            onMouseUp={this.handleMouseUp.bind(this)} />
-          <ColourBar background={hueBarBg} />
+            onMouseUp={this.handleMouseUp.bind(this)}
+            background={hueBarBg} />
 
           <Label>saturation ({activeColour[1]})</Label>
           <RangeInput
@@ -223,8 +214,8 @@ export default class ColourControls extends React.Component {
             name="saturation"
             value={activeColour[1]}
             onChange={this.handleChange.bind(this)}
-            onMouseUp={this.handleMouseUp.bind(this)} />
-          <ColourBar background={satBarBg} />
+            onMouseUp={this.handleMouseUp.bind(this)}
+            background={satBarBg} />
 
           <Label>luminosity ({activeColour[2]})</Label>
           <RangeInput
@@ -233,8 +224,8 @@ export default class ColourControls extends React.Component {
             name="luminosity"
             value={activeColour[2]}
             onChange={this.handleChange.bind(this)}
-            onMouseUp={this.handleMouseUp.bind(this)} />
-          <ColourBar background={lumBarBg} />
+            onMouseUp={this.handleMouseUp.bind(this)}
+            background={lumBarBg} />
         </ControlGroup>
       );
     }
