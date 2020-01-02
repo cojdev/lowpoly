@@ -98,32 +98,27 @@ const Footer = styled.footer`
   }
 `;
 
-export default class Controls extends React.Component {
-  constructor(props) {
-    super(props);
-    this.setDimensions = props.setDimensions.bind(this);
-    this.setColours = props.setColours.bind(this);
-    this.setImage = props.setImage.bind(this);
-    this.setUseImage = props.setUseImage.bind(this);
-    this.setGeometry = props.setGeometry.bind(this);
-  }
+const Controls = (props) => {
+  const {
+    setDimensions,
+    setColours,
+    setImage,
+    setUseImage,
+    setGeometry,
+    settings,
+    presets,
+    toggleControls,
+    className,
+    output,
+  } = props;
 
-  render() {
-    const { settings, presets } = this.props;
-
-    const { setDimensions } = this;
-    const { setColours } = this;
-    const { setImage } = this;
-    const { setUseImage } = this;
-    const { setGeometry } = this;
-
-    return (
-      <Container className={this.props.className}>
+  return (
+      <Container className={className}>
         <ButtonWrap>
           <ToggleButton
-            onClick={this.props.toggleControls}
-            open={this.props.open}>
-            <img src={this.props.open ? 'assets/x.svg' : 'assets/menu.svg'} />
+            onClick={toggleControls}
+            open={props.open}>
+            <img src={props.open ? 'assets/x.svg' : 'assets/menu.svg'} />
           </ToggleButton>
         </ButtonWrap>
         <StyledControls>
@@ -148,7 +143,7 @@ export default class Controls extends React.Component {
             setColours={setColours} />
           <ControlGroup title="Export">
             <DownloadButton
-              href={this.props.output}
+              href={output}
               download="lowpoly.png">Download PNG</DownloadButton>
           </ControlGroup>
           <Footer>
@@ -160,6 +155,7 @@ export default class Controls extends React.Component {
           </Footer>
         </StyledControls>
       </Container>
-    );
-  }
-}
+  );
+};
+
+export default Controls;
