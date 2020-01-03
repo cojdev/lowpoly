@@ -10,7 +10,7 @@ const GeometryControls = (props) => {
   /**
    * Update the local state
    * @param {string} option the setting being modified
-   * @param {Event} e the event
+   * @param {Event} e the event object
    */
   const handleChange = (option, e) => {
     setSettings({ ...settings, [option]: e.target.value });
@@ -19,7 +19,7 @@ const GeometryControls = (props) => {
   /**
    * Update the global state
    * @param {string} option the setting being modified
-   * @param {Event} e the event
+   * @param {Event} e the event object
    */
   const handleBlur = (option, e) => {
     props.setGeometry(option, e.target.value);
@@ -34,8 +34,8 @@ const GeometryControls = (props) => {
         min="0"
         max="100"
         value={settings[item] || 0}
-        onChange={(e) => { handleChange(item, e); }}
-        onMouseUp={(e) => { handleBlur(item, e); }} />
+        onChange={handleChange.bind(null, item)}
+        onMouseUp={handleBlur.bind(null, item)} />
     </div>
   ));
 

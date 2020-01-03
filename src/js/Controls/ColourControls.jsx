@@ -44,21 +44,18 @@ const ColourGroupInner = styled.div`
 `;
 
 export default class ColourControls extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const settings = [...this.props.settings];
+
     this.state = {
       maxColours: 12,
       active: 0,
       h: null,
       s: null,
       l: null,
-      settings: null,
+      settings,
     };
-  }
-
-  componentDidMount() {
-    const settings = this.props.settings.slice();
-    this.setState({ settings });
   }
 
   componentDidUpdate(prevProps) {
@@ -83,7 +80,7 @@ export default class ColourControls extends React.Component {
    * Add a colour to current palette
    */
   handleAddColour() {
-    const settings = this.state.settings.slice();
+    const settings = [...this.state.settings];
 
     if (settings.length < this.state.maxColours) {
       settings.push(colour.hexToHsl(colour.getRandomHex(true)));
@@ -102,7 +99,7 @@ export default class ColourControls extends React.Component {
    * Remove a colour from the current palette
    */
   handleRemoveColour() {
-    const settings = this.state.settings.slice();
+    const settings = [...this.state.settings];
     const { active } = this.state;
 
     if (settings.length > 1) {
@@ -126,7 +123,7 @@ export default class ColourControls extends React.Component {
     const { active } = this.state;
     const value = parseInt(target.value, 10);
     // deep clone global colours
-    const colours = this.props.settings.slice().map(item => item.slice());
+    const colours = [...this.props.settings].map(item => [...item]);
 
     if (target.name === 'hue') colours[active][0] = value;
     if (target.name === 'saturation') colours[active][1] = value;
@@ -197,7 +194,7 @@ export default class ColourControls extends React.Component {
             </ColourGroupInner>
           </ColourGroup>
 
-          <Label>hue ({activeColour[0]})</Label>
+          <Label>hue: {activeColour[0]}</Label>
           <RangeInput
             min="0"
             max="360"
@@ -207,7 +204,7 @@ export default class ColourControls extends React.Component {
             onMouseUp={this.handleMouseUp.bind(this)}
             background={hueBarBg} />
 
-          <Label>saturation ({activeColour[1]})</Label>
+          <Label>saturation: {activeColour[1]}</Label>
           <RangeInput
             min="0"
             max="100"
@@ -217,7 +214,7 @@ export default class ColourControls extends React.Component {
             onMouseUp={this.handleMouseUp.bind(this)}
             background={satBarBg} />
 
-          <Label>luminosity ({activeColour[2]})</Label>
+          <Label>luminosity: {activeColour[2]}</Label>
           <RangeInput
             min="0"
             max="100"

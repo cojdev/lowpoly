@@ -69,26 +69,19 @@ const Thumbnail = styled.img`
 `;
 
 export default class ImageControls extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      settings: null,
+      settings: props.settings,
+      useImage: props.useImage,
       value: '',
-      useImage: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     this.handleResizeCanvas = this.handleResizeCanvas.bind(this);
-  }
-
-  componentDidMount() {
-    const { settings } = this.props;
-    const { useImage } = this.props;
-
-    this.setState({ settings, useImage });
   }
 
   handleChange(e) {
@@ -135,7 +128,7 @@ export default class ImageControls extends React.Component {
   }
 
   handleDragOver(e) {
-    // Prevent default behavior (Prevent file from being opened)
+    // Prevent file from being opened
     e.preventDefault();
   }
 

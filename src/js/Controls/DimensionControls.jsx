@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ControlGroup from '../widgets/ControlGroup';
 import Button from '../widgets/Button';
@@ -8,90 +8,72 @@ import SelectInput from '../Forms/SelectInput';
 
 const SetButton = styled(Button)``;
 
-export default class DimensionControls extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      height: 0,
-      width: 0,
-    };
-  }
+const DimensionControls = (props) => {
+  const [height, setHeight] = useState(props.settings.height);
+  const [width, setWidth] = useState(props.settings.width);
+  const { presets } = props;
 
-  componentDidMount() {
-    this.setState({
-      height: this.props.settings.height,
-      width: this.props.settings.width,
-    });
-  }
-
-  handlePreset(e) {
-    const { presets } = this.props;
+  const handlePreset = (e) => {
     if (e.target.value !== 'null') {
       const p = Object.values(presets)
         .find(item => item[e.target.value] !== undefined)[e.target.value];
 
-      const dims = [p.width, p.height];
-      this.setState({
-        width: dims[0],
-        height: dims[1],
-      });
+      setWidth(p.width);
+      setHeight(p.height);
     }
-  }
+  };
 
-  handleHeight(e) {
-    this.setState({ height: e.target.value });
-  }
+  const handleHeight = (e) => {
+    setHeight(e.target.value);
+  };
 
-  handleWidth(e) {
-    this.setState({ width: e.target.value });
-  }
+  const handleWidth = (e) => {
+    setWidth(e.target.value);
+  };
 
-  handleSubmit(e) {
-    this.props.setDimensions.call(this, this.state);
+  const handleSubmit = (e) => {
     e.preventDefault();
-  }
+    props.setDimensions({ width, height });
+  };
 
-  render() {
-    const { presets } = this.props;
+  return (
+    <ControlGroup title="Dimensions">
+      <Row>
 
-    return (
-      <ControlGroup title="Dimensions">
-        <Row>
+        {/* Presets */}
+        <Column width={0.45}>
+          <SelectInput
+            name="presets"
+            label="Presets"
+            onChange={handlePreset}
+            options={presets} />
+        </Column>
 
-          {/* Presets */}
-          <Column width={0.45}>
-            <SelectInput
-              name="presets"
-              label="Presets"
-              onChange={this.handlePreset.bind(this)}
-              options={presets} />
-          </Column>
+        {/* Width */}
+        <Column width={0.275}>
+          <SingleInput
+            type="number"
+            name="width"
+            label="Width"
+            value={width}
+            onChange={handleWidth} />
+        </Column>
 
-          {/* Width */}
-          <Column width={0.275}>
-            <SingleInput
-              type="number"
-              name="width"
-              label="Width"
-              value={this.state.width}
-              onChange={this.handleWidth.bind(this)} />
-          </Column>
+        {/* Height */}
+        <Column width={0.275}>
+          <SingleInput
+            type="number"
+            name="height"
+            label="Height"
+            value={height}
+            onChange={handleHeight} />
+        </Column>
+      </Row>
+      <SetButton
+        onClick={handleSubmit}>Apply</SetButton>
 
-          {/* Height */}
-          <Column width={0.275}>
-            <SingleInput
-              type="number"
-              name="height"
-              label="Height"
-              value={this.state.height}
-              onChange={this.handleHeight.bind(this)} />
-          </Column>
-        </Row>
+    </ControlGroup>
+  );
+};
 
-        <SetButton
-          onClick={this.handleSubmit.bind(this)}>Resize</SetButton>
-
-      </ControlGroup>
-    );
-  }
-}
+export default DimensionControls;

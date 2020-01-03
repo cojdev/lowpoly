@@ -48,12 +48,9 @@ const StyledRangeSlider = styled(RangeSlider)`
 `;
 
 export default class RangeInput extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      value: 0,
-      min: 0,
-      max: 100,
       background: '#fff',
     };
     this.track = React.createRef();
@@ -63,18 +60,12 @@ export default class RangeInput extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      value: (this.props.value || this.state.value),
-      min: (this.props.min || this.state.min),
-      max: (this.props.max || this.state.max),
-    });
     this.setBeadPosition(this.props.value);
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.value !== this.props.value) {
       this.setBeadPosition(this.props.value);
-      this.setState({ value: this.props.value });
     }
   }
 
@@ -92,7 +83,6 @@ export default class RangeInput extends React.Component {
   handleChange(e) {
     const { target } = e;
     this.setBeadPosition(target.value);
-    this.setState({ value: target.value });
     this.props.onChange.call(this, e);
   }
 
@@ -106,9 +96,9 @@ export default class RangeInput extends React.Component {
         <Track ref={this.track} background={this.props.background || this.state.background} />
         <Bead ref={this.bead} />
         <StyledRangeSlider
-          value={this.state.value}
-          min={this.state.min}
-          max={this.state.max}
+          value={this.props.value}
+          min={this.props.min}
+          max={this.props.max}
           name={this.props.name}
           onChange={this.handleChange.bind(this)}
           onMouseUp={this.handleMouseUp.bind(this)} />

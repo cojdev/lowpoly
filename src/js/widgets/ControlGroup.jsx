@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import animate from '../Libraries/Animate';
 import { colours } from '../common/theme';
@@ -76,40 +76,30 @@ const ContentInner = styled.div`
   padding: .5rem 1rem;
 `;
 
-export default class ControlGroup extends React.Component {
-  constructor() {
-    super();
+const ControlGroup = (props) => {
+  const [open, setOpen] = useState(true);
+  const content = useRef();
 
-    this.state = {
-      open: true,
-    };
-
-    this.content = React.createRef();
-  }
-
-  toggleOpen() {
-    if (this.state.open) {
-      animate.slideUp(this.content.current);
+  const toggleOpen = () => {
+    if (open) {
+      animate.slideUp(content.current);
     } else {
-      animate.slideDown(this.content.current);
+      animate.slideDown(content.current);
     }
-    this.setState({ open: !this.state.open });
-  }
+    setOpen(!open);
+  };
 
-  render() {
-    return (
-      <StyledControlGroup className={this.props.className}>
-        <Heading
-          onClick={this.toggleOpen.bind(this)}
-          open={this.state.open}>
-          {this.props.title}
-          <Arrow open={this.state.open} />
-        </Heading>
-        {this.state.open
-          ? ''
-          : ''}
-        <Content ref={this.content}><ContentInner>{this.props.children}</ContentInner></Content>
-      </StyledControlGroup>
-    );
-  }
-}
+  return (
+    <StyledControlGroup className={props.className}>
+      <Heading
+        onClick={toggleOpen.bind(this)}
+        open={open}>
+        {props.title}
+        <Arrow open={open} />
+      </Heading>
+      <Content ref={content}><ContentInner>{props.children}</ContentInner></Content>
+    </StyledControlGroup>
+  );
+};
+
+export default ControlGroup;

@@ -54,23 +54,17 @@ const StyledTextField = styled(TextField)`
 `;
 
 export default class SingleInput extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      value: '',
+      value: this.props.value !== undefined ? this.props.value : '',
       focus: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleFocus = this.handleFocus.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
-  }
-
-  componentDidMount() {
-    this.setState({
-      value: (this.props.value !== undefined ? this.props.value : this.state.value),
-    });
   }
 
   componentDidUpdate(prevProps) {

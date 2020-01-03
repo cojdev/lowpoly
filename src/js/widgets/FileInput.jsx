@@ -1,17 +1,11 @@
 import React from 'react';
 
 export default class FileInput extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      value: 0,
+      value: this.props.value || 0,
     };
-  }
-
-  componentDidMount() {
-    this.setState({
-      value: (this.props.value || this.state.value),
-    });
   }
 
   componentDidUpdate(prevProps) {

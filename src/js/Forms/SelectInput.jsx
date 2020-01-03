@@ -48,23 +48,19 @@ const StyledDropdown = styled(Dropdown)`
 `;
 
 export default class SelectInput extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    console.log(props);
 
     this.state = {
-      value: '',
+      value: (props.value !== undefined ? props.value : ''),
       focus: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleFocus = this.handleFocus.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
-  }
-
-  componentDidMount() {
-    this.setState({
-      value: (this.props.value !== undefined ? this.props.value : this.state.value),
-    });
   }
 
   componentDidUpdate(prevProps) {
