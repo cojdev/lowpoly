@@ -23,11 +23,29 @@ const Heading = styled.button`
   font-family: inherit;
   transition: 150ms ease;
   ${props => props.open && css`
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow:
+    0 2px 4px rgba(0,0,0,0.05),
+    0 2px 12px rgba(0,0,0,0.05);
   `}
   
   &:hover {
     color: ${colours.primary};
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 2px;
+    transition: 450ms ease;
+    background: #eee;
+    opacity: 0;
+    bottom: 1px;
+    left: 0;
+    right: 0;
+    ${props => !props.open && css`
+      opacity: 1;
+    `}
   }
 `;
 
