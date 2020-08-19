@@ -12,18 +12,20 @@ import Button from '../widgets/Button';
 
 const SmallButton = styled(Button)`
   display: inline-block;
-  padding: .5ch .5rem;
-  margin: 0 .5ch;
+  padding: 0.5ch 0.5rem;
+  margin: 0 0.5ch;
   width: auto;
 
   :first-child {
     margin-left: 0;
   }
-  
-  ${props => props.disabled && css`
-    background: #eee;
-    color: #888;
-  `}
+
+  ${(props) =>
+    props.disabled &&
+    css`
+      background: #eee;
+      color: #888;
+    `}
 `;
 
 const ColourGroup = styled.div`
@@ -84,7 +86,9 @@ export default class ColourControls extends React.Component {
 
     if (settings.length < this.state.maxColours) {
       settings.push(colour.hexToHsl(colour.getRandomHex(true)));
-      this.setState({ settings }, () => this.props.setColours.call(this, this.state.settings));
+      this.setState({ settings }, () =>
+        this.props.setColours.call(this, this.state.settings)
+      );
     }
   }
 
@@ -110,7 +114,9 @@ export default class ColourControls extends React.Component {
           this.props.setColours.call(this, settings);
         });
       } else {
-        this.setState({ settings }, () => this.props.setColours.call(this, this.state.settings));
+        this.setState({ settings }, () =>
+          this.props.setColours.call(this, this.state.settings)
+        );
       }
     }
   }
@@ -123,7 +129,7 @@ export default class ColourControls extends React.Component {
     const { active } = this.state;
     const value = parseInt(target.value, 10);
     // deep clone global colours
-    const colours = [...this.props.settings].map(item => [...item]);
+    const colours = [...this.props.settings].map((item) => [...item]);
 
     if (target.name === 'hue') colours[active][0] = value;
     if (target.name === 'saturation') colours[active][1] = value;
@@ -159,39 +165,45 @@ export default class ColourControls extends React.Component {
       let lumBarBg = 'linear-gradient(to right,';
 
       for (let i = 0; i <= 6; i++) {
-        hueBarBg += `hsl(${i * 60}, ${activeColour[1]}%,${activeColour[2]}%)${i !== 6 ? ',' : ')'}`;
+        hueBarBg += `hsl(${i * 60}, ${activeColour[1]}%,${activeColour[2]}%)${
+          i !== 6 ? ',' : ')'
+        }`;
         if (i < 2) {
-          satBarBg += `hsl(${activeColour[0]}, ${i * 100}%, ${activeColour[2]}%)${i !== 1 ? ',' : ')'}`;
+          satBarBg += `hsl(${activeColour[0]}, ${i * 100}%, ${
+            activeColour[2]
+          }%)${i !== 1 ? ',' : ')'}`;
         }
         if (i < 3) {
-          lumBarBg += `hsl(${activeColour[0]}, ${activeColour[1]}%, ${i * 50}%)${i !== 2 ? ',' : ')'}`;
+          lumBarBg += `hsl(${activeColour[0]}, ${activeColour[1]}%, ${
+            i * 50
+          }%)${i !== 2 ? ',' : ')'}`;
         }
       }
 
-      const colourInputs = settings.map(
-        (item, index) => (
-          <ColourInput
-            value={item}
-            key={index}
-            index={index}
-            active={active === index}
-            setActiveColour={this.setActiveColour.bind(this)}></ColourInput>
-        ),
-      );
+      const colourInputs = settings.map((item, index) => (
+        <ColourInput
+          value={item}
+          key={index}
+          index={index}
+          active={active === index}
+          setActiveColour={this.setActiveColour.bind(this)}></ColourInput>
+      ));
 
       return (
         <ControlGroup title="Colours">
           <SmallButton
             onClick={this.handleAddColour.bind(this)}
-            disabled={!(settings.length < this.state.maxColours)}>Add</SmallButton>
+            disabled={!(settings.length < this.state.maxColours)}>
+            Add
+          </SmallButton>
           <SmallButton
             onClick={this.handleRemoveColour.bind(this)}
-            disabled={!(settings.length > 1)}>Remove</SmallButton>
+            disabled={!(settings.length > 1)}>
+            Remove
+          </SmallButton>
 
           <ColourGroup>
-            <ColourGroupInner>
-              {colourInputs}
-            </ColourGroupInner>
+            <ColourGroupInner>{colourInputs}</ColourGroupInner>
           </ColourGroup>
 
           <Label>hue: {activeColour[0]}</Label>
@@ -202,7 +214,8 @@ export default class ColourControls extends React.Component {
             value={activeColour[0]}
             onChange={this.handleChange.bind(this)}
             onMouseUp={this.handleMouseUp.bind(this)}
-            background={hueBarBg} />
+            background={hueBarBg}
+          />
 
           <Label>saturation: {activeColour[1]}</Label>
           <RangeInput
@@ -212,7 +225,8 @@ export default class ColourControls extends React.Component {
             value={activeColour[1]}
             onChange={this.handleChange.bind(this)}
             onMouseUp={this.handleMouseUp.bind(this)}
-            background={satBarBg} />
+            background={satBarBg}
+          />
 
           <Label>luminosity: {activeColour[2]}</Label>
           <RangeInput
@@ -222,7 +236,8 @@ export default class ColourControls extends React.Component {
             value={activeColour[2]}
             onChange={this.handleChange.bind(this)}
             onMouseUp={this.handleMouseUp.bind(this)}
-            background={lumBarBg} />
+            background={lumBarBg}
+          />
         </ControlGroup>
       );
     }

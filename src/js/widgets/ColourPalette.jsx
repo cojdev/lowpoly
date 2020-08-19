@@ -5,7 +5,7 @@ import { hslToCss } from '../common/colour';
 const Palette = styled.div`
   display: flex;
   position: relative;
-  margin: 0 0 .5em;
+  margin: 0 0 0.5em;
   cursor: pointer;
   outline: none;
   height: 24px;
@@ -20,16 +20,13 @@ const Palette = styled.div`
 const Colour = styled.div`
   flex-grow: 1;
   height: 100%;
-  background-color: ${props => hslToCss(...props.background) || '#ccc'};
+  background-color: ${(props) => hslToCss(...props.background) || '#ccc'};
 `;
 
-const ColourPalette = props => (
-  <Palette
-    onClick={props.handleSetPalette.bind(null, props.colours)}>
+const ColourPalette = (props) => (
+  <Palette onClick={props.handleSetPalette.bind(null, props.colours)}>
     {props.colours.map((item, index) => (
-      <Colour
-        key={index}
-        background={item} />
+      <Colour key={index} background={item} />
     ))}
   </Palette>
 );

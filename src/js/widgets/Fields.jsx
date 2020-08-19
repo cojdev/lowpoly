@@ -44,7 +44,8 @@ export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
     position: relative;
     cursor: pointer;
 
-    &:before, &:after {
+    &:before,
+    &:after {
       content: '';
       position: absolute;
       display: block;
@@ -60,9 +61,9 @@ export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
 
     &:after {
       left: 4px;
-      top: calc(.375rem);
+      top: calc(0.375rem);
       width: calc(1.5rem - 8px);
-      height: calc(.75rem - 4px);
+      height: calc(0.75rem - 4px);
       border: 2px solid ${colours.primary};
       border-top: none;
       border-right: none;
@@ -84,7 +85,7 @@ export const RangeSlider = styled.input.attrs({ type: 'range' })`
 `;
 
 export const Label = styled.label`
-  padding: 0 .5ch;
+  padding: 0 0.5ch;
   color: #888;
   font-size: 0.9em;
   font-weight: bold;

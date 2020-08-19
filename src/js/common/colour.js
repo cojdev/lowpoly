@@ -5,12 +5,12 @@
  * @param {number} l luminosity
  * @returns {array}
  */
-export const hslToRgb = (h, s = null, l = null) => {
-  if (Array.isArray(h)) {
-    s = h[1];
-    l = h[2];
-    h = h[0];
-  }
+export const hslToRgb = (hue, sat = null, lum = null) => {
+  let h = hue;
+  let s = sat;
+  let l = lum;
+
+  if (Array.isArray(hue)) [h, s, l] = hue;
 
   let rgb = [];
   let c = 0;
@@ -127,26 +127,20 @@ export function hexToHsl(hex) {
       rgb = hex.match(/.{2}/g).map(item => parseInt(item, 16));
       break;
     default:
-      return;
+      return [];
   }
   const r = rgb[0] / 255;
-
-
   const g = rgb[1] / 255;
-
-
   const b = rgb[2] / 255;
-
   const max = Math.max(r, g, b);
-
-
   const min = Math.min(r, g, b);
 
   let h; let s; let
     l = (max + min) / 2;
 
   if (max === min) {
-    h = s = 0;
+    h = 0;
+    s = 0;
   } else {
     const d = max - min;
     s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
@@ -160,6 +154,8 @@ export function hexToHsl(hex) {
       case b:
         h = (r - g) / d + 4;
         break;
+      default:
+        return [];
     }
     h /= 6;
   }

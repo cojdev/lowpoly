@@ -16,7 +16,7 @@ const Container = styled.section`
   display: flex;
 
   @media screen and (min-width: 800px) {
-    margin-left:  calc(100% - ${theme.controls.width});   
+    margin-left: calc(100% - ${theme.controls.width});
   }
 `;
 
@@ -49,9 +49,11 @@ const ToggleButton = styled.button`
     height: auto;
   }
 
-  ${props => props.open && css`
-    transform: translateX(62%);
-  `}
+  ${(props) =>
+    props.open &&
+    css`
+      transform: translateX(62%);
+    `}
 `;
 
 const StyledControls = styled.section`
@@ -61,10 +63,10 @@ const StyledControls = styled.section`
   width: ${theme.controls.width};
   max-width: calc(100vw - 2.5rem);
   padding: 0;
-  box-shadow:  0 10px 25px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   overflow-y: auto;
   z-index: 2;
-  
+
   @media screen and (min-width: 800px) {
     max-width: 100%;
     box-shadow: none;
@@ -76,7 +78,7 @@ const DownloadButton = styled(LinkButton)``;
 const Footer = styled.footer`
   color: #888;
   width: 100%;
-  font-size: .8em;
+  font-size: 0.8em;
   text-align: center;
   padding: 2em 0;
 
@@ -84,15 +86,15 @@ const Footer = styled.footer`
     margin: 0;
     padding: 0;
   }
-  
+
   li {
     display: inline;
   }
-  
+
   li:not(:last-child) {
     :after {
-      content: " •";
-      margin: 0 .5rem;
+      content: ' •';
+      margin: 0 0.5rem;
       color: #ddd;
     }
   }
@@ -113,48 +115,53 @@ const Controls = (props) => {
   } = props;
 
   return (
-      <Container className={className}>
-        <ButtonWrap>
-          <ToggleButton
-            onClick={toggleControls}
-            open={props.open}>
-            <img src={props.open ? 'assets/x.svg' : 'assets/menu.svg'} />
-          </ToggleButton>
-        </ButtonWrap>
-        <StyledControls>
-          <Header />
-          <DimensionControls
-            settings={settings.dimensions}
-            presets={presets}
-            setDimensions={setDimensions} />
-          <ImageControls
-            settings={settings.image}
-            useImage={settings.useImage}
-            setImage={setImage}
-            setUseImage={setUseImage}
-            setDimensions={setDimensions} />
-          <GeometryControls
-            settings={settings.geometry}
-            setGeometry={setGeometry} />
-          <ColourControls
-            settings={settings.colour}
-            setColours={setColours} />
-          <PaletteControls
-            setColours={setColours} />
-          <ControlGroup title="Export">
-            <DownloadButton
-              href={output}
-              download="lowpoly.png">Download PNG</DownloadButton>
-          </ControlGroup>
-          <Footer>
-            by <a href="https://cojdev.github.io" target="_top">Charles Ojukwu</a>
-            <ul>
-              <li><a href="https://github.com/cojdev">Github</a></li>
-              <li><a href="https://codepen.io/cojdev">CodePen</a></li>
-            </ul>
-          </Footer>
-        </StyledControls>
-      </Container>
+    <Container className={className}>
+      <ButtonWrap>
+        <ToggleButton onClick={toggleControls} open={props.open}>
+          <img src={props.open ? 'assets/x.svg' : 'assets/menu.svg'} />
+        </ToggleButton>
+      </ButtonWrap>
+      <StyledControls>
+        <Header />
+        <DimensionControls
+          settings={settings.dimensions}
+          presets={presets}
+          setDimensions={setDimensions}
+        />
+        <ImageControls
+          settings={settings.image}
+          useImage={settings.useImage}
+          setImage={setImage}
+          setUseImage={setUseImage}
+          setDimensions={setDimensions}
+        />
+        <GeometryControls
+          settings={settings.geometry}
+          setGeometry={setGeometry}
+        />
+        <ColourControls settings={settings.colour} setColours={setColours} />
+        <PaletteControls setColours={setColours} />
+        <ControlGroup title="Export">
+          <DownloadButton href={output} download="lowpoly.png">
+            Download PNG
+          </DownloadButton>
+        </ControlGroup>
+        <Footer>
+          by{' '}
+          <a href="https://cojdev.github.io" target="_top">
+            Charles Ojukwu
+          </a>
+          <ul>
+            <li>
+              <a href="https://github.com/cojdev">Github</a>
+            </li>
+            <li>
+              <a href="https://codepen.io/cojdev">CodePen</a>
+            </li>
+          </ul>
+        </Footer>
+      </StyledControls>
+    </Container>
   );
 };
 

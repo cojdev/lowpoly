@@ -1,7 +1,6 @@
 import { css } from 'styled-components';
 import { colours } from './theme';
 
-
 export const button = css`
   color: #fff;
   padding: calc(1ch + 2px);
@@ -23,23 +22,23 @@ export const button = css`
   }
 
   :active {
-    box-shadow: inset 0 2px 10px rgba(0,0,0,.06);
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.06);
   }
-    
+
   :disabled {
     cursor: not-allowed;
   }
 `;
 
 export const row = css`
-  margin: 0 -.25rem;
+  margin: 0 -0.25rem;
   display: flex;
   flex-wrap: wrap;
 `;
 
 export const column = css`
   display: block;
-  margin: 0 .25rem;
+  margin: 0 0.25rem;
 `;
 
 export default { button, row, column };

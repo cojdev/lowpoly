@@ -26,20 +26,22 @@ const GeometryControls = (props) => {
   };
 
   const options = Object.keys(settings).map((item, index) => (
-    <div
-      key={index}>
-      <Label htmlFor={item}>{capitalise(item)}: {settings[item]}</Label>
+    <div key={index}>
+      <Label htmlFor={item}>
+        {capitalise(item)}: {settings[item]}
+      </Label>
       <RangeInput
         id={item}
         min="0"
         max="100"
         value={settings[item] || 0}
         onChange={handleChange.bind(null, item)}
-        onMouseUp={handleBlur.bind(null, item)} />
+        onMouseUp={handleBlur.bind(null, item)}
+      />
     </div>
   ));
 
-  return (<ControlGroup title="Geometry">{options}</ControlGroup>);
+  return <ControlGroup title="Geometry">{options}</ControlGroup>;
 };
 
 export default GeometryControls;

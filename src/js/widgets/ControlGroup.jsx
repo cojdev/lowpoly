@@ -16,18 +16,18 @@ const Heading = styled.button`
   cursor: pointer;
   padding: 0 1rem;
   margin: 0;
-  font-size: .9em;
+  font-size: 0.9em;
   outline: none;
   text-align: left;
   color: #444;
   font-family: inherit;
   transition: 150ms ease;
-  ${props => props.open && css`
-    box-shadow:
-    0 2px 4px rgba(0,0,0,0.05),
-    0 2px 12px rgba(0,0,0,0.05);
-  `}
-  
+  ${(props) =>
+    props.open &&
+    css`
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 2px 12px rgba(0, 0, 0, 0.05);
+    `}
+
   &:hover {
     color: ${colours.primary};
   }
@@ -43,9 +43,11 @@ const Heading = styled.button`
     bottom: 1px;
     left: 0;
     right: 0;
-    ${props => !props.open && css`
-      opacity: 1;
-    `}
+    ${(props) =>
+      !props.open &&
+      css`
+        opacity: 1;
+      `}
   }
 `;
 
@@ -67,19 +69,21 @@ const Arrow = styled.div`
     position: absolute;
     content: '';
     height: 1px;
-    width: .62em;
+    width: 0.62em;
     background: #ccc;
-    top: calc(50% - .5px);
-    left: calc(50% - .31em);
+    top: calc(50% - 0.5px);
+    left: calc(50% - 0.31em);
   }
 
   :after {
     transform-origin: center;
     transition: 150ms ease;
     transform: rotate(90deg) scaleX(1);
-    ${props => props.open && css`
-      transform: rotate(90deg) scaleX(0);
-    `};
+    ${(props) =>
+      props.open &&
+      css`
+        transform: rotate(90deg) scaleX(0);
+      `};
   }
 `;
 
@@ -91,7 +95,7 @@ const Content = styled.div`
 `;
 
 const ContentInner = styled.div`
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
 `;
 
 const ControlGroup = (props) => {
@@ -109,13 +113,13 @@ const ControlGroup = (props) => {
 
   return (
     <StyledControlGroup className={props.className}>
-      <Heading
-        onClick={toggleOpen.bind(this)}
-        open={open}>
+      <Heading onClick={toggleOpen.bind(this)} open={open}>
         {props.title}
         <Arrow open={open} />
       </Heading>
-      <Content ref={content}><ContentInner>{props.children}</ContentInner></Content>
+      <Content ref={content}>
+        <ContentInner>{props.children}</ContentInner>
+      </Content>
     </StyledControlGroup>
   );
 };

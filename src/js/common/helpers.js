@@ -44,8 +44,17 @@ export const clone = function (obj) {
  * drawImageProp(context, image [, x, y, width, height [,offsetX, offsetY]])
  *
  * If image and context are only arguments rectangle will equal canvas
-*/
-export function drawImageProp(ctx, img, xpos, ypos, width, height, offX = 0.5, offY = 0.5) {
+ */
+export function drawImageProp(
+  ctx,
+  img,
+  xpos,
+  ypos,
+  width,
+  height,
+  offX = 0.5,
+  offY = 0.5
+) {
   const x = xpos || 0;
   const y = ypos || 0;
   const w = width || ctx.canvas.width;
@@ -69,8 +78,11 @@ export function drawImageProp(ctx, img, xpos, ypos, width, height, offX = 0.5, o
   let nh = ih * r;
   // new prop. height
 
-  let cx; let cy; let cw; let ch; let
-    ar = 1;
+  let cx;
+  let cy;
+  let cw;
+  let ch;
+  let ar = 1;
 
   // decide which gap to fill
   if (nw < w) ar = w / nw;
@@ -104,14 +116,16 @@ export function drawImageProp(ctx, img, xpos, ypos, width, height, offX = 0.5, o
 export class PRNG {
   constructor(seed) {
     this.seed = seed % 2147483647;
-    if (this.seed <= 0) { this.seed += 2147483646; }
+    if (this.seed <= 0) {
+      this.seed += 2147483646;
+    }
   }
 
   /**
    * Returns a pseudo-random value between 1 and 2^32 - 2.
    */
   next() {
-    this.seed = this.seed * 16807 % 2147483647;
+    this.seed = (this.seed * 16807) % 2147483647;
     return this.seed;
   }
 
@@ -128,4 +142,5 @@ export class PRNG {
  * Capitalises the first letter of a string
  * @param {string} string Input string
  */
-export const capitalise = string => string.charAt(0).toUpperCase() + string.slice(1);
+export const capitalise = (string) =>
+  string.charAt(0).toUpperCase() + string.slice(1);

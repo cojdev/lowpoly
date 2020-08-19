@@ -45,12 +45,9 @@ const GlobalStyles = createGlobalStyle`
     }
 `;
 
-const Container = styled.div`
-
-`;
+const Container = styled.div``;
 
 const StyledControls = styled(Controls)`
-
   @media screen and (max-width: 800px) {
     position: fixed;
     top: 0;
@@ -59,9 +56,11 @@ const StyledControls = styled(Controls)`
     transform: translateX(calc(100% - 5rem));
     transition: transform ${theme.controls.transition};
 
-    ${props => props.open && css`
-      transform: none;
-    `}
+    ${(props) =>
+      props.open &&
+      css`
+        transform: none;
+      `}
   }
 `;
 
@@ -185,14 +184,16 @@ export default class App extends React.Component {
         <GlobalStyles />
         <Display
           settings={settings}
-          updateOutput={this.updateOutput.bind(this)} />
+          updateOutput={this.updateOutput.bind(this)}
+        />
         <StyledControls
           settings={settings}
           presets={presets}
           output={output}
           open={this.state.controlsOpen}
           toggleControls={this.toggleControls}
-          {...this.setters} />
+          {...this.setters}
+        />
       </Container>
     );
   }

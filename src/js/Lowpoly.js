@@ -59,12 +59,17 @@ export default class Lowpoly {
     ctx.globalCompositeOperation = 'multiply';
 
     // loop colours and create gradient
-    let gradient = ctx.createLinearGradient(0, 0, element.width, element.height);
+    let gradient = ctx.createLinearGradient(
+      0,
+      0,
+      element.width,
+      element.height
+    );
     for (let i = 0; i < colours.length; i++) {
       if (colours.length > 1) {
         gradient.addColorStop(
           i / (colours.length - 1),
-          hslToCss(...colours[i]),
+          hslToCss(...colours[i])
         );
       } else {
         // use a single colour
@@ -97,9 +102,7 @@ export default class Lowpoly {
   }
 
   drawPoly(cell) {
-    const {
-      element, ctx, depth, dither,
-    } = this;
+    const { element, ctx, depth, dither } = this;
     const centre = cell.getCentre();
     // const random = new PRNG(0);
     const ditherX = (dither / 200) * element.width;
@@ -116,7 +119,8 @@ export default class Lowpoly {
     if (centre.y < 0) centre.y = 0;
     if (centre.y > element.height - 1) centre.y = element.height - 1;
 
-    const pixel = (Math.floor(centre.x) + (Math.floor(centre.y) * element.width)) * 4;
+    const pixel =
+      (Math.floor(centre.x) + Math.floor(centre.y) * element.width) * 4;
 
     // const [red, green, blue, alpha] = ctx.getImageData(centre.x, centre.y, 1, 1).data;
     const [red, green, blue, alpha] = [
@@ -126,7 +130,7 @@ export default class Lowpoly {
       this.imageData[pixel + 3],
     ];
 
-    const temp = (Math.random() * 2 * depth) - depth;
+    const temp = Math.random() * 2 * depth - depth;
     ctx.fillStyle = `rgba(
       ${Math.round(red - red * temp)},
       ${Math.round(green - green * temp)},
@@ -139,9 +143,7 @@ export default class Lowpoly {
   }
 
   generatePoints() {
-    const {
-      rowCount, columnCount, cellSize, variance,
-    } = this;
+    const { rowCount, columnCount, cellSize, variance } = this;
     const ret = [];
 
     const random = new PRNG(0);
@@ -150,15 +152,15 @@ export default class Lowpoly {
       for (let j = 0; j < columnCount; j++) {
         const temp = {};
         // get y position and add variance
-        temp.y = (i * cellSize * 0.866) - cellSize;
+        temp.y = i * cellSize * 0.866 - cellSize;
         temp.y += (random.generate() - 0.5) * variance * cellSize * 2;
         // even rows
         if (i % 2 === 0) {
-          temp.x = (j * cellSize) - cellSize;
+          temp.x = j * cellSize - cellSize;
           temp.x += (random.generate() - 0.5) * variance * cellSize * 2;
         } else {
           // odd rows
-          temp.x = (j * cellSize) - cellSize + (cellSize / 2);
+          temp.x = j * cellSize - cellSize + cellSize / 2;
           temp.x += (random.generate() - 0.5) * variance * cellSize * 2;
         }
 
@@ -178,7 +180,10 @@ export default class Lowpoly {
       const currentRow = Math.floor(i / columnCount);
 
       // don't add squares/triangles to the end of a row
-      if (i % columnCount !== columnCount - 1 && i < ((rowCount - 1) * columnCount)) {
+      if (
+        i % columnCount !== columnCount - 1 &&
+        i < (rowCount - 1) * columnCount
+      ) {
         const square = [
           points[i],
           points[i + 1],
@@ -211,9 +216,9 @@ export default class Lowpoly {
     let t1;
     const tracker = {};
 
-    this.cellSize = (this.cellSize * 3) + 30;
-    this.variance = this.variance / 100;
-    this.depth = this.depth / 200;
+    this.cellSize = this.cellSize * 3 + 30;
+    this.variance /= 100;
+    this.depth /= 200;
 
     this.gridWidth = this.element.width + this.cellSize * 2;
     this.gridHeight = this.element.height + this.cellSize * 2;

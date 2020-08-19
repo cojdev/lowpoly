@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { RangeSlider } from './Fields';
 
@@ -10,11 +10,11 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const Track = styled.div.attrs(props => ({
+const Track = styled.div.attrs((props) => ({
   style: { background: props.background },
 }))`
   background-color: #fff;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, .1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   /* border: 2px solid #eee; */
   border-radius: 100px;
   position: absolute;
@@ -33,7 +33,7 @@ const Bead = styled.div`
   border-radius: 3px;
   /* border: 2px solid #e24; */
   background-color: #fff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 
   :hover {
     transform: scale(1.2);
@@ -47,62 +47,57 @@ const StyledRangeSlider = styled(RangeSlider)`
   opacity: 0;
 `;
 
-export default class RangeInput extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      background: '#fff',
-    };
-    this.track = React.createRef();
-    this.bead = React.createRef();
+const RangeInput = (props) => {
+  const [background, setBackground] = useState('#fff');
 
-    this.setBeadPosition = this.setBeadPosition.bind(this);
-  }
+  const track = useRef(null);
+  const bead = useRef(null);
 
-  componentDidMount() {
-    this.setBeadPosition(this.props.value);
-  }
+  const setBeadPosition = (value) => {
+    const elem = bead.current;
+    const min = parseInt(props.min, 10) || 0;
+    const max = parseInt(props.max, 10) || 100;
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.value !== this.props.value) {
-      this.setBeadPosition(this.props.value);
-    }
-  }
+    const inputRatio = value / (max - min) + min;
 
-  setBeadPosition(value) {
-    const bead = this.bead.current;
-    const min = parseInt(this.props.min, 10) || 0;
-    const max = parseInt(this.props.max, 10) || 100;
-
-    const inputRatio = ((value / (max - min)) + min);
-
-    bead.style.left = `calc(${inputRatio * 100}% - ${inputRatio * bead.offsetWidth}px)`;
-    this.setState({ background: `linear-gradient(to right, #e24 ${inputRatio * 100}%, #888 ${inputRatio * 100}%` });
-  }
-
-  handleChange(e) {
-    const { target } = e;
-    this.setBeadPosition(target.value);
-    this.props.onChange.call(this, e);
-  }
-
-  handleMouseUp(e) {
-    this.props.onMouseUp.call(this, e);
-  }
-
-  render() {
-    return (
-      <Wrapper>
-        <Track ref={this.track} background={this.props.background || this.state.background} />
-        <Bead ref={this.bead} />
-        <StyledRangeSlider
-          value={this.props.value}
-          min={this.props.min}
-          max={this.props.max}
-          name={this.props.name}
-          onChange={this.handleChange.bind(this)}
-          onMouseUp={this.handleMouseUp.bind(this)} />
-      </Wrapper>
+    elem.style.left = `calc(${inputRatio * 100}% - ${
+      inputRatio * elem.offsetWidth
+    }px)`;
+    setBackground(
+      `linear-gradient(to right, #e24 ${inputRatio * 100}%, #888 ${
+        inputRatio * 100
+      }%`
     );
-  }
-}
+  };
+
+  useEffect(() => {
+    setBeadPosition(props.value);
+  }, [props.value]);
+
+  const handleChange = (e) => {
+    const { target } = e;
+    setBeadPosition(target.value);
+    props.onChange(e);
+  };
+
+  const handleMouseUp = (e) => {
+    props.onMouseUp(e);
+  };
+
+  return (
+    <Wrapper>
+      <Track ref={track} background={props.background || background} />
+      <Bead ref={bead} />
+      <StyledRangeSlider
+        value={props.value}
+        min={props.min}
+        max={props.max}
+        name={props.name}
+        onChange={handleChange}
+        onMouseUp={handleMouseUp}
+      />
+    </Wrapper>
+  );
+};
+
+export default RangeInput;

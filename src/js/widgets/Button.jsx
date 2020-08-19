@@ -6,7 +6,7 @@ export const StyledButton = styled.button`
   ${styles.button}
 `;
 
-const Button = props => (
+const Button = (props) => (
   <StyledButton {...props}>{props.children}</StyledButton>
 );
 

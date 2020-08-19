@@ -15,8 +15,9 @@ const DimensionControls = (props) => {
 
   const handlePreset = (e) => {
     if (e.target.value !== 'null') {
-      const p = Object.values(presets)
-        .find(item => item[e.target.value] !== undefined)[e.target.value];
+      const p = Object.values(presets).find(
+        (item) => item[e.target.value] !== undefined
+      )[e.target.value];
 
       setWidth(p.width);
       setHeight(p.height);
@@ -39,14 +40,14 @@ const DimensionControls = (props) => {
   return (
     <ControlGroup title="Dimensions">
       <Row>
-
         {/* Presets */}
         <Column width={0.45}>
           <SelectInput
             name="presets"
             label="Presets"
             onChange={handlePreset}
-            options={presets} />
+            options={presets}
+          />
         </Column>
 
         {/* Width */}
@@ -56,7 +57,8 @@ const DimensionControls = (props) => {
             name="width"
             label="Width"
             value={width}
-            onChange={handleWidth} />
+            onChange={handleWidth}
+          />
         </Column>
 
         {/* Height */}
@@ -66,12 +68,11 @@ const DimensionControls = (props) => {
             name="height"
             label="Height"
             value={height}
-            onChange={handleHeight} />
+            onChange={handleHeight}
+          />
         </Column>
       </Row>
-      <SetButton
-        onClick={handleSubmit}>Apply</SetButton>
-
+      <SetButton onClick={handleSubmit}>Apply</SetButton>
     </ControlGroup>
   );
 };

@@ -1,39 +1,54 @@
 {
-    "env": {
-        "browser": true,
-        "es6": true
-    },
-    "settings": {
-        "import/resolver": {
-            "node": {
-                "extensions": [
-                    ".js",
-                    ".jsx"
-                ]
-            }
-        }
-    },
-    "extends": [
-        "airbnb-base",
-        "plugin:react/recommended"
-    ],
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
-    "parserOptions": {
-        "ecmaVersion": 2018,
-        "sourceType": "module"
-    },
-    "rules": {
-        "no-plusplus": "off",
-        "no-bitwise": "off",
-        "no-mixed-operators": "off",
-        "class-methods-use-this": "off",
-        "no-console": "off",
-        "func-names": "off",
-        "linebreak-style": "off",
-        "no-param-reassign": ["error", {"props": false}],
-        "react/prop-types": "off"
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
     }
+  },
+  "extends": [
+    "airbnb-base",
+    "plugin:react/recommended",
+    "prettier"
+  ],
+  "plugins": ["prettier"],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "ignorePatterns": [
+    "node_modules/**/*.js"
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+    "no-plusplus": "off",
+    "no-bitwise": "off",
+    "no-mixed-operators": "off",
+    "class-methods-use-this": "off",
+    "no-console": "warn",
+    "func-names": "off",
+    "linebreak-style": "off",
+    "no-param-reassign": ["error", {
+      "props": false
+    }],
+    "react/prop-types": "off",
+    "react/no-unescaped-entities": [
+      "error",
+      {
+        "forbid": [">", "}"]
+      }
+    ]
+  }
 }

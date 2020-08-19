@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import theme from './common/theme';
 import Lowpoly from './Lowpoly';
@@ -12,7 +12,7 @@ const StyledDisplay = styled.div`
   bottom: 0;
   display: flex;
   align-items: center;
-  justify-content: center; 
+  justify-content: center;
   width: 100%;
 
   @media screen and (min-width: 800px) {
@@ -23,70 +23,49 @@ const StyledDisplay = styled.div`
 const Canvas = styled.canvas`
   max-width: 100%;
   max-height: 100%;
-  box-shadow:
-    0 2px 5px rgba(hexToRgb(#000), .2),
-    0 5px 20px rgba(hexToRgb(#000), .1);
+  box-shadow: 0 2px 5px rgba(hexToRgb(#000), 0.2),
+    0 5px 20px rgba(hexToRgb(#000), 0.1);
 `;
 
-export default class Display extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      loaded: false,
-    };
-
-    this.canvas = React.createRef();
-  }
-
-  componentDidMount() {
-    const canvas = this.canvas.current;
-
-    this.drawCanvas(canvas);
-  }
-
-  componentDidUpdate(previousProps) {
-    const canvas = this.canvas.current;
-
-    if (previousProps.settings !== this.props.settings) {
-      this.drawCanvas.call(this, canvas);
-    }
-  }
+const Display = (props) => {
+  const canvas = useRef(null);
 
   /**
    * Draw the source gradient or image
    * @param {CanvasRenderingContext2D} context Canvas context
-   * @param {HTMLCanvasElement} canvas Canvas element
+   * @param {HTMLCanvasElement} elem Canvas element
    */
-  drawCanvas(canvas, callback = () => null) {
-    const {
-      geometry, colour, image, useImage,
-    } = this.props.settings;
-    const canv = new Lowpoly(canvas);
-    canv.render({
-      variance: geometry.variance,
-      cellSize: geometry.cellSize,
-      depth: geometry.depth,
-      dither: geometry.dither,
-      image,
-      colours: colour,
-      useImage,
-    }, (dataURL) => {
-      this.props.updateOutput(dataURL);
-    });
-    callback();
-  }
-
-  render() {
-    const { width, height } = this.props.settings.dimensions;
-
-    return (
-      <StyledDisplay>
-        <Canvas
-          ref={this.canvas}
-          width={width}
-          height={height} />
-      </StyledDisplay>
+  const drawCanvas = (elem, callback = () => null) => {
+    const { geometry, colour, image, useImage } = props.settings;
+    const cvs = new Lowpoly(elem);
+    cvs.render(
+      {
+        variance: geometry.variance,
+        cellSize: geometry.cellSize,
+        depth: geometry.depth,
+        dither: geometry.dither,
+        image,
+        colours: colour,
+        useImage,
+      },
+      (dataURL) => {
+        props.updateOutput(dataURL);
+      }
     );
-  }
-}
+    callback();
+  };
+
+  useEffect(() => {
+    drawCanvas(canvas.current);
+  }, [props.settings]);
+
+  const { width, height } = props.settings.dimensions;
+
+  return (
+    <StyledDisplay>
+      <Canvas ref={canvas} width={width} height={height} />
+    </StyledDisplay>
+  );
+};
+
+export default Display;
