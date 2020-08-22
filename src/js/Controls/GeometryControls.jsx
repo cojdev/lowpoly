@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import ControlGroup from '../widgets/ControlGroup';
 import { Label } from '../widgets/Fields';
-import { capitalise, clone } from '../common/helpers';
+import { capitalise } from '../common/helpers';
 import RangeInput from '../widgets/RangeInput';
 
 const GeometryControls = (props) => {
-  const [settings, setSettings] = useState(clone(props.settings));
+  const [settings, setSettings] = useState(props.settings);
 
   /**
    * Update the local state

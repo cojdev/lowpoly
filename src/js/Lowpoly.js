@@ -1,4 +1,4 @@
-import { drawImageProp, PRNG } from './common/helpers';
+import { drawImageProp, PRNG, Tracker } from './common/helpers';
 import { hslToCss } from './common/colour';
 import Triangle from './Triangle';
 
@@ -211,10 +211,10 @@ export default class Lowpoly {
   }
 
   async render(options, callback) {
+    console.trace();
     Object.assign(this, options);
-    let t0;
-    let t1;
-    const tracker = {};
+
+    const tracker = new Tracker();
 
     this.cellSize = this.cellSize * 3 + 30;
     this.variance /= 100;
@@ -226,39 +226,34 @@ export default class Lowpoly {
     this.columnCount = Math.ceil(this.gridWidth / this.cellSize) + 2;
     this.rowCount = Math.ceil(this.gridHeight / (this.cellSize * 0.865));
 
-    t0 = performance.now();
-    this.generatePoints();
-    t1 = performance.now();
-    tracker.generatePoints = t1 - t0;
-
-    t0 = performance.now();
-    this.generateTriangles();
-    t1 = performance.now();
-    tracker.generateTriangles = t1 - t0;
+    tracker.test(() => this.generatePoints(), 'generatePoints');
+    tracker.test(() => this.generateTriangles(), 'generateTriangles');
 
     const { element, ctx, triangles } = this;
 
     ctx.clearRect(0, 0, element.width, element.height);
 
-    t0 = performance.now();
-    await this.drawBackground();
-    t1 = performance.now();
-    tracker.drawBackground = t1 - t0;
+    // draw gradient/image on canvas and get image data
+    await tracker.test(() => this.drawBackground(), 'drawBackground', true);
 
-    t0 = performance.now();
-    this.imageData = ctx.getImageData(0, 0, element.width, element.height).data;
-    t1 = performance.now();
-    tracker.getImageData = t1 - t0;
+    tracker.test(() => {
+      this.imageData = ctx.getImageData(
+        0,
+        0,
+        element.width,
+        element.height
+      ).data;
+    }, 'getImageData');
 
     // draw polys on main canvas
-    t0 = performance.now();
-    for (let i = 0; i < triangles.length; i++) {
-      this.drawPoly(triangles[i]);
-    }
-    t1 = performance.now();
-    tracker.drawPoly = t1 - t0;
+    tracker.test(() => {
+      for (let i = 0; i < triangles.length; i++) {
+        this.drawPoly(triangles[i]);
+      }
+    }, 'drawPoly');
 
-    console.table(tracker);
+    // console.table(tracker);
+    // tracker.log();
 
     // generate data url of image
     this.dataUrl = element.toDataURL();

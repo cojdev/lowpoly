@@ -40,7 +40,7 @@ export default {
       [166, 100, 56],
     ],
   ],
-  presets: {
+  dimensions: {
     Mobile: {
       'iPhone 5/5s': {
         width: 640,

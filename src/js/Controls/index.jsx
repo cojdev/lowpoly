@@ -114,6 +114,26 @@ const Controls = (props) => {
     output,
   } = props;
 
+  const head = 'data:image/png;base64,';
+
+  const kb = 1024;
+  const mb = kb * kb;
+
+  const getFileSize = (raw = false) => {
+    const size = Math.round(((output.length - head.length) * 3) / 4);
+    if (raw) {
+      return size;
+    }
+
+    if (size > mb) {
+      return `${(size / mb).toFixed(2)}MB`;
+    }
+    if (size > kb) {
+      return `${(size / kb).toFixed(1)}KB`;
+    }
+    return `${size.toFixed(1)}B`;
+  };
+
   return (
     <Container className={className}>
       <ButtonWrap>
@@ -142,6 +162,13 @@ const Controls = (props) => {
         <ColourControls settings={settings.colour} setColours={setColours} />
         <PaletteControls setColours={setColours} />
         <ControlGroup title="Export">
+          Filesize: {getFileSize()}
+          <br />
+          Width: {settings.dimensions.width}
+          <br />
+          Height: {settings.dimensions.height}
+          <br />
+          <br />
           <DownloadButton href={output} download="lowpoly.png">
             Download PNG
           </DownloadButton>

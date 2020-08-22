@@ -4,18 +4,18 @@ import React from 'react';
 import ColourPalette from '../widgets/ColourPalette';
 import ControlGroup from '../widgets/ControlGroup';
 
-import data from '../data';
+import presets from '../presets';
 
-const PaletteControls = props => (
-    <ControlGroup title="Palettes">
-      {data.palettes.map((item, index) => (
-        <ColourPalette
-          key={index}
-          colours={item}
-          handleSetPalette={props.setColours.bind(this)}
-        />
-      ))}
-    </ControlGroup>
+const PaletteControls = (props) => (
+  <ControlGroup title="Palettes">
+    {presets.palettes.map((item, index) => (
+      <ColourPalette
+        key={index}
+        colours={item}
+        handleSetPalette={props.setColours}
+      />
+    ))}
+  </ControlGroup>
 );
 
 export default PaletteControls;

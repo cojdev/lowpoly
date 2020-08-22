@@ -36,11 +36,11 @@ const Heading = styled.button`
     content: '';
     display: block;
     position: absolute;
-    height: 2px;
+    height: 1px;
     transition: 450ms ease;
     background: #eee;
     opacity: 0;
-    bottom: 1px;
+    bottom: 0;
     left: 0;
     right: 0;
     ${(props) =>
@@ -92,6 +92,8 @@ const Content = styled.div`
   transition: 450ms ease;
   padding: 0;
   background-color: #fbfbfb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03) inset,
+    0 2px 12px rgba(0, 0, 0, 0.05) inset;
 `;
 
 const ContentInner = styled.div`
@@ -117,7 +119,7 @@ const ControlGroup = (props) => {
         {props.title}
         <Arrow open={open} />
       </Heading>
-      <Content ref={content}>
+      <Content ref={content} open={open}>
         <ContentInner>{props.children}</ContentInner>
       </Content>
     </StyledControlGroup>

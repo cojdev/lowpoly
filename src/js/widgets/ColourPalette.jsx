@@ -24,7 +24,7 @@ const Colour = styled.div`
 `;
 
 const ColourPalette = (props) => (
-  <Palette onClick={props.handleSetPalette.bind(null, props.colours)}>
+  <Palette onClick={() => props.handleSetPalette(props.colours)}>
     {props.colours.map((item, index) => (
       <Colour key={index} background={item} />
     ))}

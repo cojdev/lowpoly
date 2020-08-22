@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
+import { rgba } from 'polished';
 import theme from './common/theme';
 import Lowpoly from './Lowpoly';
 
@@ -23,8 +24,7 @@ const StyledDisplay = styled.div`
 const Canvas = styled.canvas`
   max-width: 100%;
   max-height: 100%;
-  box-shadow: 0 2px 5px rgba(hexToRgb(#000), 0.2),
-    0 5px 20px rgba(hexToRgb(#000), 0.1);
+  box-shadow: 0 2px 5px ${rgba('#000', 0.2)}, 0 5px 20px ${rgba('#000', 0.1)};
 `;
 
 const Display = (props) => {
@@ -57,6 +57,7 @@ const Display = (props) => {
 
   useEffect(() => {
     drawCanvas(canvas.current);
+    // console.log(props.settings);
   }, [props.settings]);
 
   const { width, height } = props.settings.dimensions;
