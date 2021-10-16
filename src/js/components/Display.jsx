@@ -2,8 +2,8 @@ import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { rgba } from 'polished';
-import theme from './common/theme';
-import Lowpoly from './Lowpoly';
+import theme from '../data/theme';
+import Lowpoly from '../services/Lowpoly';
 
 const StyledDisplay = styled.div`
   text-align: center;

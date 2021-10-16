@@ -41,7 +41,7 @@ export const hslToRgb = (hue, sat = null, lum = null) => {
 
   m = l - c / 2;
 
-  rgb = rgb.map(item => Math.floor((item + m) * 255));
+  rgb = rgb.map((item) => Math.floor((item + m) * 255));
 
   // console.log(rgb);
   return rgb;
@@ -87,26 +87,25 @@ export const getRandomHex = (bright = false) => {
 
 /**
  * Convert hexadecimal colour to RGB
- * @param {string} hex Colour is 3 or 6 digit hexadecimal
+ * @param {string} hex 3 or 6 digit hexadecimal colour value
  * @returns {array}
  */
 export function hexToRgb(hex) {
   hex = hex.replace('#', '');
 
   switch (hex.length) {
-    case 3:
-    {
-      const ret = hex.split('').map(item => parseInt(item + item, 16));
+    case 3: {
+      const ret = hex.split('').map((item) => parseInt(item + item, 16));
       return ret;
     }
 
-    case 6:
-    {
-      const ret = hex.match(/.{2}/g).map(item => parseInt(item, 16));
+    case 6: {
+      const ret = hex.match(/.{2}/g).map((item) => parseInt(item, 16));
       return ret;
     }
 
     default:
+      return [0, 0, 0];
   }
 }
 
@@ -121,10 +120,10 @@ export function hexToHsl(hex) {
 
   switch (hex.length) {
     case 3:
-      rgb = hex.split('').map(item => parseInt(item + item, 16));
+      rgb = hex.split('').map((item) => parseInt(item + item, 16));
       break;
     case 6:
-      rgb = hex.match(/.{2}/g).map(item => parseInt(item, 16));
+      rgb = hex.match(/.{2}/g).map((item) => parseInt(item, 16));
       break;
     default:
       return [];
@@ -135,8 +134,9 @@ export function hexToHsl(hex) {
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
 
-  let h; let s; let
-    l = (max + min) / 2;
+  let h;
+  let s;
+  let l = (max + min) / 2;
 
   if (max === min) {
     h = 0;
@@ -185,8 +185,9 @@ export function hslToHex(h, s, l) {
   s /= 100;
   l /= 100;
 
-  let r; let g; let
-    b;
+  let r;
+  let g;
+  let b;
 
   if (s === 0) {
     r = g = b = l; // achromatic
@@ -212,9 +213,9 @@ export function hslToHex(h, s, l) {
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 }
 
-export function cssToHsl(css) {
-  //
-}
+// export function cssToHsl(css) {
+//   //
+// }
 
 export function hslToCss(h, s, l) {
   return `hsl(${h},${s}%,${l}%)`;

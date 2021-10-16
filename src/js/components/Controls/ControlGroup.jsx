@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
-import animate from '../Libraries/Animate';
-import { colours } from '../common/theme';
+import animate from '../../services/Animate';
+import { colours } from '../../data/theme';
 
 const StyledControlGroup = styled.section``;
 

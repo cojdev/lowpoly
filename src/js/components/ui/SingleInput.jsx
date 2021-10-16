@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { StyledTextField, StyledNumberField, Label } from '../widgets/Fields';
+import { StyledTextField, StyledNumberField, Label } from '../../styles/fields';
 
 const StyledSingleInput = styled.div`
   position: relative;

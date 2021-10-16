@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-import { colours } from '../common/theme';
+import { colours } from '../data/theme';
 
 const CallToAction = css`
   display: inline-block;

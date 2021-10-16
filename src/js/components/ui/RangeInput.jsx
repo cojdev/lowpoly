@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import { RangeSlider } from './Fields';
+import { RangeSlider } from '../../styles/fields';
 
 const Wrapper = styled.div`
   height: 20px;

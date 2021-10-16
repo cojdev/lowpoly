@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-import { colours } from './theme';
+import { colours } from '../data/theme';
 
 export const buttonCSS = css`
   color: #fff;

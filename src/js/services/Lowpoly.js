@@ -1,5 +1,5 @@
-import { drawImageProp, PRNG, Tracker } from './common/helpers';
-import { hslToCss } from './common/colour';
+import { drawImageProp, PRNG, Tracker } from '../utils/helpers';
+import { hslToCss } from '../utils/colour';
 import Triangle from './Triangle';
 
 export default class Lowpoly {

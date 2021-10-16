@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import ControlGroup from '../widgets/ControlGroup';
-import Button from '../widgets/Button';
-import { Row, Column } from '../common/mixins';
-import SingleInput from '../Forms/SingleInput';
-import SelectInput from '../Forms/SelectInput';
+import ControlGroup from './ControlGroup';
+import Button from '../ui/Button';
+import { Row, Column } from '../../styles/mixins';
+import SingleInput from '../ui/SingleInput';
+import SelectInput from '../ui/SelectInput';
 
 const SetButton = styled(Button)``;
 

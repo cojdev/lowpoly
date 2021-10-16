@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
-import { Label, StyledDropdown } from '../widgets/Fields';
+import { Label, StyledDropdown } from '../../styles/fields';
 
 const StyledSelectInput = styled.div`
   position: relative;

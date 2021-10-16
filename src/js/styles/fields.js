@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
-import { fieldCSS } from '../common/styles';
-import { colours } from '../common/theme';
+import { fieldCSS } from './generic';
+import { colours } from '../data/theme';
 
 export const StyledTextField = styled.input.attrs({ type: 'text' })`
   ${fieldCSS};

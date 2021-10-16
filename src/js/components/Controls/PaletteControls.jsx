@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 // widgets
-import ColourPalette from '../widgets/ColourPalette';
-import ControlGroup from '../widgets/ControlGroup';
+import ColourPalette from '../ColourPalette';
+import ControlGroup from './ControlGroup';
 
-import presets from '../presets';
+import presets from '../../data/presets';
 
 const PaletteControls = ({ setColours }) => (
   <ControlGroup title="Palettes">

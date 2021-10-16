@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { hslToCss } from '../common/colour';
+import { hslToCss } from '../../utils/colour';
 
 const StyledColourInput = styled.div.attrs((props) => ({
   style: {

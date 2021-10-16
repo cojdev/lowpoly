@@ -2,14 +2,14 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 
 import styled, { css } from 'styled-components';
-import * as colour from '../common/colour';
+import * as colour from '../../utils/colour';
 
 // widgets
-import ColourInput from '../widgets/ColourInput';
-import { Label } from '../widgets/Fields';
-import RangeInput from '../widgets/RangeInput';
-import ControlGroup from '../widgets/ControlGroup';
-import Button from '../widgets/Button';
+import ColourInput from '../ui/ColourInput';
+import { Label } from '../../styles/fields';
+import RangeInput from '../ui/RangeInput';
+import ControlGroup from './ControlGroup';
+import Button from '../ui/Button';
 
 const SmallButton = styled(Button)`
   display: inline-block;

@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import ControlGroup from '../widgets/ControlGroup';
-import { Label } from '../widgets/Fields';
-import { capitalise } from '../common/helpers';
-import RangeInput from '../widgets/RangeInput';
+import ControlGroup from './ControlGroup';
+import { Label } from '../../styles/fields';
+import { capitalise } from '../../utils/helpers';
+import RangeInput from '../ui/RangeInput';
 
 const GeometryControls = (props) => {
   const [settings, setSettings] = useState(props.settings);

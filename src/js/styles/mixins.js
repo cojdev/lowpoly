@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { rowCSS, columnCSS } from './styles';
+import { rowCSS, columnCSS } from './generic';
 
 export const Row = styled.div`
   ${rowCSS};

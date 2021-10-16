@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { topbar } from './common/theme';
+import { topbar } from '../data/theme';
 
 const StyledHeader = styled.header`
   background-color: #fbfbfb;

@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled, { css } from 'styled-components';
-import theme from '../common/theme';
+import theme from '../../data/theme';
 
 import DimensionControls from './DimensionControls';
 import GeometryControls from './GeometryControls';
 import ColourControls from './ColourControls';
 import Header from '../Header';
-import ControlGroup from '../widgets/ControlGroup';
+import ControlGroup from './ControlGroup';
 import ImageControls from './ImageControls';
 import PaletteControls from './PaletteControls';
-import LinkButton from '../widgets/LinkButton';
+import LinkButton from '../ui/LinkButton';
 
 const Container = styled.section`
   padding: 0;

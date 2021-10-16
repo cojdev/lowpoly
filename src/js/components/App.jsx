@@ -6,9 +6,9 @@ import Display from './Display';
 import Controls from './Controls';
 
 // Helpers
-import presets from './presets';
-import theme from './common/theme';
-import defaults from './defaults';
+import presets from '../data/presets';
+import theme from '../data/theme';
+import defaults from '../data/defaults';
 
 const GlobalStyles = createGlobalStyle`
     *,*::before,*::after {

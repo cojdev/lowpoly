@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-import { buttonCSS } from '../common/styles';
+import { buttonCSS } from '../../styles/generic';
 
 export const StyledButton = styled.button`
   ${buttonCSS}

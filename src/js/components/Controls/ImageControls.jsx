@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import ControlGroup from '../widgets/ControlGroup';
-import { Checkbox, Label } from '../widgets/Fields';
-import { colours } from '../common/theme';
-import Button from '../widgets/Button';
-import { Row, Column } from '../common/mixins';
+import ControlGroup from './ControlGroup';
+import { Checkbox, Label } from '../../styles/fields';
+import { colours } from '../../data/theme';
+import Button from '../ui/Button';
+import { Row, Column } from '../../styles/mixins';
 
 const PreviewWrap = styled.div`
   display: flex;
