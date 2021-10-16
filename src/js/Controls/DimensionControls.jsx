@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import ControlGroup from '../widgets/ControlGroup';
@@ -8,10 +9,9 @@ import SelectInput from '../Forms/SelectInput';
 
 const SetButton = styled(Button)``;
 
-const DimensionControls = (props) => {
-  const [height, setHeight] = useState(props.settings.height);
-  const [width, setWidth] = useState(props.settings.width);
-  const { presets } = props;
+const DimensionControls = ({ presets, settings, setDimensions }) => {
+  const [height, setHeight] = useState(settings.height);
+  const [width, setWidth] = useState(settings.width);
 
   const handlePreset = (e) => {
     if (e.target.value !== 'null') {
@@ -34,7 +34,7 @@ const DimensionControls = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.setDimensions({ width, height });
+    setDimensions({ width, height });
   };
 
   return (
@@ -75,6 +75,15 @@ const DimensionControls = (props) => {
       <SetButton onClick={handleSubmit}>Apply</SetButton>
     </ControlGroup>
   );
+};
+
+DimensionControls.propTypes = {
+  presets: PropTypes.any,
+  setDimensions: PropTypes.func,
+  settings: PropTypes.shape({
+    height: PropTypes.any,
+    width: PropTypes.any,
+  }),
 };
 
 export default DimensionControls;

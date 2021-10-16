@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { hslToCss } from '../common/colour';
@@ -47,13 +48,20 @@ const StyledColourInput = styled.div.attrs((props) => ({
     `}
 `;
 
-const ColourInput = (props) => (
+const ColourInput = ({ active, index, setActiveColour, value }) => (
   <StyledColourInput
-    active={props.active}
-    colour={props.value}
-    data-id={props.index}
-    onClick={props.setActiveColour}
+    active={active}
+    colour={value}
+    data-id={index}
+    onClick={setActiveColour}
   />
 );
+
+ColourInput.propTypes = {
+  active: PropTypes.any,
+  index: PropTypes.any,
+  setActiveColour: PropTypes.any,
+  value: PropTypes.any,
+};
 
 export default ColourInput;

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { RangeSlider } from './Fields';
@@ -10,8 +11,8 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const Track = styled.div.attrs((props) => ({
-  style: { background: props.background },
+const Track = styled.div.attrs(({ background }) => ({
+  style: { background },
 }))`
   background-color: #fff;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -47,23 +48,31 @@ const StyledRangeSlider = styled(RangeSlider)`
   opacity: 0;
 `;
 
-const RangeInput = (props) => {
-  const [background, setBackground] = useState('#fff');
+const RangeInput = ({
+  background,
+  max,
+  min,
+  name,
+  onChange,
+  onMouseUp,
+  value,
+}) => {
+  const [bg, setBg] = useState('#fff');
 
   const track = useRef(null);
   const bead = useRef(null);
 
-  const setBeadPosition = (value) => {
+  const setBeadPosition = (val) => {
     const elem = bead.current;
-    const min = parseInt(props.min, 10) || 0;
-    const max = parseInt(props.max, 10) || 100;
+    const min2 = parseInt(min, 10) || 0;
+    const max2 = parseInt(max, 10) || 100;
 
-    const inputRatio = value / (max - min) + min;
+    const inputRatio = val / (max2 - min2) + min2;
 
     elem.style.left = `calc(${inputRatio * 100}% - ${
       inputRatio * elem.offsetWidth
     }px)`;
-    setBackground(
+    setBg(
       `linear-gradient(to right, #e24 ${inputRatio * 100}%, #888 ${
         inputRatio * 100
       }%`
@@ -71,33 +80,43 @@ const RangeInput = (props) => {
   };
 
   useEffect(() => {
-    setBeadPosition(props.value);
-  }, [props.value]);
+    setBeadPosition(value);
+  }, [value]);
 
   const handleChange = (e) => {
     const { target } = e;
     setBeadPosition(target.value);
-    props.onChange(e);
+    onChange(e);
   };
 
   const handleMouseUp = (e) => {
-    props.onMouseUp(e);
+    onMouseUp(e);
   };
 
   return (
     <Wrapper>
-      <Track ref={track} background={props.background || background} />
+      <Track ref={track} background={background || bg} />
       <Bead ref={bead} />
       <StyledRangeSlider
-        value={props.value}
-        min={props.min}
-        max={props.max}
-        name={props.name}
+        value={value}
+        min={min}
+        max={max}
+        name={name}
         onChange={handleChange}
         onMouseUp={handleMouseUp}
       />
     </Wrapper>
   );
+};
+
+RangeInput.propTypes = {
+  background: PropTypes.any,
+  max: PropTypes.any,
+  min: PropTypes.any,
+  name: PropTypes.any,
+  onChange: PropTypes.func,
+  onMouseUp: PropTypes.func,
+  value: PropTypes.any,
 };
 
 export default RangeInput;

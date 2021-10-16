@@ -1,39 +1,33 @@
 import styled, { css } from 'styled-components';
+import { fieldCSS } from '../common/styles';
 import { colours } from '../common/theme';
-import { hexToRgb } from '../common/colour';
 
-const field = css`
-  /* display: block;
+export const StyledTextField = styled.input.attrs({ type: 'text' })`
+  ${fieldCSS};
+`;
+
+export const StyledNumberField = styled.input.attrs({ type: 'number' })`
+  ${fieldCSS};
+`;
+
+export const StyledDropdown = styled.select`
+  display: block;
+  -webkit-appearance: none;
   width: 100%;
-  height: 2rem;
-  font-family: inherit;
-  font-size: .9em;
-  line-height: 2rem;
-  padding: 0 1ch;
-  background: #fff;
-  border: none;
-  margin-bottom: .75rem;
-  border-radius: 100px;
+  background-color: #fff;
+  border: 2px solid #eee;
+  padding: 1ch;
+  border-radius: 3px;
   transition: 150ms ease;
+  outline: none;
+  font-size: 0.9rem;
+  font-family: inherit;
 
-  :focus {
-    outline: none;
-    box-shadow:
-      inset 0 0 0 2px ${colours.primary},
-      0 0 0 4px rgba(${hexToRgb(colours.primary).join(', ')}, .1);
-  } */
-`;
-
-export const TextField = styled.input.attrs({ type: 'text' })`
-  ${field};
-`;
-
-export const NumberField = styled.input.attrs({ type: 'number' })`
-  ${field};
-`;
-
-export const Dropdown = styled.select`
-  ${field};
+  ${(p) =>
+    p.focus &&
+    css`
+      border-color: #e14;
+    `};
 `;
 
 export const Checkbox = styled.input.attrs({ type: 'checkbox' })`

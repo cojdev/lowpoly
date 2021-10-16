@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import animate from '../Libraries/Animate';
@@ -100,7 +101,7 @@ const ContentInner = styled.div`
   padding: 0.5rem 1rem;
 `;
 
-const ControlGroup = (props) => {
+const ControlGroup = ({ className, title, children }) => {
   const [open, setOpen] = useState(true);
   const content = useRef();
 
@@ -114,16 +115,22 @@ const ControlGroup = (props) => {
   };
 
   return (
-    <StyledControlGroup className={props.className}>
+    <StyledControlGroup className={className}>
       <Heading onClick={toggleOpen.bind(this)} open={open}>
-        {props.title}
+        {title}
         <Arrow open={open} />
       </Heading>
       <Content ref={content} open={open}>
-        <ContentInner>{props.children}</ContentInner>
+        <ContentInner>{children}</ContentInner>
       </Content>
     </StyledControlGroup>
   );
+};
+
+ControlGroup.propTypes = {
+  children: PropTypes.node,
+  className: PropTypes.string,
+  title: PropTypes.string,
 };
 
 export default ControlGroup;

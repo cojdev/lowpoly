@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
 import { colours } from './theme';
 
-export const button = css`
+export const buttonCSS = css`
   color: #fff;
   padding: calc(1ch + 2px);
   border: none;
@@ -30,15 +30,33 @@ export const button = css`
   }
 `;
 
-export const row = css`
+export const rowCSS = css`
   margin: 0 -0.25rem;
   display: flex;
   flex-wrap: wrap;
 `;
 
-export const column = css`
+export const columnCSS = css`
   display: block;
   margin: 0 0.25rem;
 `;
 
-export default { button, row, column };
+export const fieldCSS = css`
+  display: block;
+  -webkit-appearance: none;
+  width: 100%;
+  border: 2px solid #eee;
+  padding: 1ch;
+  border-radius: 3px;
+  transition: 150ms ease;
+  outline: none;
+  font-size: 0.9rem;
+  font-family: inherit;
+  margin: 1em 0;
+
+  ${(p) =>
+    p.focus &&
+    css`
+      border-color: #e14;
+    `};
+`;

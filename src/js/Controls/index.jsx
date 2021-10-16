@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import styled, { css } from 'styled-components';
 import theme from '../common/theme';
@@ -100,20 +101,19 @@ const Footer = styled.footer`
   }
 `;
 
-const Controls = (props) => {
-  const {
-    setDimensions,
-    setColours,
-    setImage,
-    setUseImage,
-    setGeometry,
-    settings,
-    presets,
-    toggleControls,
-    className,
-    output,
-  } = props;
-
+const Controls = ({
+  setDimensions,
+  setColours,
+  setImage,
+  setUseImage,
+  setGeometry,
+  settings,
+  presets,
+  toggleControls,
+  className,
+  output,
+  open,
+}) => {
   const head = 'data:image/png;base64,';
 
   const kb = 1024;
@@ -137,8 +137,8 @@ const Controls = (props) => {
   return (
     <Container className={className}>
       <ButtonWrap>
-        <ToggleButton onClick={toggleControls} open={props.open}>
-          <img src={props.open ? 'assets/x.svg' : 'assets/menu.svg'} />
+        <ToggleButton onClick={toggleControls} open={open}>
+          <img src={open ? 'assets/x.svg' : 'assets/menu.svg'} />
         </ToggleButton>
       </ButtonWrap>
       <StyledControls>
@@ -162,16 +162,15 @@ const Controls = (props) => {
         <ColourControls settings={settings.colour} setColours={setColours} />
         <PaletteControls setColours={setColours} />
         <ControlGroup title="Export">
+          <DownloadButton href={output} download="lowpoly.png">
+            Download PNG
+          </DownloadButton>
+          <h3>File details</h3>
           Filesize: {getFileSize()}
           <br />
           Width: {settings.dimensions.width}
           <br />
           Height: {settings.dimensions.height}
-          <br />
-          <br />
-          <DownloadButton href={output} download="lowpoly.png">
-            Download PNG
-          </DownloadButton>
         </ControlGroup>
         <Footer>
           by{' '}
@@ -190,6 +189,29 @@ const Controls = (props) => {
       </StyledControls>
     </Container>
   );
+};
+
+Controls.propTypes = {
+  className: PropTypes.string,
+  open: PropTypes.bool,
+  output: PropTypes.string,
+  presets: PropTypes.object,
+  setColours: PropTypes.func,
+  setDimensions: PropTypes.func,
+  setGeometry: PropTypes.func,
+  setImage: PropTypes.func,
+  setUseImage: PropTypes.func,
+  settings: PropTypes.shape({
+    colour: PropTypes.any,
+    dimensions: PropTypes.shape({
+      height: PropTypes.number,
+      width: PropTypes.number,
+    }),
+    geometry: PropTypes.any,
+    image: PropTypes.any,
+    useImage: PropTypes.bool,
+  }),
+  toggleControls: PropTypes.func,
 };
 
 export default Controls;

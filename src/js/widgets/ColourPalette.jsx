@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 import { hslToCss } from '../common/colour';
@@ -23,12 +24,17 @@ const Colour = styled.div`
   background-color: ${(props) => hslToCss(...props.background) || '#ccc'};
 `;
 
-const ColourPalette = (props) => (
-  <Palette onClick={() => props.handleSetPalette(props.colours)}>
-    {props.colours.map((item, index) => (
+const ColourPalette = ({ colours, handleSetPalette }) => (
+  <Palette onClick={() => handleSetPalette(colours)}>
+    {colours.map((item, index) => (
       <Colour key={index} background={item} />
     ))}
   </Palette>
 );
+
+ColourPalette.propTypes = {
+  colours: PropTypes.array,
+  handleSetPalette: PropTypes.func,
+};
 
 export default ColourPalette;

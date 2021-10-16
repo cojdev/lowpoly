@@ -43,7 +43,6 @@
     "no-param-reassign": ["error", {
       "props": false
     }],
-    "react/prop-types": "off",
     "react/no-unescaped-entities": [
       "error",
       {

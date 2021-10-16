@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import ControlGroup from '../widgets/ControlGroup';
 import { Label } from '../widgets/Fields';
@@ -42,6 +43,11 @@ const GeometryControls = (props) => {
   ));
 
   return <ControlGroup title="Geometry">{options}</ControlGroup>;
+};
+
+GeometryControls.propTypes = {
+  setGeometry: PropTypes.func,
+  settings: PropTypes.any,
 };
 
 export default GeometryControls;

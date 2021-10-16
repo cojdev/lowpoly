@@ -18,6 +18,9 @@ const StyledHeader = styled.header`
 const Header = () => (
   <StyledHeader>
     <h1>LowPoly Generator</h1>
+    <p>
+      Create lowpoly images free to use in personal and commercial projects.
+    </p>
     <a
       className="github-button"
       href="https://github.com/cojdev/lowpoly"

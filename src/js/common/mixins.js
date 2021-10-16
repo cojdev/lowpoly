@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { row, column } from './styles';
+import { rowCSS, columnCSS } from './styles';
 
 export const Row = styled.div`
-  ${row};
+  ${rowCSS};
 `;
 
 export const Column = styled.div`
-  ${column};
+  ${columnCSS};
   width: calc(${(props) => props.width * 100 || 50}% - 0.5rem);
 `;

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import ControlGroup from '../widgets/ControlGroup';
@@ -161,6 +162,14 @@ const ImageControls = (props) => {
       </Row>
     </ControlGroup>
   );
+};
+
+ImageControls.propTypes = {
+  setDimensions: PropTypes.func,
+  setImage: PropTypes.func,
+  setUseImage: PropTypes.func,
+  settings: PropTypes.any,
+  useImage: PropTypes.any,
 };
 
 export default ImageControls;

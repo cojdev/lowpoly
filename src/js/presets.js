@@ -54,11 +54,11 @@ export default {
         width: 1080,
         height: 1920,
       },
-      'iPhone X/Xs': {
+      'iPhone 1X': {
         width: 1125,
         height: 2436,
       },
-      'iPhone Xs Max': {
+      'iPhone 1X Max': {
         width: 1242,
         height: 2688,
       },
@@ -76,19 +76,27 @@ export default {
       },
     },
     Generic: {
-      '1280x720': {
+      '720p': {
         width: 1280,
         height: 720,
       },
-      '1366x768': {
+      '768p': {
         width: 1366,
         height: 768,
       },
-      '1920x1080': {
+      '900p': {
+        width: 1600,
+        height: 900,
+      },
+      '1080p': {
         width: 1920,
         height: 1080,
       },
-      '3840x2160 (4K)': {
+      '1440p': {
+        width: 1920,
+        height: 1080,
+      },
+      '2160p (4K)': {
         width: 3840,
         height: 2160,
       },

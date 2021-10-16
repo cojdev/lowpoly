@@ -1,13 +1,18 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-import styles from '../common/styles';
+import { buttonCSS } from '../common/styles';
 
 export const StyledButton = styled.a`
-  ${styles.button}
+  ${buttonCSS}
 `;
 
-const LinkButton = (props) => (
-  <StyledButton {...props}>{props.children}</StyledButton>
+const LinkButton = ({ children, ...rest }) => (
+  <StyledButton {...rest}>{children}</StyledButton>
 );
+
+LinkButton.propTypes = {
+  children: PropTypes.node,
+};
 
 export default LinkButton;

@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { rgba } from 'polished';
 import theme from './common/theme';
@@ -27,7 +28,7 @@ const Canvas = styled.canvas`
   box-shadow: 0 2px 5px ${rgba('#000', 0.2)}, 0 5px 20px ${rgba('#000', 0.1)};
 `;
 
-const Display = (props) => {
+const Display = ({ settings, updateOutput }) => {
   const canvas = useRef(null);
 
   /**
@@ -36,7 +37,7 @@ const Display = (props) => {
    * @param {HTMLCanvasElement} elem Canvas element
    */
   const drawCanvas = (elem, callback = () => null) => {
-    const { geometry, colour, image, useImage } = props.settings;
+    const { geometry, colour, image, useImage } = settings;
     const cvs = new Lowpoly(elem);
     cvs.render(
       {
@@ -49,7 +50,7 @@ const Display = (props) => {
         useImage,
       },
       (dataURL) => {
-        props.updateOutput(dataURL);
+        updateOutput(dataURL);
       }
     );
     callback();
@@ -57,16 +58,21 @@ const Display = (props) => {
 
   useEffect(() => {
     drawCanvas(canvas.current);
-    // console.log(props.settings);
-  }, [props.settings]);
+    // console.log(settings);
+  }, [settings]);
 
-  const { width, height } = props.settings.dimensions;
+  const { width, height } = settings.dimensions;
 
   return (
     <StyledDisplay>
       <Canvas ref={canvas} width={width} height={height} />
     </StyledDisplay>
   );
+};
+
+Display.propTypes = {
+  settings: PropTypes.object.isRequired,
+  updateOutput: PropTypes.func.isRequired,
 };
 
 export default Display;

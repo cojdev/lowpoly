@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 
 import styled, { css } from 'styled-components';
@@ -140,20 +141,23 @@ const ColourControls = (props) => {
     let lumBarBg = 'linear-gradient(to right,';
 
     for (let i = 0; i <= 6; i++) {
-      hueBarBg += `hsl(${i * 60}, ${activeColour[1]}%,${activeColour[2]}%)${
-        i !== 6 ? ',' : ')'
-      }`;
+      const hh = i * 60;
+      const hs = activeColour[1];
+      const hl = activeColour[2];
+      hueBarBg += `hsl(${hh}, ${hs}%,${hl}%)${i !== 6 ? ',' : ')'}`;
 
       if (i < 2) {
-        satBarBg += `hsl(${activeColour[0]}, ${i * 100}%, ${activeColour[2]}%)${
-          i !== 1 ? ',' : ')'
-        }`;
+        const sh = activeColour[0];
+        const ss = i * 100;
+        const sl = activeColour[2];
+        satBarBg += `hsl(${sh}, ${ss}%, ${sl}%)${i !== 1 ? ',' : ')'}`;
       }
 
       if (i < 3) {
-        lumBarBg += `hsl(${activeColour[0]}, ${activeColour[1]}%, ${i * 50}%)${
-          i !== 2 ? ',' : ')'
-        }`;
+        const lh = activeColour[0];
+        const ls = activeColour[1];
+        const ll = i * 50;
+        lumBarBg += `hsl(${lh}, ${ls}%, ${ll}%)${i !== 2 ? ',' : ')'}`;
       }
     }
 
@@ -221,6 +225,11 @@ const ColourControls = (props) => {
   }
 
   return <div>Loading...</div>;
+};
+
+ColourControls.propTypes = {
+  setColours: PropTypes.func,
+  settings: PropTypes.any,
 };
 
 export default ColourControls;

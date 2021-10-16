@@ -211,7 +211,7 @@ export default class Lowpoly {
   }
 
   async render(options, callback) {
-    console.trace();
+    // console.trace();
     Object.assign(this, options);
 
     const tracker = new Tracker();

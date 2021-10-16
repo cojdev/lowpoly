@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
-import { Label, Dropdown } from '../widgets/Fields';
+import { Label, StyledDropdown } from '../widgets/Fields';
 
 const StyledSelectInput = styled.div`
   position: relative;
@@ -28,53 +29,38 @@ const StyledLabel = styled(Label)`
     `};
 `;
 
-const StyledDropdown = styled(Dropdown)`
-  display: block;
-  -webkit-appearance: none;
-  width: 100%;
-  background-color: #fff;
-  border: 2px solid #eee;
-  padding: 1ch;
-  border-radius: 3px;
-  transition: 150ms ease;
-  outline: none;
-  font-size: 0.9rem;
-  font-family: inherit;
-
-  ${(p) =>
-    p.focus &&
-    css`
-      border-color: #e14;
-    `};
-`;
-
-const SelectInput = (props) => {
+const SelectInput = ({
+  label,
+  name,
+  onBlur,
+  onChange,
+  onFocus,
+  options,
+  value,
+}) => {
   const [state, setState] = useState({
-    value: props.value || '',
     focus: false,
   });
 
   useEffect(() => {
-    setState({ ...state, value: props.value });
-  }, [props.value]);
+    setState({ ...state, value });
+  }, [value]);
 
   const handleFocus = (e) => {
     setState({ ...state, focus: true });
-    if (props.onFocus !== undefined) props.onFocus(e);
+    if (onFocus !== undefined) onFocus(e);
   };
 
   const handleBlur = (e) => {
     setState({ ...state, focus: false });
-    if (props.onBlur !== undefined) props.onBlur(e);
+    if (onBlur !== undefined) onBlur(e);
   };
 
   const handleChange = (e) => {
-    setState({ ...state, value: e.target.value });
-    if (props.onChange !== undefined) props.onChange(e);
+    if (onChange !== undefined) onChange(e);
   };
 
-  const { name, label } = props;
-  const { value, focus } = state;
+  const { focus } = state;
 
   const fieldProps = {
     name,
@@ -86,7 +72,7 @@ const SelectInput = (props) => {
     onBlur: handleBlur,
   };
 
-  const options = Object.entries(props.options).map((item, index) => (
+  const dropdownOpts = Object.entries(options).map((item, index) => (
     <optgroup key={index} label={item[0]}>
       {Object.entries(item[1]).map((item2, index2) => (
         <option value={item2[0]} key={index2}>
@@ -103,10 +89,20 @@ const SelectInput = (props) => {
       </StyledLabel>
       <StyledDropdown {...fieldProps}>
         <option value="null">{fieldProps.placeholder}</option>
-        {options}
+        {dropdownOpts}
       </StyledDropdown>
     </StyledSelectInput>
   );
+};
+
+SelectInput.propTypes = {
+  label: PropTypes.any,
+  name: PropTypes.any,
+  onBlur: PropTypes.func,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  options: PropTypes.any,
+  value: PropTypes.string,
 };
 
 export default SelectInput;
