@@ -84,9 +84,9 @@ const App = () => {
 
   /**
    * set dimensions of the image in pixels
-   * @param {object} obj {width:Number, height:Number}
+   * @param {object} obj 
    */
-  const setDimensions = (obj) => {
+  const setDimensions = (obj: {width:Number, height:Number}) => {
     const s = { ...state.settings };
     s.dimensions = obj;
     setState({ ...state, settings: s });
@@ -96,7 +96,7 @@ const App = () => {
    * sets the colours in the palette
    * @param {array} arr array of colour hex values
    */
-  const setColours = (arr) => {
+  const setColours = (arr: string[]) => {
     const s = { ...state.settings };
     // console.log(arr);
     s.colour = arr;
@@ -108,9 +108,9 @@ const App = () => {
    * @param {number} option attribute being set
    * @param {number} value value
    */
-  const setGeometry = (option, value) => {
+  const setGeometry = (option: number, value: number) => {
     const s = { ...state.settings };
-    s.geometry[option] = parseInt(value, 10);
+    s.geometry[option] = value;
     setState({ ...state, settings: s });
   };
 
@@ -118,7 +118,7 @@ const App = () => {
    * Sets the selected image
    * @param {string} image url for specified image
    */
-  const setImage = (image) => {
+  const setImage = (image: string) => {
     const s = { ...state.settings };
     s.image = image;
     s.useImage = true;
@@ -129,7 +129,7 @@ const App = () => {
    * Toggle using uploaded image in generated picture
    * @param {boolean} boolean
    */
-  const setUseImage = (boolean) => {
+  const setUseImage = (boolean: boolean) => {
     const s = { ...state.settings };
     s.useImage = boolean;
     setState({ ...state, settings: s });
@@ -139,7 +139,7 @@ const App = () => {
    * Updates the output dataURI in state
    * @param {string} value The data URL for the generated canvas
    */
-  const updateOutput = (value) => {
+  const updateOutput = (value: string) => {
     setState({ ...state, output: value });
   };
 

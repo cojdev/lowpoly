@@ -13,9 +13,11 @@ export default class Lowpoly {
     this.variance = 4;
     this.cellSize = 50;
     this.depth = 0;
+
     this.image = null;
-    this.colours = [];
     this.useImage = false;
+
+    this.colours = [];
 
     this.gridWidth = 0;
     this.gridHeight = 0;

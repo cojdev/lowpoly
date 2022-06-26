@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "outDir": "./docs",
+    "rootDir": "./src",
+    "noImplicitAny": false,
+    "module": "es6",
+    "target": "es5",
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "lib": [
+      "dom", "es2015"
+    ],
+  },
+  "exclude": [
+    "node_modules",
+    "docs",
+    "webpack.config.js"
+  ],
+}
