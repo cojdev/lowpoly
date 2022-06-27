@@ -3,12 +3,12 @@ import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { Label, StyledDropdown } from '../../styles/fields';
 
-const StyledSelectInput = styled.div`
+const StyledSelectInput = styled.div<{focus: boolean}>`
   position: relative;
   margin-top: 1rem;
 `;
 
-const StyledLabel = styled(Label)`
+const StyledLabel = styled(Label)<{focus: boolean}>`
   position: absolute;
   top: 0;
   left: 1ch;
@@ -22,8 +22,8 @@ const StyledLabel = styled(Label)`
   transform: translateY(-50%);
   background: linear-gradient(#f8f8f8, #fff);
 
-  ${(p) =>
-    p.focus &&
+  ${({focus}) =>
+    focus &&
     css`
       color: #e14;
     `};
@@ -42,9 +42,6 @@ const SelectInput = ({
     focus: false,
   });
 
-  useEffect(() => {
-    setState({ ...state, value });
-  }, [value]);
 
   const handleFocus = (e) => {
     setState({ ...state, focus: true });

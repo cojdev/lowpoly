@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, FC, InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { RangeSlider } from '../../styles/fields';
 
@@ -11,9 +11,9 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const Track = styled.div.attrs(({ background }) => ({
+const Track = styled.div.attrs<{ background: string }>(({ background }) => ({
   style: { background },
-}))`
+}))<{background?: string}>`
   background-color: #fff;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   /* border: 2px solid #eee; */
@@ -48,7 +48,14 @@ const StyledRangeSlider = styled(RangeSlider)`
   opacity: 0;
 `;
 
-const RangeInput = ({
+const RangeInput: FC<InputHTMLAttributes<HTMLInputElement> & {
+  background?: string;
+  max: number;
+  min: number;
+  name?: any;
+  onChange: any;
+  onMouseUp: any;
+  value: any}> = ({
   background,
   max,
   min,
@@ -62,10 +69,10 @@ const RangeInput = ({
   const track = useRef(null);
   const bead = useRef(null);
 
-  const setBeadPosition = (val) => {
+  const setBeadPosition = (val: number) => {
     const elem = bead.current;
-    const min2 = parseInt(min, 10) || 0;
-    const max2 = parseInt(max, 10) || 100;
+    const min2 = min || 0;
+    const max2 = max || 100;
 
     const inputRatio = val / (max2 - min2) + min2;
 
@@ -83,13 +90,13 @@ const RangeInput = ({
     setBeadPosition(value);
   }, [value]);
 
-  const handleChange = (e) => {
+  const handleChange = (e: { target: any; }) => {
     const { target } = e;
     setBeadPosition(target.value);
     onChange(e);
   };
 
-  const handleMouseUp = (e) => {
+  const handleMouseUp = (e: any) => {
     onMouseUp(e);
   };
 

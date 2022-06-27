@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import styled, { createGlobalStyle, css } from 'styled-components';
 
 // Components
@@ -48,24 +48,7 @@ const GlobalStyles = createGlobalStyle`
 
 const Container = styled.div``;
 
-const StyledControls = styled(Controls)`
-  @media screen and (max-width: 800px) {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    transform: translateX(calc(100% - 5rem));
-    transition: transform ${theme.controls.transition};
-
-    ${(props) =>
-      props.open &&
-      css`
-        transform: none;
-      `}
-  }
-`;
-
-const App = () => {
+const App: FC = () => {
   const [state, setState] = useState({
     // default controls values
     settings: { ...defaults },
@@ -86,7 +69,7 @@ const App = () => {
    * set dimensions of the image in pixels
    * @param {object} obj 
    */
-  const setDimensions = (obj: {width:Number, height:Number}) => {
+  const setDimensions = (obj: {width: number, height: number}) => {
     const s = { ...state.settings };
     s.dimensions = obj;
     setState({ ...state, settings: s });
@@ -96,7 +79,7 @@ const App = () => {
    * sets the colours in the palette
    * @param {array} arr array of colour hex values
    */
-  const setColours = (arr: string[]) => {
+  const setColours = (arr: number[][]) => {
     const s = { ...state.settings };
     // console.log(arr);
     s.colour = arr;
@@ -118,7 +101,7 @@ const App = () => {
    * Sets the selected image
    * @param {string} image url for specified image
    */
-  const setImage = (image: string) => {
+  const setImage = (image: {src: string, height: number, width: number}) => {
     const s = { ...state.settings };
     s.image = image;
     s.useImage = true;
@@ -156,7 +139,7 @@ const App = () => {
     <Container>
       <GlobalStyles />
       <Display settings={settings} updateOutput={updateOutput} />
-      <StyledControls
+      <Controls
         settings={settings}
         presets={presets.dimensions}
         output={output}

@@ -84,18 +84,18 @@ const ColourControls = (props) => {
    * Remove a colour from the current palette
    */
   const handleRemoveColour = () => {
-    const s = [...state.settings];
+    const settings = [...state.settings];
 
-    if (s.length > 1) {
-      s.splice(active, 1);
+    if (settings.length > 1) {
+      settings.splice(active, 1);
 
-      if (active > s.length - 1) {
-        setState({ ...state, active: s.length - 1, s });
+      if (active > settings.length - 1) {
+        setState({ ...state, active: settings.length - 1, settings: settings });
       } else {
-        setState({ ...state, settings: s });
+        setState({ ...state, settings: settings });
       }
 
-      props.setColours(s);
+      props.setColours(settings);
     }
   };
 
@@ -166,7 +166,7 @@ const ColourControls = (props) => {
         value={item}
         key={index}
         index={index}
-        single={settings.length === 1}
+        // single={settings.length === 1}
         active={active === index && settings.length > 1}
         setActiveColour={setActiveColour}></ColourInput>
     ));
@@ -190,8 +190,8 @@ const ColourControls = (props) => {
 
         <Label>hue: {activeColour[0]}</Label>
         <RangeInput
-          min="0"
-          max="360"
+          min={0}
+          max={360}
           name="hue"
           value={activeColour[0]}
           onChange={handleChange}
@@ -201,8 +201,8 @@ const ColourControls = (props) => {
 
         <Label>saturation: {activeColour[1]}</Label>
         <RangeInput
-          min="0"
-          max="100"
+          min={0}
+          max={100}
           name="saturation"
           value={activeColour[1]}
           onChange={handleChange}
@@ -212,8 +212,8 @@ const ColourControls = (props) => {
 
         <Label>luminosity: {activeColour[2]}</Label>
         <RangeInput
-          min="0"
-          max="100"
+          min={0}
+          max={100}
           name="luminosity"
           value={activeColour[2]}
           onChange={handleChange}

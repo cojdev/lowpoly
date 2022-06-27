@@ -3,11 +3,11 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { hslToCss } from '../../utils/colour';
 
-const StyledColourInput = styled.div.attrs((props) => ({
+const StyledColourInput = styled.div.attrs<{colour: number[][]}>(({colour}) => ({
   style: {
-    backgroundColor: hslToCss(...props.colour) || '#fff',
+    backgroundColor: hslToCss(...colour) || '#fff',
   },
-}))`
+}))<{colour?: number[][]; active?: boolean}>`
   display: block;
   position: relative;
   margin: 0;
@@ -31,8 +31,8 @@ const StyledColourInput = styled.div.attrs((props) => ({
     border-radius: 4px;
   }
 
-  ${(props) =>
-    props.active &&
+  ${({active}) =>
+    active &&
     css`
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       transform: scale(1.1);

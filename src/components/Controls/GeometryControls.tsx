@@ -33,8 +33,8 @@ const GeometryControls = (props) => {
       </Label>
       <RangeInput
         id={item}
-        min="0"
-        max="100"
+        min={0}
+        max={100}
         value={settings[item] || 0}
         onChange={handleChange.bind(null, item)}
         onMouseUp={handleBlur.bind(null, item)}

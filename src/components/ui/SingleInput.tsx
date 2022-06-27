@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { StyledTextField, StyledNumberField, Label } from '../../styles/fields';
 
-const StyledSingleInput = styled.div`
+const StyledSingleInput = styled.div<{focus: boolean}>`
   position: relative;
   margin-top: 1rem;
 `;
 
-const StyledLabel = styled(Label)`
+const StyledLabel = styled(Label)<{focus: boolean}>`
   position: absolute;
   top: 1ch;
   left: 1ch;
@@ -18,8 +18,8 @@ const StyledLabel = styled(Label)`
   color: #888;
   background-color: transparent;
 
-  ${(p) =>
-    p.focus &&
+  ${({focus}) =>
+    focus &&
     css`
       top: 0;
       font-size: 0.9em;
@@ -43,10 +43,6 @@ const SingleInput = ({
   const [state, setState] = useState({
     focus: false,
   });
-
-  useEffect(() => {
-    setState({ ...state, value });
-  }, [value]);
 
   const handleFocus = (e) => {
     setState({ ...state, focus: true });

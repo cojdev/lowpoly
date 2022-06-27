@@ -92,7 +92,7 @@ const ImageControls = (props) => {
           setState({ ...state, settings: newImage, useImage: true });
         };
 
-        img.src = f.target.result;
+        img.src = f.target.result as string;
       };
 
       reader.readAsDataURL(target.files[0]);

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 import theme from '../../data/theme';
 
@@ -50,14 +50,14 @@ const ToggleButton = styled.button`
     height: auto;
   }
 
-  ${(props) =>
+  ${(props: {open: boolean}) =>
     props.open &&
     css`
       transform: translateX(62%);
     `}
 `;
 
-const StyledControls = styled.section`
+const StyledControls = styled.section<{open: boolean}>`
   min-height: 100vh;
   color: #444;
   background-color: #fff;
@@ -71,6 +71,21 @@ const StyledControls = styled.section`
   @media screen and (min-width: 800px) {
     max-width: 100%;
     box-shadow: none;
+  }
+
+  @media screen and (max-width: 800px) {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateX(calc(100% - 5rem));
+    transition: transform ${theme.controls.transition};
+
+    ${(props) =>
+      props.open &&
+      css`
+        transform: none;
+      `}
   }
 `;
 
@@ -101,7 +116,19 @@ const Footer = styled.footer`
   }
 `;
 
-const Controls = ({
+const Controls: FC<{
+  setDimensions: any;
+  setColours: any;
+  setImage: any;
+  setUseImage: any;
+  setGeometry: any;
+  settings: any;
+  presets: any;
+  toggleControls: any;
+  className?: any;
+  output: any;
+  open: any;
+}> = ({
   setDimensions,
   setColours,
   setImage,
@@ -141,7 +168,7 @@ const Controls = ({
           <img src={open ? 'assets/x.svg' : 'assets/menu.svg'} />
         </ToggleButton>
       </ButtonWrap>
-      <StyledControls>
+      <StyledControls open={open}>
         <Header />
         <DimensionControls
           settings={settings.dimensions}

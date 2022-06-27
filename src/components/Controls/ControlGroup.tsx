@@ -6,7 +6,7 @@ import { colours } from '../../data/theme';
 
 const StyledControlGroup = styled.section``;
 
-const Heading = styled.button`
+const Heading = styled.button<{open: boolean}>`
   line-height: 2.4;
   font-weight: bold;
   position: relative;
@@ -23,8 +23,8 @@ const Heading = styled.button`
   color: #444;
   font-family: inherit;
   transition: 150ms ease;
-  ${(props) =>
-    props.open &&
+  ${({open}) =>
+    open &&
     css`
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 2px 12px rgba(0, 0, 0, 0.05);
     `}
@@ -44,15 +44,15 @@ const Heading = styled.button`
     bottom: 0;
     left: 0;
     right: 0;
-    ${(props) =>
-      !props.open &&
+    ${({open}) =>
+      !open &&
       css`
         opacity: 1;
       `}
   }
 `;
 
-const Arrow = styled.div`
+const Arrow = styled.div<{open: boolean}>`
   position: absolute;
   right: 1rem;
   display: block;
@@ -80,15 +80,15 @@ const Arrow = styled.div`
     transform-origin: center;
     transition: 150ms ease;
     transform: rotate(90deg) scaleX(1);
-    ${(props) =>
-      props.open &&
+    ${({open}) =>
+      open &&
       css`
         transform: rotate(90deg) scaleX(0);
       `};
   }
 `;
 
-const Content = styled.div`
+const Content = styled.div<{open: boolean}>`
   overflow: hidden;
   transition: 450ms ease;
   padding: 0;
