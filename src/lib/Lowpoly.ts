@@ -1,9 +1,27 @@
-import { drawImageProp, PRNG, Tracker } from '../utils/helpers';
+import { drawImageProp, HSLColour, PRNG, Tracker } from '../utils/helpers';
 import { hslToCss } from '../utils/colour';
-import Triangle from './Triangle';
+import Triangle, { Vertex } from './Triangle';
 
 export default class Lowpoly {
-  constructor(element) {
+  element: HTMLCanvasElement;
+  ctx: CanvasRenderingContext2D;
+  points: Vertex[];
+  triangles: Triangle[];
+  variance: number;
+  cellSize: number;
+  depth: number;
+  image: any;
+  useImage: boolean;
+  colours: HSLColour[];
+  gridWidth: number;
+  gridHeight: number;
+  columnCount: number;
+  rowCount: number;
+  imageData: any;
+  dataUrl: string;
+  dither: number;
+
+  constructor(element: HTMLCanvasElement) {
     this.element = element;
     this.ctx = this.element.getContext('2d');
     this.points = [];
@@ -13,6 +31,7 @@ export default class Lowpoly {
     this.variance = 4;
     this.cellSize = 50;
     this.depth = 0;
+    this.dither = 0;
 
     this.image = null;
     this.useImage = false;
@@ -28,7 +47,7 @@ export default class Lowpoly {
     this.ctx.strokeStyle = '#fff';
   }
 
-  drawTriangle(vertices) {
+  drawTriangle(vertices: Vertex[]) {
     const { ctx } = this;
     ctx.beginPath();
     ctx.moveTo(vertices[0].x, vertices[0].y);
@@ -49,7 +68,7 @@ export default class Lowpoly {
       baseImage.crossOrigin = 'Anonymous';
       baseImage.src = this.image.src;
 
-      return new Promise((resolve) => {
+      return new Promise<void>((resolve) => {
         baseImage.onload = () => {
           // drawImageProp simulates background-size: cover
           drawImageProp(ctx, baseImage);
@@ -60,27 +79,28 @@ export default class Lowpoly {
     // using a gradient
     ctx.globalCompositeOperation = 'multiply';
 
-    // loop colours and create gradient
     let gradient = ctx.createLinearGradient(
       0,
       0,
       element.width,
       element.height
     );
+
+    // loop colours and create gradient
     for (let i = 0; i < colours.length; i++) {
       if (colours.length > 1) {
         gradient.addColorStop(
           i / (colours.length - 1),
           hslToCss(...colours[i])
         );
+        // draw gradient on element
+        ctx.fillStyle = gradient;
       } else {
         // use a single colour
-        gradient = hslToCss(...colours[i]);
+        ctx.fillStyle = hslToCss(...colours[i]);
       }
     }
 
-    // draw gradient on element
-    ctx.fillStyle = gradient;
     ctx.beginPath();
     ctx.fillRect(0, 0, element.width, element.height);
     ctx.closePath();
@@ -98,14 +118,14 @@ export default class Lowpoly {
     ctx.fill();
     ctx.globalCompositeOperation = 'source-over';
 
-    return new Promise((resolve) => {
+    return new Promise<void>((resolve) => {
       resolve();
     });
   }
 
-  drawPoly(cell) {
+  drawPoly(tri: Triangle) {
     const { element, ctx, depth, dither } = this;
-    const centre = cell.getCentre();
+    const centre = tri.getCentre();
     // const random = new PRNG(0);
     const ditherX = (dither / 200) * element.width;
     const ditherY = (dither / 200) * element.height;
@@ -132,7 +152,9 @@ export default class Lowpoly {
       this.imageData[pixel + 3],
     ];
 
-    const temp = Math.random() * 2 * depth - depth;
+    const normal = tri.getNormal();
+
+    const temp = normal.coords[1] * 2 * depth - depth;
     ctx.fillStyle = `rgba(
       ${Math.round(red - red * temp)},
       ${Math.round(green - green * temp)},
@@ -141,7 +163,7 @@ export default class Lowpoly {
     )`;
     // ctx.fillStyle = getRandomHex();
 
-    this.drawTriangle(cell.vertices);
+    this.drawTriangle(tri.vertices);
   }
 
   generatePoints() {
@@ -152,7 +174,7 @@ export default class Lowpoly {
 
     for (let i = 0; i < rowCount; i++) {
       for (let j = 0; j < columnCount; j++) {
-        const temp = {};
+        const temp = new Vertex();
         // get y position and add variance
         temp.y = i * cellSize * 0.866 - cellSize;
         temp.y += (random.generate() - 0.5) * variance * cellSize * 2;
@@ -165,6 +187,8 @@ export default class Lowpoly {
           temp.x = j * cellSize - cellSize + cellSize / 2;
           temp.x += (random.generate() - 0.5) * variance * cellSize * 2;
         }
+
+        temp.z = random.generate() * 100;
 
         ret.push(temp);
       }
@@ -193,10 +217,10 @@ export default class Lowpoly {
           points[columnCount + i],
         ];
 
-        let tri1;
-        let tri2;
+        let tri1: Triangle;
+        let tri2: Triangle;
 
-        // create two triangles from the square;
+        // create two triangles from the square, alternate direction on rows to tile correctly
         if (currentRow % 2 !== 0) {
           tri1 = new Triangle([square[0], square[2], square[3]]);
           tri2 = new Triangle([square[0], square[1], square[2]]);
@@ -212,7 +236,15 @@ export default class Lowpoly {
     this.triangles = ret;
   }
 
-  async render(options, callback) {
+  async render(options: {
+    variance: number;
+    cellSize: number;
+    depth: number;
+    dither: number;
+    image: any;
+    colours: any;
+    useImage: boolean;
+  }) {
     // console.trace();
     Object.assign(this, options);
 
@@ -254,14 +286,11 @@ export default class Lowpoly {
       }
     }, 'drawPoly');
 
-    // console.table(tracker);
-    // tracker.log();
+    tracker.log();
 
     // generate data url of image
     this.dataUrl = element.toDataURL();
 
-    if (callback) {
-      callback(this.dataUrl);
-    }
+    return this.dataUrl;
   }
 }

@@ -1,10 +1,10 @@
-// Helpers
+export type HSLColour = [number, number, number];
 
 /**
  * generate a unique ID of specified length
  * @param {number} length length of id
  */
-export function uuid(length = 6) {
+export const uid = (length: number = 6): string => {
   const charCodes = [];
   let string = '';
 
@@ -22,13 +22,13 @@ export function uuid(length = 6) {
   }
 
   return string;
-}
+};
 
 /**
  * create a copy of a primitive
  * @param {object|array} obj
  */
-export const clone = function (obj) {
+export const clone = (obj: {} | any[]) => {
   if (typeof obj === 'object') {
     return Object.assign({}, obj);
   }
@@ -46,12 +46,12 @@ export const clone = function (obj) {
  * If image and context are only arguments rectangle will equal canvas
  */
 export function drawImageProp(
-  ctx,
-  img,
-  xpos,
-  ypos,
-  width,
-  height,
+  ctx: CanvasRenderingContext2D,
+  img: HTMLImageElement,
+  xpos?: number,
+  ypos?: number,
+  width?: undefined,
+  height?: undefined,
   offX = 0.5,
   offY = 0.5
 ) {
@@ -78,10 +78,10 @@ export function drawImageProp(
   let nh = ih * r;
   // new prop. height
 
-  let cx;
-  let cy;
-  let cw;
-  let ch;
+  let cx: number;
+  let cy: number;
+  let cw: number;
+  let ch: number;
   let ar = 1;
 
   // decide which gap to fill
@@ -114,7 +114,9 @@ export function drawImageProp(
  * http://www.firstpr.com.au/dsp/rand31/
  */
 export class PRNG {
-  constructor(seed) {
+  seed: number;
+
+  constructor(seed: number) {
     this.seed = seed % 2147483647;
     if (this.seed <= 0) {
       this.seed += 2147483646;
@@ -142,10 +144,11 @@ export class PRNG {
  * Capitalises the first letter of a string
  * @param {string} string Input string
  */
-export const capitalise = (string) =>
+export const capitalise = (string: string) =>
   string.charAt(0).toUpperCase() + string.slice(1);
 
 export class Tracker {
+  results: {};
   constructor() {
     this.results = {};
   }
@@ -154,7 +157,7 @@ export class Tracker {
     return `test-${Object.keys(this.results).length + 1}`;
   }
 
-  test(func, label = this.newLabel(), returnFunc = false) {
+  test(func: () => any, label = this.newLabel(), returnFunc = false) {
     const t0 = performance.now();
     const funcValue = func();
     const t1 = performance.now();
@@ -168,7 +171,7 @@ export class Tracker {
   }
 
   getTotal() {
-    return Object.values(this.results).reduce((a, b) => a + b);
+    return Object.values(this.results).reduce((a: number, b: number) => a + b);
   }
 
   log() {

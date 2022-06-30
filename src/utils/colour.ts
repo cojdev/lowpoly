@@ -54,24 +54,24 @@ export const hslToRgb = (hue, sat = null, lum = null) => {
  * @param {number} b blue component
  * @returns {string}
  */
-export const rgbToHex = (r, g, b) => {
-  if (Array.isArray(r)) {
-    g = r[1];
-    b = r[2];
-    r = r[0];
-  }
+// export const rgbToHex = (r, g, b) => {
+//   if (Array.isArray(r)) {
+//     g = r[1];
+//     b = r[2];
+//     r = r[0];
+//   }
 
-  let ret = '#';
-  const components = rgb.map((item) => {
-    let ret = item.toString(16);
-    if (ret.length === 1) {
-      ret = `0${ret}`;
-    }
-    return ret;
-  });
-  ret += components.join('');
-  return ret;
-};
+//   let ret = '#';
+//   const components = rgb.map((item) => {
+//     let ret = item.toString(16);
+//     if (ret.length === 1) {
+//       ret = `0${ret}`;
+//     }
+//     return ret;
+//   });
+//   ret += components.join('');
+//   return ret;
+// };
 
 /**
  * Generate a random colour

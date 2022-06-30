@@ -10,7 +10,7 @@ export const StyledNumberField = styled.input.attrs({ type: 'number' })`
   ${fieldCSS};
 `;
 
-export const StyledDropdown = styled.select`
+export const StyledDropdown = styled.select<{ focus: boolean }>`
   display: block;
   -webkit-appearance: none;
   width: 100%;
@@ -23,8 +23,8 @@ export const StyledDropdown = styled.select`
   font-size: 0.9rem;
   font-family: inherit;
 
-  ${(p) =>
-    p.focus &&
+  ${({ focus }) =>
+    focus &&
     css`
       border-color: #e14;
     `};
@@ -54,14 +54,15 @@ export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
     }
 
     &:after {
-      left: 4px;
-      top: calc(0.375rem);
-      width: calc(1.5rem - 8px);
-      height: calc(0.75rem - 4px);
-      border: 2px solid ${colours.primary};
+      left: 0.3rem;
+      right: 0.3rem;
+      top: 0.5rem;
+      width: 0.9rem;
+      height: 0.5rem;
+      border: 4px solid ${colours.primary};
       border-top: none;
       border-right: none;
-      transform: rotate(-45deg);
+      transform: translateY(-2px) rotate(-45deg);
       transform-origin: center;
       opacity: 0;
     }
@@ -82,7 +83,7 @@ export const Label = styled.label`
   padding: 0 0.5ch;
   color: #888;
   font-size: 0.9em;
-  font-weight: bold;
+  font-weight: 800;
   background-color: #f8f8f8;
   font-weight: 700;
 `;

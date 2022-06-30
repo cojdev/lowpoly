@@ -1,12 +1,13 @@
+import { rgba } from 'polished';
 import { css } from 'styled-components';
 import { colours } from '../data/theme';
 
 export const buttonCSS = css`
   color: #fff;
-  padding: calc(1ch + 2px);
+  padding: 1ch 1em;
   border: none;
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 0.8rem;
+  font-weight: 800;
   font-family: inherit;
   text-align: center;
   text-decoration: none;
@@ -14,7 +15,8 @@ export const buttonCSS = css`
   display: block;
   width: 100%;
   background-color: ${colours.primary};
-  border-radius: 3px;
+  border-radius: 100px;
+  box-shadow: 0 5px 10px ${rgba('black', 0.1)};
   cursor: pointer;
 
   :hover {
@@ -41,7 +43,7 @@ export const columnCSS = css`
   margin: 0 0.25rem;
 `;
 
-export const fieldCSS = css`
+export const fieldCSS = css<{ focus: boolean }>`
   display: block;
   -webkit-appearance: none;
   width: 100%;
@@ -54,8 +56,8 @@ export const fieldCSS = css`
   font-family: inherit;
   margin: 1em 0;
 
-  ${(p) =>
-    p.focus &&
+  ${({ focus }) =>
+    focus &&
     css`
       border-color: #e14;
     `};

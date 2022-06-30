@@ -5,7 +5,7 @@ export const Row = styled.div`
   ${rowCSS};
 `;
 
-export const Column = styled.div`
+export const Column = styled.div<{width?: number}>`
   ${columnCSS};
   width: calc(${(props) => props.width * 100 || 50}% - 0.5rem);
 `;
