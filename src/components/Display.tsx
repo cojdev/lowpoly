@@ -1,9 +1,10 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { rgba } from 'polished';
 import theme from '../data/theme';
-import Lowpoly from '../services/Lowpoly';
+import Lowpoly from '../lib/Lowpoly';
+// import { Tracker } from '../utils/helpers';
 
 const StyledDisplay = styled.div`
   text-align: center;
@@ -29,6 +30,7 @@ const Canvas = styled.canvas`
 `;
 
 const Display = ({ settings, updateOutput }) => {
+  // const [perf] = useState(new Tracker());
   const canvas = useRef(null);
 
   /**
@@ -36,24 +38,21 @@ const Display = ({ settings, updateOutput }) => {
    * @param {CanvasRenderingContext2D} context Canvas context
    * @param {HTMLCanvasElement} elem Canvas element
    */
-  const drawCanvas = (elem, callback = () => null) => {
+  const drawCanvas = async (elem: HTMLCanvasElement) => {
     const { geometry, colour, image, useImage } = settings;
     const cvs = new Lowpoly(elem);
-    cvs.render(
-      {
-        variance: geometry.variance,
-        cellSize: geometry.cellSize,
-        depth: geometry.depth,
-        dither: geometry.dither,
-        image,
-        colours: colour,
-        useImage,
-      },
-      (dataURL) => {
-        updateOutput(dataURL);
-      }
-    );
-    callback();
+
+    const dataURL = await cvs.render({
+      variance: geometry.variance,
+      cellSize: geometry.cellSize,
+      depth: geometry.depth,
+      dither: geometry.dither,
+      image,
+      colours: colour,
+      useImage,
+    });
+
+    updateOutput(dataURL);
   };
 
   useEffect(() => {

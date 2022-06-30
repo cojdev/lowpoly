@@ -9,6 +9,7 @@ import Controls from './Controls';
 import presets from '../data/presets';
 import theme from '../data/theme';
 import defaults from '../data/defaults';
+import { HSLColour } from '../utils/helpers';
 
 const GlobalStyles = createGlobalStyle`
     *,*::before,*::after {
@@ -67,9 +68,9 @@ const App: FC = () => {
 
   /**
    * set dimensions of the image in pixels
-   * @param {object} obj 
+   * @param {object} obj
    */
-  const setDimensions = (obj: {width: number, height: number}) => {
+  const setDimensions = (obj: { width: number; height: number }) => {
     const s = { ...state.settings };
     s.dimensions = obj;
     setState({ ...state, settings: s });
@@ -79,10 +80,10 @@ const App: FC = () => {
    * sets the colours in the palette
    * @param {array} arr array of colour hex values
    */
-  const setColours = (arr: number[][]) => {
+  const setColours = (colours: HSLColour[]) => {
     const s = { ...state.settings };
     // console.log(arr);
-    s.colour = arr;
+    s.colour = colours;
     setState({ ...state, settings: s });
   };
 
@@ -101,7 +102,7 @@ const App: FC = () => {
    * Sets the selected image
    * @param {string} image url for specified image
    */
-  const setImage = (image: {src: string, height: number, width: number}) => {
+  const setImage = (image: { src: string; height: number; width: number }) => {
     const s = { ...state.settings };
     s.image = image;
     s.useImage = true;

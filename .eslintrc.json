@@ -7,14 +7,16 @@
     "import/resolver": {
       "node": {
         "extensions": [
-          ".js",
-          ".jsx"
+          ".ts",
+          ".tsx",
+          ".js"
         ]
       }
     }
   },
   "extends": [
     "airbnb-base",
+    "airbnb-typescript/base",
     "plugin:react/recommended",
     "prettier"
   ],

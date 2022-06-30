@@ -60,7 +60,7 @@ const ColourControls = (props) => {
     newState.settings = props.settings;
 
     if (!settings[active]) {
-      console.log('not active: ', active, settings);
+      // console.log('not active: ', active, settings);
       newState.active = settings.length - 1;
     }
 

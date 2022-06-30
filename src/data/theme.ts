@@ -1,6 +1,6 @@
 const theme = {
   fonts: {
-    base: '"PT Root UI Web", sans-serif',
+    base: '"Readex Pro", sans-serif',
   },
   colours: {
     primary: '#e14',

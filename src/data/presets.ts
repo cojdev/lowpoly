@@ -1,3 +1,5 @@
+import { HSLColour } from '../utils/helpers';
+
 export default {
   palettes: [
     [
@@ -39,14 +41,10 @@ export default {
       [266, 69, 56],
       [166, 100, 56],
     ],
-  ],
+  ] as HSLColour[][],
   dimensions: {
     Mobile: {
-      'iPhone 5/5s': {
-        width: 640,
-        height: 1152,
-      },
-      'iPhone 6/7/8': {
+      'iPhone 6/7/8/SE': {
         width: 750,
         height: 1334,
       },
@@ -62,7 +60,7 @@ export default {
         width: 1242,
         height: 2688,
       },
-      'Samsung Galaxy S8/S9': {
+      'Samsung Galaxy S10': {
         width: 1440,
         height: 2960,
       },
@@ -75,26 +73,18 @@ export default {
         height: 2960,
       },
     },
-    Generic: {
+    Desktop: {
       '720p': {
         width: 1280,
         height: 720,
-      },
-      '768p': {
-        width: 1366,
-        height: 768,
-      },
-      '900p': {
-        width: 1600,
-        height: 900,
       },
       '1080p': {
         width: 1920,
         height: 1080,
       },
       '1440p': {
-        width: 1920,
-        height: 1080,
+        width: 2560,
+        height: 1440,
       },
       '2160p (4K)': {
         width: 3840,
