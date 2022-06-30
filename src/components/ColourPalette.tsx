@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { HSLColour } from '../utils/helpers';
 import { hslToCss } from '../utils/colour';
 
 const Palette = styled.div`
@@ -18,13 +19,16 @@ const Palette = styled.div`
   }
 `;
 
-const Colour = styled.div<{background: number[]}>`
+const Colour = styled.div<{ background: HSLColour }>`
   flex-grow: 1;
   height: 100%;
-  background-color: ${({background}) => hslToCss(...background) || '#ccc'};
+  background-color: ${({ background }) => hslToCss(...background) || '#ccc'};
 `;
 
-const ColourPalette: FC<{colours: number[][]; handleSetPalette: (a: number[][]) => void}> = ({ colours, handleSetPalette }) => (
+const ColourPalette: FC<{
+  colours: HSLColour[];
+  handleSetPalette: (a: HSLColour[]) => void;
+}> = ({ colours, handleSetPalette }) => (
   <Palette onClick={() => handleSetPalette(colours)}>
     {colours.map((item, index) => (
       <Colour key={index} background={item} />

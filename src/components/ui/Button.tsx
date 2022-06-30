@@ -7,9 +7,10 @@ export const StyledButton = styled.button`
   ${buttonCSS}
 `;
 
-const Button: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({children, ...rest}) => (
-  <StyledButton {...rest}>{children}</StyledButton>
-);
+const Button: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
+  children,
+  ...rest
+}) => <StyledButton {...rest}>{children}</StyledButton>;
 
 Button.propTypes = {
   children: PropTypes.node,

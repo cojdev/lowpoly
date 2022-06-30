@@ -1,13 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { HSLColour } from '../../types';
 import { hslToCss } from '../../utils/colour';
 
-const StyledColourInput = styled.div.attrs<{colour: number[][]}>(({colour}) => ({
-  style: {
-    backgroundColor: hslToCss(...colour) || '#fff',
-  },
-}))<{colour?: number[][]; active?: boolean}>`
+const StyledColourInput = styled.div.attrs<{ colour: HSLColour }>(
+  ({ colour }) => ({
+    style: {
+      backgroundColor: hslToCss(...colour) || '#fff',
+    },
+  })
+)<{ colour?: HSLColour; active?: boolean }>`
   display: block;
   position: relative;
   margin: 0;
@@ -31,7 +34,7 @@ const StyledColourInput = styled.div.attrs<{colour: number[][]}>(({colour}) => (
     border-radius: 4px;
   }
 
-  ${({active}) =>
+  ${({ active }) =>
     active &&
     css`
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);

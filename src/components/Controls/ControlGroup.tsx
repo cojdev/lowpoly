@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
-import animate from '../../services/Animate';
+import Animate from '../../lib/Animate';
 import { colours } from '../../data/theme';
 
 const StyledControlGroup = styled.section``;
 
-const Heading = styled.button<{open: boolean}>`
+const Heading = styled.button<{ open: boolean }>`
   line-height: 2.4;
-  font-weight: bold;
+  font-weight: 800;
   position: relative;
   background: transparent;
   display: block;
@@ -23,7 +23,7 @@ const Heading = styled.button<{open: boolean}>`
   color: #444;
   font-family: inherit;
   transition: 150ms ease;
-  ${({open}) =>
+  ${({ open }) =>
     open &&
     css`
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 2px 12px rgba(0, 0, 0, 0.05);
@@ -44,7 +44,7 @@ const Heading = styled.button<{open: boolean}>`
     bottom: 0;
     left: 0;
     right: 0;
-    ${({open}) =>
+    ${({ open }) =>
       !open &&
       css`
         opacity: 1;
@@ -52,7 +52,7 @@ const Heading = styled.button<{open: boolean}>`
   }
 `;
 
-const Arrow = styled.div<{open: boolean}>`
+const Arrow = styled.div<{ open: boolean }>`
   position: absolute;
   right: 1rem;
   display: block;
@@ -80,7 +80,7 @@ const Arrow = styled.div<{open: boolean}>`
     transform-origin: center;
     transition: 150ms ease;
     transform: rotate(90deg) scaleX(1);
-    ${({open}) =>
+    ${({ open }) =>
       open &&
       css`
         transform: rotate(90deg) scaleX(0);
@@ -88,7 +88,7 @@ const Arrow = styled.div<{open: boolean}>`
   }
 `;
 
-const Content = styled.div<{open: boolean}>`
+const Content = styled.div<{ open: boolean }>`
   overflow: hidden;
   transition: 450ms ease;
   padding: 0;
@@ -98,7 +98,7 @@ const Content = styled.div<{open: boolean}>`
 `;
 
 const ContentInner = styled.div`
-  padding: 0.5rem 1rem;
+  padding: 1rem 1rem;
 `;
 
 const ControlGroup = ({ className, title, children }) => {
@@ -107,9 +107,9 @@ const ControlGroup = ({ className, title, children }) => {
 
   const toggleOpen = () => {
     if (open) {
-      animate.slideUp(content.current);
+      Animate.slideUp(content.current);
     } else {
-      animate.slideDown(content.current);
+      Animate.slideDown(content.current);
     }
     setOpen(!open);
   };

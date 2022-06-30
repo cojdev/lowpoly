@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { StyledTextField, StyledNumberField, Label } from '../../styles/fields';
 
-const StyledSingleInput = styled.div<{focus: boolean}>`
+const StyledSingleInput = styled.div<{ focus: boolean }>`
   position: relative;
   margin-top: 1rem;
 `;
 
-const StyledLabel = styled(Label)<{focus: boolean}>`
+const StyledLabel = styled(Label)<{ focus: boolean }>`
   position: absolute;
   top: 1ch;
   left: 1ch;
@@ -18,13 +18,13 @@ const StyledLabel = styled(Label)<{focus: boolean}>`
   color: #888;
   background-color: transparent;
 
-  ${({focus}) =>
+  ${({ focus }) =>
     focus &&
     css`
       top: 0;
-      font-size: 0.9em;
+      font-size: 0.8em;
       color: #e14;
-      font-weight: bold;
+      font-weight: 800;
       transform: translateY(-50%);
       background: linear-gradient(#f8f8f8, #fff);
       font-weight: 700;

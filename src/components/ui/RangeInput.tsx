@@ -1,5 +1,11 @@
 import PropTypes from 'prop-types';
-import React, { useState, useRef, useEffect, FC, InputHTMLAttributes } from 'react';
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  FC,
+  InputHTMLAttributes,
+} from 'react';
 import styled from 'styled-components';
 import { RangeSlider } from '../../styles/fields';
 
@@ -13,16 +19,16 @@ const Wrapper = styled.div`
 
 const Track = styled.div.attrs<{ background: string }>(({ background }) => ({
   style: { background },
-}))<{background?: string}>`
+}))<{ background?: string }>`
   background-color: #fff;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   /* border: 2px solid #eee; */
   border-radius: 100px;
   position: absolute;
-  top: 3px;
+  top: 5px;
   left: 0;
   right: 0;
-  bottom: 3px;
+  bottom: 5px;
 `;
 
 const Bead = styled.div`
@@ -31,7 +37,7 @@ const Bead = styled.div`
   top: 0;
   bottom: 0;
   width: 10px;
-  border-radius: 3px;
+  border-radius: 100px;
   /* border: 2px solid #e24; */
   background-color: #fff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -48,22 +54,17 @@ const StyledRangeSlider = styled(RangeSlider)`
   opacity: 0;
 `;
 
-const RangeInput: FC<InputHTMLAttributes<HTMLInputElement> & {
-  background?: string;
-  max: number;
-  min: number;
-  name?: any;
-  onChange: any;
-  onMouseUp: any;
-  value: any}> = ({
-  background,
-  max,
-  min,
-  name,
-  onChange,
-  onMouseUp,
-  value,
-}) => {
+const RangeInput: FC<
+  InputHTMLAttributes<HTMLInputElement> & {
+    background?: string;
+    max: number;
+    min: number;
+    name?: any;
+    onChange: any;
+    onMouseUp: any;
+    value: any;
+  }
+> = ({ background, max, min, name, onChange, onMouseUp, value }) => {
   const [bg, setBg] = useState('#fff');
 
   const track = useRef(null);
@@ -90,7 +91,7 @@ const RangeInput: FC<InputHTMLAttributes<HTMLInputElement> & {
     setBeadPosition(value);
   }, [value]);
 
-  const handleChange = (e: { target: any; }) => {
+  const handleChange = (e: { target: any }) => {
     const { target } = e;
     setBeadPosition(target.value);
     onChange(e);

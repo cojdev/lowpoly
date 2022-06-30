@@ -50,14 +50,14 @@ const ToggleButton = styled.button`
     height: auto;
   }
 
-  ${(props: {open: boolean}) =>
+  ${(props: { open: boolean }) =>
     props.open &&
     css`
       transform: translateX(62%);
     `}
 `;
 
-const StyledControls = styled.section<{open: boolean}>`
+const StyledControls = styled.section<{ open: boolean }>`
   min-height: 100vh;
   color: #444;
   background-color: #fff;
@@ -192,12 +192,8 @@ const Controls: FC<{
           <DownloadButton href={output} download="lowpoly.png">
             Download PNG
           </DownloadButton>
-          <h3>File details</h3>
-          Filesize: {getFileSize()}
-          <br />
-          Width: {settings.dimensions.width}
-          <br />
-          Height: {settings.dimensions.height}
+          {getFileSize()} &bull; {settings.dimensions.width}&times;
+          {settings.dimensions.height}
         </ControlGroup>
         <Footer>
           by{' '}
