@@ -32,6 +32,7 @@ const Canvas = styled.canvas`
 const Display = ({ settings, updateOutput }) => {
   // const [perf] = useState(new Tracker());
   const canvas = useRef(null);
+  const lowpoly = useRef(null);
 
   /**
    * Draw the source gradient or image
@@ -40,9 +41,8 @@ const Display = ({ settings, updateOutput }) => {
    */
   const drawCanvas = async (elem: HTMLCanvasElement) => {
     const { geometry, colour, image, useImage } = settings;
-    const cvs = new Lowpoly(elem);
 
-    const dataURL = await cvs.render({
+    const dataURL = await lowpoly.current.render({
       variance: geometry.variance,
       cellSize: geometry.cellSize,
       depth: geometry.depth,
@@ -56,8 +56,11 @@ const Display = ({ settings, updateOutput }) => {
   };
 
   useEffect(() => {
+    lowpoly.current = new Lowpoly(canvas.current);
+  }, []);
+
+  useEffect(() => {
     drawCanvas(canvas.current);
-    // console.log(settings);
   }, [settings]);
 
   const { width, height } = settings.dimensions;

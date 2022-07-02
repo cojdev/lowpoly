@@ -1,4 +1,4 @@
-import { PRNG } from '../utils/helpers';
+import { cross } from 'mathjs';
 
 export class Vertex {
   x: number;
@@ -54,16 +54,11 @@ export default class Triangle {
 
   getNormal() {
     const { vertices } = this;
-    // todo cross product
+
     const v1 = vectorFromVertices([vertices[0], vertices[1]]).coords;
     const v2 = vectorFromVertices([vertices[0], vertices[2]]).coords;
-    // console.log({ v1, v2 });
 
-    const normal = new Vector([
-      v1[1] * v2[2] - v1[2] * v2[1],
-      v1[2] * v2[0] - v1[0] * v2[2],
-      v1[0] * v2[1] - v1[1] * v2[0],
-    ]);
+    const normal = new Vector(cross(v1, v2) as number[]);
 
     normal.normalise();
 

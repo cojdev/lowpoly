@@ -114,13 +114,12 @@ export function drawImageProp(
  * http://www.firstpr.com.au/dsp/rand31/
  */
 export class PRNG {
+  initialSeed: number;
   seed: number;
 
   constructor(seed: number) {
-    this.seed = seed % 2147483647;
-    if (this.seed <= 0) {
-      this.seed += 2147483646;
-    }
+    this.initialSeed = seed;
+    this.reset();
   }
 
   /**
@@ -137,6 +136,13 @@ export class PRNG {
   generate(min = 0, max = 1) {
     // We know that result of next() will be 1 to 2147483646 (inclusive).
     return min + ((this.next() - 1) / 2147483646) * (max - min);
+  }
+
+  reset() {
+    this.seed = this.initialSeed % 2147483647;
+    if (this.seed <= 0) {
+      this.seed += 2147483646;
+    }
   }
 }
 

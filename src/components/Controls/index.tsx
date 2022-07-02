@@ -91,6 +91,10 @@ const StyledControls = styled.section<{ open: boolean }>`
 
 const DownloadButton = styled(LinkButton)``;
 
+const FileMetadata = styled.p`
+  text-align: center;
+`;
+
 const Footer = styled.footer`
   color: #888;
   width: 100%;
@@ -125,7 +129,7 @@ const Controls: FC<{
   settings: any;
   presets: any;
   toggleControls: any;
-  className?: any;
+  className?: string;
   output: any;
   open: any;
 }> = ({
@@ -192,8 +196,10 @@ const Controls: FC<{
           <DownloadButton href={output} download="lowpoly.png">
             Download PNG
           </DownloadButton>
-          {getFileSize()} &bull; {settings.dimensions.width}&times;
-          {settings.dimensions.height}
+          <FileMetadata>
+            {getFileSize()} &bull; {settings.dimensions.width}&times;
+            {settings.dimensions.height}
+          </FileMetadata>
         </ControlGroup>
         <Footer>
           by{' '}

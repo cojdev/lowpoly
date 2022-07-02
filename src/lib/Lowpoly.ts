@@ -1,6 +1,8 @@
 import { drawImageProp, HSLColour, PRNG, Tracker } from '../utils/helpers';
 import { hslToCss } from '../utils/colour';
-import Triangle, { Vertex } from './Triangle';
+import Triangle, { Vector, Vertex } from './Triangle';
+import { dot } from 'mathjs';
+import { SettingsState } from '../data/defaults';
 
 export default class Lowpoly {
   element: HTMLCanvasElement;
@@ -10,7 +12,7 @@ export default class Lowpoly {
   variance: number;
   cellSize: number;
   depth: number;
-  image: any;
+  image: SettingsState['image'];
   useImage: boolean;
   colours: HSLColour[];
   gridWidth: number;
@@ -20,6 +22,9 @@ export default class Lowpoly {
   imageData: any;
   dataUrl: string;
   dither: number;
+  light: Vector;
+  seed: number;
+  PRNG: PRNG;
 
   constructor(element: HTMLCanvasElement) {
     this.element = element;
@@ -43,6 +48,13 @@ export default class Lowpoly {
 
     this.columnCount = 0;
     this.rowCount = 0;
+
+    // light source direction
+    this.light = new Vector([0.5, 0.5, 1.5]);
+    this.light.normalise();
+
+    this.seed = 0;
+    this.PRNG = new PRNG(this.seed);
 
     this.ctx.strokeStyle = '#fff';
   }
@@ -126,14 +138,12 @@ export default class Lowpoly {
   drawPoly(tri: Triangle) {
     const { element, ctx, depth, dither } = this;
     const centre = tri.getCentre();
-    // const random = new PRNG(0);
+
     const ditherX = (dither / 200) * element.width;
     const ditherY = (dither / 200) * element.height;
 
-    centre.x += Math.random() * ditherX - ditherX / 2;
-    centre.y += Math.random() * ditherY - ditherY / 2;
-
-    // console.log(cell);
+    centre.x += this.PRNG.generate() * ditherX - ditherX / 2;
+    centre.y += this.PRNG.generate() * ditherY - ditherY / 2;
 
     // boundaries
     if (centre.x < 0) centre.x = 0;
@@ -144,7 +154,6 @@ export default class Lowpoly {
     const pixel =
       (Math.floor(centre.x) + Math.floor(centre.y) * element.width) * 4;
 
-    // const [red, green, blue, alpha] = ctx.getImageData(centre.x, centre.y, 1, 1).data;
     const [red, green, blue, alpha] = [
       this.imageData[pixel],
       this.imageData[pixel + 1],
@@ -152,45 +161,45 @@ export default class Lowpoly {
       this.imageData[pixel + 3],
     ];
 
+    // shadows and highlights
     const normal = tri.getNormal();
+    const shadow = (dot(this.light.coords, normal.coords) / 2 + 0.5) * 255;
 
-    const temp = normal.coords[1] * 2 * depth - depth;
     ctx.fillStyle = `rgba(
-      ${Math.round(red - red * temp)},
-      ${Math.round(green - green * temp)},
-      ${Math.round(blue - blue * temp)},
+      ${Math.round((red * shadow) / 255)},
+      ${Math.round((green * shadow) / 255)},
+      ${Math.round((blue * shadow) / 255)},
       ${alpha / 255}
     )`;
-    // ctx.fillStyle = getRandomHex();
 
     this.drawTriangle(tri.vertices);
   }
 
   generatePoints() {
-    const { rowCount, columnCount, cellSize, variance } = this;
+    const { rowCount, columnCount, cellSize, variance, depth } = this;
     const ret = [];
-
-    const random = new PRNG(0);
 
     for (let i = 0; i < rowCount; i++) {
       for (let j = 0; j < columnCount; j++) {
-        const temp = new Vertex();
+        const vert = new Vertex();
+
         // get y position and add variance
-        temp.y = i * cellSize * 0.866 - cellSize;
-        temp.y += (random.generate() - 0.5) * variance * cellSize * 2;
+        vert.y = i * cellSize * 0.866 - cellSize;
+        vert.y += (this.PRNG.generate() - 0.5) * variance * cellSize * 2;
+
         // even rows
         if (i % 2 === 0) {
-          temp.x = j * cellSize - cellSize;
-          temp.x += (random.generate() - 0.5) * variance * cellSize * 2;
+          vert.x = j * cellSize - cellSize;
+          vert.x += (this.PRNG.generate() - 0.5) * variance * cellSize * 2;
         } else {
           // odd rows
-          temp.x = j * cellSize - cellSize + cellSize / 2;
-          temp.x += (random.generate() - 0.5) * variance * cellSize * 2;
+          vert.x = j * cellSize - cellSize + cellSize / 2;
+          vert.x += (this.PRNG.generate() - 0.5) * variance * cellSize * 2;
         }
 
-        temp.z = random.generate() * 100;
+        vert.z = (this.PRNG.generate() * depth * cellSize) / 20;
 
-        ret.push(temp);
+        ret.push(vert);
       }
     }
 
@@ -245,14 +254,13 @@ export default class Lowpoly {
     colours: any;
     useImage: boolean;
   }) {
-    // console.trace();
     Object.assign(this, options);
 
+    this.PRNG.reset();
     const tracker = new Tracker();
 
     this.cellSize = this.cellSize * 3 + 30;
     this.variance /= 100;
-    this.depth /= 200;
 
     this.gridWidth = this.element.width + this.cellSize * 2;
     this.gridHeight = this.element.height + this.cellSize * 2;
@@ -286,7 +294,7 @@ export default class Lowpoly {
       }
     }, 'drawPoly');
 
-    tracker.log();
+    // tracker.log();
 
     // generate data url of image
     this.dataUrl = element.toDataURL();
