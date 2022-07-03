@@ -1,5 +1,5 @@
 export default class Animate {
-  static slideUp(elem) {
+  static slideUp(elem: HTMLElement) {
     const height = elem.offsetHeight;
 
     elem.style.height = `${height}px`;
@@ -9,7 +9,7 @@ export default class Animate {
     });
   }
 
-  static slideDown(elem) {
+  static slideDown(elem: HTMLElement) {
     const height = elem.children[0].scrollHeight;
     elem.style.height = '0px';
 

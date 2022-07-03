@@ -2,14 +2,13 @@
   "compilerOptions": {
     "outDir": "./docs",
     "rootDir": "./src",
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "moduleResolution": "node",
     "module": "es6",
     "target": "es5",
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "allowJs": true,
     "lib": [
       "dom", "es2015"
     ],

@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import React, { useRef, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import Animate from '../../lib/Animate';
 import { colours } from '../../data/theme';
@@ -101,7 +100,11 @@ const ContentInner = styled.div`
   padding: 1rem 1rem;
 `;
 
-const ControlGroup = ({ className, title, children }) => {
+const ControlGroup: FC<{ className?: string; title: string }> = ({
+  className,
+  title,
+  children,
+}) => {
   const [open, setOpen] = useState(true);
   const content = useRef();
 
@@ -125,12 +128,6 @@ const ControlGroup = ({ className, title, children }) => {
       </Content>
     </StyledControlGroup>
   );
-};
-
-ControlGroup.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-  title: PropTypes.string,
 };
 
 export default ControlGroup;

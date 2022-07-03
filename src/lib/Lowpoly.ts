@@ -1,29 +1,51 @@
-import { drawImageProp, HSLColour, PRNG, Tracker } from '../utils/helpers';
+import { dot } from 'mathjs';
+import { drawImageProp } from '../utils/helpers';
 import { hslToCss } from '../utils/colour';
 import Triangle, { Vector, Vertex } from './Triangle';
-import { dot } from 'mathjs';
 import { SettingsState } from '../data/defaults';
+import { HSLColour } from '../utils/types';
+import PRNG from './PRNG';
+import Tracker from './Tracker';
 
 export default class Lowpoly {
   element: HTMLCanvasElement;
+
   ctx: CanvasRenderingContext2D;
+
   points: Vertex[];
+
   triangles: Triangle[];
+
   variance: number;
+
   cellSize: number;
+
   depth: number;
+
   image: SettingsState['image'];
+
   useImage: boolean;
+
   colours: HSLColour[];
+
   gridWidth: number;
+
   gridHeight: number;
+
   columnCount: number;
+
   rowCount: number;
+
   imageData: any;
+
   dataUrl: string;
+
   dither: number;
+
   light: Vector;
+
   seed: number;
+
   PRNG: PRNG;
 
   constructor(element: HTMLCanvasElement) {
@@ -91,7 +113,7 @@ export default class Lowpoly {
     // using a gradient
     ctx.globalCompositeOperation = 'multiply';
 
-    let gradient = ctx.createLinearGradient(
+    const gradient = ctx.createLinearGradient(
       0,
       0,
       element.width,
@@ -136,7 +158,7 @@ export default class Lowpoly {
   }
 
   drawPoly(tri: Triangle) {
-    const { element, ctx, depth, dither } = this;
+    const { element, ctx, dither } = this;
     const centre = tri.getCentre();
 
     const ditherX = (dither / 200) * element.width;
@@ -197,7 +219,7 @@ export default class Lowpoly {
           vert.x += (this.PRNG.generate() - 0.5) * variance * cellSize * 2;
         }
 
-        vert.z = (this.PRNG.generate() * depth * cellSize) / 20;
+        vert.z = (this.PRNG.generate() * depth * cellSize) / 50;
 
         ret.push(vert);
       }

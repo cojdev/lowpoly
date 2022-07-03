@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 const StyledLoader = styled.div`
@@ -10,7 +10,7 @@ const StyledLoader = styled.div`
 
 const Spinner = styled.div``;
 
-const Loader = () => (
+const Loader: FC = () => (
   <StyledLoader>
     <Spinner />
   </StyledLoader>

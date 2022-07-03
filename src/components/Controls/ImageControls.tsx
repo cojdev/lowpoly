@@ -1,11 +1,12 @@
-import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { ChangeEvent, DragEvent, FC, useState } from 'react';
 import styled from 'styled-components';
 import ControlGroup from './ControlGroup';
 import { Checkbox, Label } from '../../styles/fields';
 import { colours } from '../../data/theme';
 import Button from '../ui/Button';
 import { Row, Column } from '../../styles/mixins';
+import { SettingsState } from '../../data/defaults';
+import { Dimensions } from '../../utils/types';
 
 const PreviewWrap = styled.div`
   display: flex;
@@ -68,14 +69,20 @@ const Thumbnail = styled.img`
   max-height: 200px;
 `;
 
-const ImageControls = (props) => {
+const ImageControls: FC<{
+  settings: SettingsState['image'];
+  useImage: boolean;
+  setImage: (x: SettingsState['image']) => void;
+  setUseImage: (x: boolean) => void;
+  setDimensions: (x: Dimensions) => void;
+}> = ({ settings, useImage, setImage, setUseImage, setDimensions }) => {
   const [state, setState] = useState({
-    settings: props.settings,
-    useImage: props.useImage,
+    settings,
+    useImage,
     value: '',
   });
 
-  const loadImage = (target) => {
+  const loadImage = (target: HTMLInputElement | DataTransfer) => {
     if (target.files && target.files[0]) {
       const reader = new FileReader();
 
@@ -83,12 +90,16 @@ const ImageControls = (props) => {
         const img = new Image();
 
         img.onload = () => {
-          const newImage = (({ src, width, height }) => ({
+          const newImage: SettingsState['image'] = (({
+            src,
+            width,
+            height,
+          }) => ({
             src,
             width,
             height,
           }))(img);
-          props.setImage(newImage);
+          setImage(newImage);
           setState({ ...state, settings: newImage, useImage: true });
         };
 
@@ -99,39 +110,39 @@ const ImageControls = (props) => {
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     loadImage(e.target);
   };
 
-  const handleDrop = (e) => {
+  const handleDrop = (e: DragEvent) => {
     // Prevent default behavior (Prevent file from being opened)
     e.preventDefault();
     loadImage(e.dataTransfer);
   };
 
-  const handleDragOver = (e) => {
+  const handleDragOver = (e: DragEvent) => {
     // Prevent file from being opened
     e.preventDefault();
   };
 
-  const handleCheckboxChange = (e) => {
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     setState({ ...state, useImage: e.target.checked });
-    props.setUseImage(e.target.checked);
+    setUseImage(e.target.checked);
   };
 
   const handleResizeCanvas = () => {
     const { width, height } = state.settings;
-    props.setDimensions({ width, height });
+    setDimensions({ width, height });
   };
 
-  const { settings, value, useImage } = state;
+  const { value } = state;
 
   return (
     <ControlGroup title="Image">
-      {settings ? (
+      {state.settings ? (
         <PreviewWrap>
           <Preview>
-            <Thumbnail src={settings.src} />
+            <Thumbnail src={state.settings.src} />
           </Preview>
         </PreviewWrap>
       ) : (
@@ -162,14 +173,6 @@ const ImageControls = (props) => {
       </Row>
     </ControlGroup>
   );
-};
-
-ImageControls.propTypes = {
-  setDimensions: PropTypes.func,
-  setImage: PropTypes.func,
-  setUseImage: PropTypes.func,
-  settings: PropTypes.any,
-  useImage: PropTypes.any,
 };
 
 export default ImageControls;

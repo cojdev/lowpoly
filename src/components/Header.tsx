@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { topbar } from '../data/theme';
 
@@ -15,7 +15,7 @@ const StyledHeader = styled.header`
   }
 `;
 
-const Header = () => (
+const Header: FC = () => (
   <StyledHeader>
     <h1>LowPoly Generator</h1>
     <a

@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, FocusEvent, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { StyledTextField, StyledNumberField, Label } from '../../styles/fields';
 
@@ -31,30 +30,30 @@ const StyledLabel = styled(Label)<{ focus: boolean }>`
     `};
 `;
 
-const SingleInput = ({
-  label,
-  name,
-  onBlur,
-  onChange,
-  onFocus,
-  type,
-  value,
-}) => {
+const SingleInput: FC<{
+  label: string;
+  name: string;
+  onBlur?: (e: FocusEvent) => void;
+  onChange?: (e: ChangeEvent) => void;
+  onFocus?: (e: FocusEvent) => void;
+  type?: 'text' | 'number';
+  value?: string | number;
+}> = ({ label, name, onBlur, onChange, onFocus, type, value }) => {
   const [state, setState] = useState({
     focus: false,
   });
 
-  const handleFocus = (e) => {
+  const handleFocus = (e: FocusEvent) => {
     setState({ ...state, focus: true });
     if (onFocus !== undefined) onFocus.call(this, e);
   };
 
-  const handleBlur = (e) => {
+  const handleBlur = (e: FocusEvent) => {
     setState({ ...state, focus: false });
     if (onBlur !== undefined) onBlur.call(this, e);
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent) => {
     if (onChange !== undefined) onChange.call(this, e);
   };
 
@@ -91,16 +90,6 @@ const SingleInput = ({
       {input}
     </StyledSingleInput>
   );
-};
-
-SingleInput.propTypes = {
-  label: PropTypes.any,
-  name: PropTypes.any,
-  onBlur: PropTypes.func,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  type: PropTypes.string,
-  value: PropTypes.any,
 };
 
 export default SingleInput;

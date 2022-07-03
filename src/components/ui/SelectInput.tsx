@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { useState, FocusEvent, ChangeEvent, FC } from 'react';
 import styled, { css } from 'styled-components';
 import { Label, StyledDropdown } from '../../styles/fields';
 
@@ -29,30 +28,30 @@ const StyledLabel = styled(Label)<{ focus: boolean }>`
     `};
 `;
 
-const SelectInput = ({
-  label,
-  name,
-  onBlur,
-  onChange,
-  onFocus,
-  options,
-  value,
-}) => {
+const SelectInput: FC<{
+  label: string;
+  name: string;
+  onBlur?: (e: FocusEvent) => void;
+  onChange?: (e: ChangeEvent) => void;
+  onFocus?: (e: FocusEvent) => void;
+  options: any;
+  value?: string;
+}> = ({ label, name, onBlur, onChange, onFocus, options, value }) => {
   const [state, setState] = useState({
     focus: false,
   });
 
-  const handleFocus = (e) => {
+  const handleFocus = (e: FocusEvent) => {
     setState({ ...state, focus: true });
     if (onFocus !== undefined) onFocus(e);
   };
 
-  const handleBlur = (e) => {
+  const handleBlur = (e: FocusEvent) => {
     setState({ ...state, focus: false });
     if (onBlur !== undefined) onBlur(e);
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent) => {
     if (onChange !== undefined) onChange(e);
   };
 
@@ -89,16 +88,6 @@ const SelectInput = ({
       </StyledDropdown>
     </StyledSelectInput>
   );
-};
-
-SelectInput.propTypes = {
-  label: PropTypes.any,
-  name: PropTypes.any,
-  onBlur: PropTypes.func,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  options: PropTypes.any,
-  value: PropTypes.string,
 };
 
 export default SelectInput;

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 import theme from '../../data/theme';
@@ -11,6 +10,9 @@ import ControlGroup from './ControlGroup';
 import ImageControls from './ImageControls';
 import PaletteControls from './PaletteControls';
 import LinkButton from '../ui/LinkButton';
+import { SettingsPresets } from '../../data/presets';
+import { SettingsState } from '../../data/defaults';
+import { Dimensions, HSLColour } from '../../utils/types';
 
 const Container = styled.section`
   padding: 0;
@@ -121,13 +123,13 @@ const Footer = styled.footer`
 `;
 
 const Controls: FC<{
-  setDimensions: any;
-  setColours: any;
-  setImage: any;
-  setUseImage: any;
-  setGeometry: any;
-  settings: any;
-  presets: any;
+  setDimensions: (x: Dimensions) => void;
+  setColours: (x: HSLColour[]) => void;
+  setImage: (x: SettingsState['image']) => void;
+  setUseImage: (x: boolean) => void;
+  setGeometry: (x: keyof SettingsState['geometry'], y: number) => void;
+  settings: SettingsState;
+  presets: SettingsPresets['dimensions'];
   toggleControls: any;
   className?: string;
   output: any;
@@ -218,29 +220,6 @@ const Controls: FC<{
       </StyledControls>
     </Container>
   );
-};
-
-Controls.propTypes = {
-  className: PropTypes.string,
-  open: PropTypes.bool,
-  output: PropTypes.string,
-  presets: PropTypes.object,
-  setColours: PropTypes.func,
-  setDimensions: PropTypes.func,
-  setGeometry: PropTypes.func,
-  setImage: PropTypes.func,
-  setUseImage: PropTypes.func,
-  settings: PropTypes.shape({
-    colour: PropTypes.any,
-    dimensions: PropTypes.shape({
-      height: PropTypes.number,
-      width: PropTypes.number,
-    }),
-    geometry: PropTypes.any,
-    image: PropTypes.any,
-    useImage: PropTypes.bool,
-  }),
-  toggleControls: PropTypes.func,
 };
 
 export default Controls;

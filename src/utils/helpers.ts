@@ -1,5 +1,3 @@
-export type HSLColour = [number, number, number];
-
 /**
  * generate a unique ID of specified length
  * @param {number} length length of id
@@ -30,7 +28,7 @@ export const uid = (length: number = 6): string => {
  */
 export const clone = (obj: {} | any[]) => {
   if (typeof obj === 'object') {
-    return Object.assign({}, obj);
+    return { ...obj };
   }
   if (Array.isArray(obj)) {
     return obj.slice();
@@ -108,79 +106,9 @@ export function drawImageProp(
 }
 
 /**
- * Creates a pseudo-random value generator. The seed must be an integer.
- *
- * Uses an optimized version of the Park-Miller PRNG.
- * http://www.firstpr.com.au/dsp/rand31/
- */
-export class PRNG {
-  initialSeed: number;
-  seed: number;
-
-  constructor(seed: number) {
-    this.initialSeed = seed;
-    this.reset();
-  }
-
-  /**
-   * Returns a pseudo-random value between 1 and 2^32 - 2.
-   */
-  next() {
-    this.seed = (this.seed * 16807) % 2147483647;
-    return this.seed;
-  }
-
-  /**
-   * Returns a pseudo-random floating point number in range [0, 1).
-   */
-  generate(min = 0, max = 1) {
-    // We know that result of next() will be 1 to 2147483646 (inclusive).
-    return min + ((this.next() - 1) / 2147483646) * (max - min);
-  }
-
-  reset() {
-    this.seed = this.initialSeed % 2147483647;
-    if (this.seed <= 0) {
-      this.seed += 2147483646;
-    }
-  }
-}
-
-/**
  * Capitalises the first letter of a string
- * @param {string} string Input string
+ * @param string
+ * @returns
  */
 export const capitalise = (string: string) =>
   string.charAt(0).toUpperCase() + string.slice(1);
-
-export class Tracker {
-  results: {};
-  constructor() {
-    this.results = {};
-  }
-
-  newLabel() {
-    return `test-${Object.keys(this.results).length + 1}`;
-  }
-
-  test(func: () => any, label = this.newLabel(), returnFunc = false) {
-    const t0 = performance.now();
-    const funcValue = func();
-    const t1 = performance.now();
-    const ret = t1 - t0;
-    this.results[label] = ret;
-    if (returnFunc) {
-      return funcValue;
-    }
-
-    return ret;
-  }
-
-  getTotal() {
-    return Object.values(this.results).reduce((a: number, b: number) => a + b);
-  }
-
-  log() {
-    console.table({ ...this.results, total: this.getTotal() });
-  }
-}

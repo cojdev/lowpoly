@@ -1,19 +1,24 @@
-import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { ChangeEvent, FC, MouseEvent, useState } from 'react';
 import styled from 'styled-components';
 import ControlGroup from './ControlGroup';
 import Button from '../ui/Button';
 import { Row, Column } from '../../styles/mixins';
 import SingleInput from '../ui/SingleInput';
 import SelectInput from '../ui/SelectInput';
+import { Dimensions } from '../../utils/types';
+import { SettingsPresets } from '../../data/presets';
 
 const SetButton = styled(Button)``;
 
-const DimensionControls = ({ presets, settings, setDimensions }) => {
+const DimensionControls: FC<{
+  presets: SettingsPresets['dimensions'];
+  settings: Dimensions;
+  setDimensions: (x: Dimensions) => void;
+}> = ({ presets, settings, setDimensions }) => {
   const [height, setHeight] = useState(settings.height);
   const [width, setWidth] = useState(settings.width);
 
-  const handlePreset = (e) => {
+  const handlePreset = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value !== 'null') {
       const p = Object.values(presets).find(
         (item) => item[e.target.value] !== undefined
@@ -24,15 +29,15 @@ const DimensionControls = ({ presets, settings, setDimensions }) => {
     }
   };
 
-  const handleHeight = (e) => {
-    setHeight(e.target.value);
+  const handleHeight = (e: ChangeEvent<HTMLInputElement>) => {
+    setHeight(parseInt(e.target.value, 10));
   };
 
-  const handleWidth = (e) => {
-    setWidth(e.target.value);
+  const handleWidth = (e: ChangeEvent<HTMLInputElement>) => {
+    setWidth(parseInt(e.target.value, 10));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: MouseEvent) => {
     e.preventDefault();
     setDimensions({ width, height });
   };
@@ -75,15 +80,6 @@ const DimensionControls = ({ presets, settings, setDimensions }) => {
       <SetButton onClick={handleSubmit}>Apply</SetButton>
     </ControlGroup>
   );
-};
-
-DimensionControls.propTypes = {
-  presets: PropTypes.any,
-  setDimensions: PropTypes.func,
-  settings: PropTypes.shape({
-    height: PropTypes.any,
-    width: PropTypes.any,
-  }),
 };
 
 export default DimensionControls;

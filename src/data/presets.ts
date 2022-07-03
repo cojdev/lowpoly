@@ -1,4 +1,9 @@
-import { HSLColour } from '../utils/helpers';
+import { Dimensions, HSLColour } from '../utils/types';
+
+export type SettingsPresets = {
+  palettes: HSLColour[];
+  dimensions: Record<'Mobile' | 'Desktop', { [y: string]: Dimensions }>;
+};
 
 export default {
   palettes: [

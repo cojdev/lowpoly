@@ -1,16 +1,28 @@
+import { HSLColour } from './types';
+
 /**
  * Convert hsl to rgb
- * @param {number | array} h hue (hsl if array)
- * @param {number} s saturation
- * @param {number} l luminosity
+ * @param hue hue (hsl if array)
+ * @param sat saturation
+ * @param lum luminosity
  * @returns {array}
  */
-export const hslToRgb = (hue, sat = null, lum = null) => {
-  let h = hue;
-  let s = sat;
-  let l = lum;
+export const hslToRgb = (
+  hue: HSLColour | number,
+  sat?: number,
+  lum?: number
+): number[] => {
+  let h: number;
+  let s: number;
+  let l: number;
 
-  if (Array.isArray(hue)) [h, s, l] = hue;
+  if (Array.isArray(hue)) {
+    [h, s, l] = hue;
+  } else {
+    h = hue;
+    s = sat;
+    l = lum;
+  }
 
   let rgb = [];
   let c = 0;
@@ -74,56 +86,52 @@ export const hslToRgb = (hue, sat = null, lum = null) => {
 // };
 
 /**
- * Generate a random colour
- * @param {boolean} bright generate a bright saturated colour
- * @returns {string}
- */
-export const getRandomHex = (bright = false) => {
-  if (bright) {
-    return hslToHex(Math.floor(Math.random() * 360), 85, 53);
-  }
-  return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-};
-
-/**
  * Convert hexadecimal colour to RGB
  * @param {string} hex 3 or 6 digit hexadecimal colour value
  * @returns {array}
  */
-export function hexToRgb(hex) {
-  hex = hex.replace('#', '');
+export const hexToRgb = (hex: string): number[] => {
+  const formattedHex = hex.replace('#', '');
 
-  switch (hex.length) {
+  switch (formattedHex.length) {
     case 3: {
-      const ret = hex.split('').map((item) => parseInt(item + item, 16));
+      const ret = formattedHex
+        .split('')
+        .map((item: any) => parseInt(item + item, 16));
       return ret;
     }
 
     case 6: {
-      const ret = hex.match(/.{2}/g).map((item) => parseInt(item, 16));
+      const ret = formattedHex
+        .match(/.{2}/g)
+        .map((item: string) => parseInt(item, 16));
       return ret;
     }
 
     default:
       return [0, 0, 0];
   }
-}
+};
 
 /**
  * Convert hexadecimal string to hue, saturation and luminosity
- * @param {string} hex hexadecimal colour string; hash optional
+ * @param hex hexadecimal colour string; hash optional
  */
-export function hexToHsl(hex) {
-  hex = hex.replace('#', '');
+export const hexToHsl = (hex: string) => {
+  const formattedHex = hex.replace('#', '');
 
-  let rgb;
+  let rgb: number[];
 
-  switch (hex.length) {
+  switch (formattedHex.length) {
     case 3:
-      rgb = hex.split('').map((item) => parseInt(item + item, 16));
+      rgb = formattedHex
+        .split('')
+        .map((item: any) => parseInt(item + item, 16));
       break;
     case 6:
-      rgb = hex.match(/.{2}/g).map((item) => parseInt(item, 16));
+      rgb = formattedHex
+        .match(/.{2}/g)
+        .map((item: string) => parseInt(item, 16));
       break;
     default:
       return [];
@@ -165,39 +173,48 @@ export function hexToHsl(hex) {
   l = Math.floor(l * 100);
 
   return [h, s, l];
-}
+};
 
 /**
  * Convert hue, saturation and luminosity to hexadecimal
- * @param {number | array} h hue (hsl if array)
- * @param {number} s saturation
- * @param {number} l luminosity
+ * @param {number | array} hue hue (hsl if array)
+ * @param {number} sat saturation
+ * @param {number} lum luminosity
  * @returns {string}
  */
-export function hslToHex(h, s, l) {
-  if (Array.isArray(h)) {
-    s = h[1];
-    l = h[2];
-    h = h[0];
+export const hslToHex = (
+  hue: [number, number, number] | number,
+  sat?: number,
+  lum?: number
+): string => {
+  let h: number;
+  let s: number;
+  let l: number;
+
+  if (Array.isArray(hue)) {
+    [h, s, l] = hue;
+  } else {
+    h = hue;
+    s = sat;
+    l = lum;
   }
 
   h /= 360;
   s /= 100;
   l /= 100;
 
-  let r;
-  let g;
-  let b;
+  let r = l;
+  let g = l;
+  let b = l;
 
-  if (s === 0) {
-    r = g = b = l; // achromatic
-  } else {
-    const hue2rgb = (p, q, t) => {
-      if (t < 0) t += 1;
-      if (t > 1) t -= 1;
-      if (t < 1 / 6) return p + (q - p) * 6 * t;
+  if (s !== 0) {
+    const hue2rgb = (p: number, q: number, t: number) => {
+      let t2 = t;
+      if (t < 0) t2 += 1;
+      if (t > 1) t2 -= 1;
+      if (t < 1 / 6) return p + (q - p) * 6 * t2;
       if (t < 1 / 2) return q;
-      if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+      if (t < 2 / 3) return p + (q - p) * (2 / 3 - t2) * 6;
       return p;
     };
     const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
@@ -206,17 +223,24 @@ export function hslToHex(h, s, l) {
     g = hue2rgb(p, q, h);
     b = hue2rgb(p, q, h - 1 / 3);
   }
-  const toHex = (x) => {
+  const toHex = (x: number) => {
     const hex = Math.round(x * 255).toString(16);
     return hex.length === 1 ? `0${hex}` : hex;
   };
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
-}
+};
 
-// export function cssToHsl(css) {
-//   //
-// }
+export const hslToCss = (h: number, s: number, l: number) =>
+  `hsl(${h},${s}%,${l}%)`;
 
-export function hslToCss(h, s, l) {
-  return `hsl(${h},${s}%,${l}%)`;
-}
+/**
+ * Generate a random colour
+ * @param {boolean} bright generate a bright saturated colour
+ * @returns {string}
+ */
+export const getRandomHex = (bright: boolean = false): string => {
+  if (bright) {
+    return hslToHex(Math.floor(Math.random() * 360), 85, 53);
+  }
+  return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+};

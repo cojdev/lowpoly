@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FC, MouseEvent } from 'react';
 
 import styled, { css } from 'styled-components';
 import * as colour from '../../utils/colour';
@@ -10,6 +9,7 @@ import { Label } from '../../styles/fields';
 import RangeInput from '../ui/RangeInput';
 import ControlGroup from './ControlGroup';
 import Button from '../ui/Button';
+import { HSLColour } from '../../utils/types';
 
 const SmallButton = styled(Button)`
   display: inline-block;
@@ -46,18 +46,21 @@ const ColourGroupInner = styled.div`
   display: flex;
 `;
 
-const ColourControls = (props) => {
+const ColourControls: FC<{
+  settings: any;
+  setColours: (x: any[]) => void;
+}> = ({ settings, setColours }) => {
   const [state, setState] = useState({
     maxColours: 12,
     active: 0,
-    settings: props.settings,
+    settings,
   });
 
-  const { settings, active } = state;
+  const { active } = state;
 
   useEffect(() => {
     const newState = { ...state };
-    newState.settings = props.settings;
+    newState.settings = settings;
 
     if (!settings[active]) {
       // console.log('not active: ', active, settings);
@@ -65,7 +68,7 @@ const ColourControls = (props) => {
     }
 
     setState({ ...newState });
-  }, [props.settings]);
+  }, [settings]);
 
   /**
    * Add a colour to current palette
@@ -76,7 +79,7 @@ const ColourControls = (props) => {
     if (s.length < state.maxColours) {
       s.push(colour.hexToHsl(colour.getRandomHex(true)));
       setState({ ...state, settings: s });
-      props.setColours(s);
+      setColours(s);
     }
   };
 
@@ -84,39 +87,39 @@ const ColourControls = (props) => {
    * Remove a colour from the current palette
    */
   const handleRemoveColour = () => {
-    const settings = [...state.settings];
+    const s = [...state.settings];
 
-    if (settings.length > 1) {
-      settings.splice(active, 1);
+    if (s.length > 1) {
+      s.splice(active, 1);
 
-      if (active > settings.length - 1) {
-        setState({ ...state, active: settings.length - 1, settings: settings });
+      if (active > s.length - 1) {
+        setState({ ...state, active: s.length - 1, settings: s });
       } else {
-        setState({ ...state, settings: settings });
+        setState({ ...state, settings: s });
       }
 
-      props.setColours(settings);
+      setColours(s);
     }
   };
 
   /**
    * Select a colour in the active palette triggered by an event
    */
-  const setActiveColour = (e) => {
+  const setActiveColour = (e: MouseEvent<HTMLInputElement>) => {
     setState({
       ...state,
-      active: parseInt(e.target.getAttribute('data-id'), 10),
+      active: parseInt(e.currentTarget.getAttribute('data-id'), 10),
     });
   };
 
   /**
    * Handle change in colour component values
    */
-  const handleChange = (e) => {
+  const handleChange = (e: { target: any }) => {
     const { target } = e;
     const value = parseInt(target.value, 10);
     // deep clone global colours
-    const colours = [...props.settings].map((item) => [...item]);
+    const colours = [...settings].map((item) => [...item]);
 
     if (target.name === 'hue') colours[active][0] = value;
     if (target.name === 'saturation') colours[active][1] = value;
@@ -130,7 +133,7 @@ const ColourControls = (props) => {
    */
   const handleMouseUp = () => {
     const colours = [...state.settings];
-    props.setColours(colours);
+    setColours(colours);
   };
 
   if (settings) {
@@ -161,7 +164,7 @@ const ColourControls = (props) => {
       }
     }
 
-    const colourInputs = settings.map((item, index) => (
+    const colourInputs = settings.map((item: HSLColour, index: number) => (
       <ColourInput
         value={item}
         key={index}
@@ -225,11 +228,6 @@ const ColourControls = (props) => {
   }
 
   return <div>Loading...</div>;
-};
-
-ColourControls.propTypes = {
-  setColours: PropTypes.func,
-  settings: PropTypes.any,
 };
 
 export default ColourControls;

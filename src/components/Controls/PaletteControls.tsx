@@ -1,22 +1,20 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { FC } from 'react';
 
 // widgets
 import ColourPalette from '../ColourPalette';
 import ControlGroup from './ControlGroup';
 
 import presets from '../../data/presets';
+import { HSLColour } from '../../utils/types';
 
-const PaletteControls = ({ setColours }) => (
+const PaletteControls: FC<{ setColours: (x: HSLColour[]) => void }> = ({
+  setColours,
+}) => (
   <ControlGroup title="Palettes">
     {presets.palettes.map((item, index) => (
       <ColourPalette key={index} colours={item} handleSetPalette={setColours} />
     ))}
   </ControlGroup>
 );
-
-PaletteControls.propTypes = {
-  setColours: PropTypes.any,
-};
 
 export default PaletteControls;

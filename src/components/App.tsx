@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import styled, { createGlobalStyle, css } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 // Components
 import Display from './Display';
@@ -8,8 +8,8 @@ import Controls from './Controls';
 // Helpers
 import presets from '../data/presets';
 import theme from '../data/theme';
-import defaults from '../data/defaults';
-import { HSLColour } from '../utils/helpers';
+import defaults, { SettingsState } from '../data/defaults';
+import { Dimensions, HSLColour } from '../utils/types';
 
 const GlobalStyles = createGlobalStyle`
     *,*::before,*::after {
@@ -70,7 +70,7 @@ const App: FC = () => {
    * set dimensions of the image in pixels
    * @param {object} obj
    */
-  const setDimensions = (obj: { width: number; height: number }) => {
+  const setDimensions = (obj: Dimensions) => {
     const s = { ...state.settings };
     s.dimensions = obj;
     setState({ ...state, settings: s });
@@ -89,10 +89,13 @@ const App: FC = () => {
 
   /**
    * set geometry
-   * @param {number} option attribute being set
+   * @param {string} option attribute being set
    * @param {number} value value
    */
-  const setGeometry = (option: number, value: number) => {
+  const setGeometry = (
+    option: keyof SettingsState['geometry'],
+    value: number
+  ) => {
     const s = { ...state.settings };
     s.geometry[option] = value;
     setState({ ...state, settings: s });
@@ -102,7 +105,7 @@ const App: FC = () => {
    * Sets the selected image
    * @param {string} image url for specified image
    */
-  const setImage = (image: { src: string; height: number; width: number }) => {
+  const setImage = (image: SettingsState['image']) => {
     const s = { ...state.settings };
     s.image = image;
     s.useImage = true;

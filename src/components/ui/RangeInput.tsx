@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, {
   useState,
   useRef,
@@ -115,16 +114,6 @@ const RangeInput: FC<
       />
     </Wrapper>
   );
-};
-
-RangeInput.propTypes = {
-  background: PropTypes.any,
-  max: PropTypes.any,
-  min: PropTypes.any,
-  name: PropTypes.any,
-  onChange: PropTypes.func,
-  onMouseUp: PropTypes.func,
-  value: PropTypes.any,
 };
 
 export default RangeInput;

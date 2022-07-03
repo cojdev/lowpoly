@@ -1,10 +1,8 @@
-import React, { useRef, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useRef, useEffect, FC } from 'react';
 import styled from 'styled-components';
 import { rgba } from 'polished';
 import theme from '../data/theme';
 import Lowpoly from '../lib/Lowpoly';
-// import { Tracker } from '../utils/helpers';
 
 const StyledDisplay = styled.div`
   text-align: center;
@@ -29,8 +27,10 @@ const Canvas = styled.canvas`
   box-shadow: 0 2px 5px ${rgba('#000', 0.2)}, 0 5px 20px ${rgba('#000', 0.1)};
 `;
 
-const Display = ({ settings, updateOutput }) => {
-  // const [perf] = useState(new Tracker());
+const Display: FC<{ settings: any; updateOutput: (x: string) => void }> = ({
+  settings,
+  updateOutput,
+}) => {
   const canvas = useRef(null);
   const lowpoly = useRef(null);
 
@@ -39,7 +39,7 @@ const Display = ({ settings, updateOutput }) => {
    * @param {CanvasRenderingContext2D} context Canvas context
    * @param {HTMLCanvasElement} elem Canvas element
    */
-  const drawCanvas = async (elem: HTMLCanvasElement) => {
+  const drawCanvas = async () => {
     const { geometry, colour, image, useImage } = settings;
 
     const dataURL = await lowpoly.current.render({
@@ -60,7 +60,7 @@ const Display = ({ settings, updateOutput }) => {
   }, []);
 
   useEffect(() => {
-    drawCanvas(canvas.current);
+    drawCanvas();
   }, [settings]);
 
   const { width, height } = settings.dimensions;
@@ -70,11 +70,6 @@ const Display = ({ settings, updateOutput }) => {
       <Canvas ref={canvas} width={width} height={height} />
     </StyledDisplay>
   );
-};
-
-Display.propTypes = {
-  settings: PropTypes.object.isRequired,
-  updateOutput: PropTypes.func.isRequired,
 };
 
 export default Display;

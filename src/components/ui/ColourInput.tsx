@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { FC, MouseEvent } from 'react';
 import styled, { css } from 'styled-components';
-import { HSLColour } from '../../utils/helpers';
+import { HSLColour } from '../../utils/types';
 import { hslToCss } from '../../utils/colour';
 
 const StyledColourInput = styled.div.attrs<{ colour: HSLColour }>(
@@ -51,7 +50,12 @@ const StyledColourInput = styled.div.attrs<{ colour: HSLColour }>(
     `}
 `;
 
-const ColourInput = ({ active, index, setActiveColour, value }) => (
+const ColourInput: FC<{
+  active: boolean;
+  index: string | number;
+  setActiveColour: (e: MouseEvent<HTMLInputElement>) => void;
+  value: HSLColour;
+}> = ({ active, index, setActiveColour, value }) => (
   <StyledColourInput
     active={active}
     colour={value}
@@ -59,12 +63,5 @@ const ColourInput = ({ active, index, setActiveColour, value }) => (
     onClick={setActiveColour}
   />
 );
-
-ColourInput.propTypes = {
-  active: PropTypes.any,
-  index: PropTypes.any,
-  setActiveColour: PropTypes.any,
-  value: PropTypes.any,
-};
 
 export default ColourInput;

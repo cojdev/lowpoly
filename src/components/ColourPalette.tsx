@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { HSLColour } from '../utils/helpers';
+import { HSLColour } from '../utils/types';
 import { hslToCss } from '../utils/colour';
 
 const Palette = styled.div`
@@ -35,10 +34,5 @@ const ColourPalette: FC<{
     ))}
   </Palette>
 );
-
-ColourPalette.propTypes = {
-  colours: PropTypes.array,
-  handleSetPalette: PropTypes.func,
-};
 
 export default ColourPalette;

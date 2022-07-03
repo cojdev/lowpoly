@@ -1,11 +1,9 @@
-import { HSLColour } from '../utils/helpers';
+import { HSLColour } from '../utils/types';
+import { Dimensions } from '../utils/types';
 import presets from './presets';
 
 export type SettingsState = {
-  dimensions: {
-    width: number;
-    height: number;
-  };
+  dimensions: Dimensions;
   geometry: {
     variance: number;
     cellSize: number;
@@ -13,11 +11,11 @@ export type SettingsState = {
     dither: number;
   };
   colour: HSLColour[];
-  image: {
-    src: string;
-    width: number;
-    height: number;
-  } | null;
+  image:
+    | ({
+        src: string;
+      } & Dimensions)
+    | null;
   useImage: boolean;
 };
 
