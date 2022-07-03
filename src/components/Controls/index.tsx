@@ -128,6 +128,7 @@ const Controls: FC<{
   setImage: (x: SettingsState['image']) => void;
   setUseImage: (x: boolean) => void;
   setGeometry: (x: keyof SettingsState['geometry'], y: number) => void;
+  newSeed: () => void;
   settings: SettingsState;
   presets: SettingsPresets['dimensions'];
   toggleControls: any;
@@ -140,6 +141,7 @@ const Controls: FC<{
   setImage,
   setUseImage,
   setGeometry,
+  newSeed,
   settings,
   presets,
   toggleControls,
@@ -191,6 +193,7 @@ const Controls: FC<{
         <GeometryControls
           settings={settings.geometry}
           setGeometry={setGeometry}
+          newSeed={newSeed}
         />
         <ColourControls settings={settings.colour} setColours={setColours} />
         <PaletteControls setColours={setColours} />

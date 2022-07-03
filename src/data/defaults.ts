@@ -1,5 +1,4 @@
-import { HSLColour } from '../utils/types';
-import { Dimensions } from '../utils/types';
+import { HSLColour, Dimensions } from '../utils/types';
 import presets from './presets';
 
 export type SettingsState = {
@@ -17,6 +16,7 @@ export type SettingsState = {
       } & Dimensions)
     | null;
   useImage: boolean;
+  seed: number;
 };
 
 const defaults: SettingsState = {
@@ -37,6 +37,7 @@ const defaults: SettingsState = {
     width: 0,
   },
   useImage: false,
+  seed: 0,
 };
 
 export default defaults;

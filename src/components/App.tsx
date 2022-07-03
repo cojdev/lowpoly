@@ -130,6 +130,14 @@ const App: FC = () => {
     setState({ ...state, output: value });
   };
 
+  const newSeed = () => {
+    const s = { ...state.settings };
+
+    s.seed = Math.random();
+
+    setState({ ...state, settings: s });
+  };
+
   // methods for setting application state
   const setters = {
     setDimensions,
@@ -137,6 +145,7 @@ const App: FC = () => {
     setGeometry,
     setImage,
     setUseImage,
+    newSeed,
   };
 
   return (

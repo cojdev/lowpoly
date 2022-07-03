@@ -11,7 +11,7 @@ export default class PRNG {
 
   constructor(seed: number) {
     this.initialSeed = seed;
-    this.reset();
+    this.reset(this.initialSeed);
   }
 
   /**
@@ -30,8 +30,8 @@ export default class PRNG {
     return min + ((this.next() - 1) / 2147483646) * (max - min);
   }
 
-  reset() {
-    this.seed = this.initialSeed % 2147483647;
+  reset(seed: number) {
+    this.seed = seed % 2147483647;
     if (this.seed <= 0) {
       this.seed += 2147483646;
     }

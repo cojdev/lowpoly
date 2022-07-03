@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { rgba } from 'polished';
 import theme from '../data/theme';
 import Lowpoly from '../lib/Lowpoly';
+import { SettingsState } from '../data/defaults';
 
 const StyledDisplay = styled.div`
   text-align: center;
@@ -27,10 +28,10 @@ const Canvas = styled.canvas`
   box-shadow: 0 2px 5px ${rgba('#000', 0.2)}, 0 5px 20px ${rgba('#000', 0.1)};
 `;
 
-const Display: FC<{ settings: any; updateOutput: (x: string) => void }> = ({
-  settings,
-  updateOutput,
-}) => {
+const Display: FC<{
+  settings: SettingsState;
+  updateOutput: (x: string) => void;
+}> = ({ settings, updateOutput }) => {
   const canvas = useRef(null);
   const lowpoly = useRef(null);
 
@@ -40,7 +41,7 @@ const Display: FC<{ settings: any; updateOutput: (x: string) => void }> = ({
    * @param {HTMLCanvasElement} elem Canvas element
    */
   const drawCanvas = async () => {
-    const { geometry, colour, image, useImage } = settings;
+    const { geometry, colour, image, useImage, seed } = settings;
 
     const dataURL = await lowpoly.current.render({
       variance: geometry.variance,
@@ -50,6 +51,7 @@ const Display: FC<{ settings: any; updateOutput: (x: string) => void }> = ({
       image,
       colours: colour,
       useImage,
+      seed,
     });
 
     updateOutput(dataURL);

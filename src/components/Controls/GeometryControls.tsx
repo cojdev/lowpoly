@@ -4,11 +4,13 @@ import { Label } from '../../styles/fields';
 import { capitalise } from '../../utils/helpers';
 import RangeInput from '../ui/RangeInput';
 import { SettingsState } from '../../data/defaults';
+import Button from '../ui/Button';
 
 const GeometryControls: FC<{
   settings: SettingsState['geometry'];
   setGeometry: (option: keyof SettingsState['geometry'], value: number) => void;
-}> = ({ settings, setGeometry }) => {
+  newSeed: () => void;
+}> = ({ settings, setGeometry, newSeed }) => {
   const [state, setState] = useState({ ...settings });
 
   /**
@@ -53,7 +55,12 @@ const GeometryControls: FC<{
     )
   );
 
-  return <ControlGroup title="Geometry">{options}</ControlGroup>;
+  return (
+    <ControlGroup title="Geometry">
+      {options}
+      <Button onClick={newSeed}>New Random seed</Button>
+    </ControlGroup>
+  );
 };
 
 export default GeometryControls;

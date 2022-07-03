@@ -275,10 +275,11 @@ export default class Lowpoly {
     image: any;
     colours: any;
     useImage: boolean;
+    seed: number;
   }) {
     Object.assign(this, options);
 
-    this.PRNG.reset();
+    this.PRNG.reset(this.seed);
     const tracker = new Tracker();
 
     this.cellSize = this.cellSize * 3 + 30;

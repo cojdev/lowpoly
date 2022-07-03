@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FC, MouseEvent } from 'react';
+import React, { useState, useEffect, FC, MouseEvent, ChangeEvent } from 'react';
 
 import styled, { css } from 'styled-components';
 import * as colour from '../../utils/colour';
@@ -63,7 +63,7 @@ const ColourControls: FC<{
     newState.settings = settings;
 
     if (!settings[active]) {
-      // console.log('not active: ', active, settings);
+      console.log('not active: ', active, settings);
       newState.active = settings.length - 1;
     }
 
@@ -115,7 +115,7 @@ const ColourControls: FC<{
   /**
    * Handle change in colour component values
    */
-  const handleChange = (e: { target: any }) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { target } = e;
     const value = parseInt(target.value, 10);
     // deep clone global colours
@@ -137,7 +137,7 @@ const ColourControls: FC<{
   };
 
   if (settings) {
-    const activeColour = settings[active];
+    const activeColour = state.settings[active];
 
     let hueBarBg = 'linear-gradient(to right,';
     let satBarBg = 'linear-gradient(to right,';
@@ -164,15 +164,17 @@ const ColourControls: FC<{
       }
     }
 
-    const colourInputs = settings.map((item: HSLColour, index: number) => (
-      <ColourInput
-        value={item}
-        key={index}
-        index={index}
-        // single={settings.length === 1}
-        active={active === index && settings.length > 1}
-        setActiveColour={setActiveColour}></ColourInput>
-    ));
+    const colourInputs = state.settings.map(
+      (item: HSLColour, index: number) => (
+        <ColourInput
+          value={item}
+          key={index}
+          index={index}
+          // single={settings.length === 1}
+          active={active === index && settings.length > 1}
+          setActiveColour={setActiveColour}></ColourInput>
+      )
+    );
 
     return (
       <ControlGroup title="Colours">
