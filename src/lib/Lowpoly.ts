@@ -1,11 +1,13 @@
 import { dot } from 'mathjs';
 import { drawImageProp } from '../utils/helpers';
 import { hslToCss } from '../utils/colour';
-import Triangle, { Vector, Vertex } from './Triangle';
+import Triangle from './Triangle';
 import { SettingsState } from '../data/defaults';
 import { HSLColour } from '../utils/types';
 import PRNG from './PRNG';
 import Tracker from './Tracker';
+import Vector from './Vector';
+import Vertex from './Vertex';
 
 export default class Lowpoly {
   element: HTMLCanvasElement;
@@ -185,14 +187,42 @@ export default class Lowpoly {
 
     // shadows and highlights
     const normal = tri.getNormal();
-    const shadow = (dot(this.light.coords, normal.coords) / 2 + 0.5) * 255;
+    // const shadow = dot(this.light.coords, normal.coords) / 2 + 0.5;
+    const specular = 1 - (dot(this.light.coords, normal.coords) / 2 + 0.5);
+
+    const r = 1 - (1 - red / 255) * (1 - specular);
+    const g = 1 - (1 - green / 255) * (1 - specular);
+    const b = 1 - (1 - blue / 255) * (1 - specular);
+
+    console.log(r);
 
     ctx.fillStyle = `rgba(
-      ${Math.round((red * shadow) / 255)},
-      ${Math.round((green * shadow) / 255)},
-      ${Math.round((blue * shadow) / 255)},
+      ${Math.round(r * 255)},
+      ${Math.round(g * 255)},
+      ${Math.round(b * 255)},
       ${alpha / 255}
     )`;
+
+    // ctx.fillStyle = `rgba(
+    //   ${Math.round((red * shadow) / 255)},
+    //   ${Math.round((green * shadow) / 255)},
+    //   ${Math.round((blue * shadow) / 255)},
+    //   ${alpha / 255}
+    // )`;
+
+    // ctx.fillStyle = `rgba(
+    //   ${Math.round(specular)},
+    //   ${Math.round(specular)},
+    //   ${Math.round(specular)},
+    //   ${alpha / 255}
+    // )`;
+
+    // ctx.fillStyle = `rgba(
+    //   ${Math.round(shadow)},
+    //   ${Math.round(shadow)},
+    //   ${Math.round(shadow)},
+    //   ${alpha / 255}
+    // )`;
 
     this.drawTriangle(tri.vertices);
   }

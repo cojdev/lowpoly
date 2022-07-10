@@ -63,7 +63,6 @@ const ColourControls: FC<{
     newState.settings = settings;
 
     if (!settings[active]) {
-      console.log('not active: ', active, settings);
       newState.active = settings.length - 1;
     }
 

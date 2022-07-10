@@ -1,3 +1,6 @@
+import Vector from '../lib/Vector';
+import Vertex from '../lib/Vertex';
+
 /**
  * generate a unique ID of specified length
  * @param {number} length length of id
@@ -112,3 +115,13 @@ export function drawImageProp(
  */
 export const capitalise = (string: string) =>
   string.charAt(0).toUpperCase() + string.slice(1);
+
+export const normalise = (val: number, min: number, max: number) =>
+  (val - min) / (max - min);
+
+export const vectorFromVertices = (vertices: [Vertex, Vertex]): Vector =>
+  new Vector([
+    vertices[1].x - vertices[0].x,
+    vertices[1].y - vertices[0].y,
+    vertices[1].z - vertices[0].z,
+  ]);
