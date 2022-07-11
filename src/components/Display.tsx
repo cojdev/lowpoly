@@ -1,9 +1,10 @@
-import React, { useRef, useEffect, FC } from 'react';
+import React, { useRef, useEffect, FC, useState } from 'react';
 import styled from 'styled-components';
 import { rgba } from 'polished';
 import theme from '../data/theme';
 import Lowpoly from '../lib/Lowpoly';
 import { SettingsState } from '../data/defaults';
+import Loader from './Loader';
 
 const StyledDisplay = styled.div`
   text-align: center;
@@ -34,6 +35,7 @@ const Display: FC<{
 }> = ({ settings, updateOutput }) => {
   const canvas = useRef(null);
   const lowpoly = useRef(null);
+  const [loading, setLoading] = useState(false);
 
   /**
    * Draw the source gradient or image
@@ -57,18 +59,32 @@ const Display: FC<{
     updateOutput(dataURL);
   };
 
+  console.log('LOADING:', loading);
+
   useEffect(() => {
     lowpoly.current = new Lowpoly(canvas.current);
   }, []);
 
   useEffect(() => {
-    drawCanvas();
+    const func = async () => {
+      await drawCanvas();
+      setLoading(false);
+    };
+
+    if (loading) {
+      func();
+    }
+  }, [loading]);
+
+  useEffect(() => {
+    setLoading(true);
   }, [settings]);
 
   const { width, height } = settings.dimensions;
 
   return (
     <StyledDisplay>
+      {loading ? <Loader /> : null}
       <Canvas ref={canvas} width={width} height={height} />
     </StyledDisplay>
   );

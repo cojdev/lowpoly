@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import styled, { css } from 'styled-components';
 import theme from '../../data/theme';
 
@@ -10,9 +10,8 @@ import ControlGroup from './ControlGroup';
 import ImageControls from './ImageControls';
 import PaletteControls from './PaletteControls';
 import LinkButton from '../ui/LinkButton';
-import { SettingsPresets } from '../../data/presets';
-import { SettingsState } from '../../data/defaults';
-import { Dimensions, HSLColour } from '../../utils/types';
+import useDispatch from '../../hooks/useDispatch';
+import StateContext from '../../context/StateContext';
 
 const Container = styled.section`
   padding: 0;
@@ -123,32 +122,13 @@ const Footer = styled.footer`
 `;
 
 const Controls: FC<{
-  setDimensions: (x: Dimensions) => void;
-  setColours: (x: HSLColour[]) => void;
-  setImage: (x: SettingsState['image']) => void;
-  setUseImage: (x: boolean) => void;
-  setGeometry: (x: keyof SettingsState['geometry'], y: number) => void;
-  newSeed: () => void;
-  settings: SettingsState;
-  presets: SettingsPresets['dimensions'];
-  toggleControls: any;
   className?: string;
   output: any;
   open: any;
-}> = ({
-  setDimensions,
-  setColours,
-  setImage,
-  setUseImage,
-  setGeometry,
-  newSeed,
-  settings,
-  presets,
-  toggleControls,
-  className,
-  output,
-  open,
-}) => {
+}> = ({ className, output, open }) => {
+  const { settings } = useContext(StateContext);
+
+  const dispatch = useDispatch();
   const head = 'data:image/png;base64,';
 
   const kb = 1024;
@@ -172,31 +152,21 @@ const Controls: FC<{
   return (
     <Container className={className}>
       <ButtonWrap>
-        <ToggleButton onClick={toggleControls} open={open}>
+        <ToggleButton
+          onClick={() => {
+            dispatch({ type: 'TOGGLE_CONTROLS' });
+          }}
+          open={open}>
           <img src={open ? 'assets/x.svg' : 'assets/menu.svg'} />
         </ToggleButton>
       </ButtonWrap>
       <StyledControls open={open}>
         <Header />
-        <DimensionControls
-          settings={settings.dimensions}
-          presets={presets}
-          setDimensions={setDimensions}
-        />
-        <ImageControls
-          settings={settings.image}
-          useImage={settings.useImage}
-          setImage={setImage}
-          setUseImage={setUseImage}
-          setDimensions={setDimensions}
-        />
-        <GeometryControls
-          settings={settings.geometry}
-          setGeometry={setGeometry}
-          newSeed={newSeed}
-        />
-        <ColourControls settings={settings.colour} setColours={setColours} />
-        <PaletteControls setColours={setColours} />
+        <DimensionControls />
+        <ImageControls />
+        <GeometryControls />
+        <ColourControls />
+        <PaletteControls />
         <ControlGroup title="Export">
           <DownloadButton href={output} download="lowpoly.png">
             Download PNG

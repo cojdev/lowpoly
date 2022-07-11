@@ -116,7 +116,7 @@ export function drawImageProp(
 export const capitalise = (string: string) =>
   string.charAt(0).toUpperCase() + string.slice(1);
 
-export const normalise = (val: number, min: number, max: number) =>
+export const normalise = (val: number, max: number, min = 0) =>
   (val - min) / (max - min);
 
 export const vectorFromVertices = (vertices: [Vertex, Vertex]): Vector =>
@@ -125,3 +125,10 @@ export const vectorFromVertices = (vertices: [Vertex, Vertex]): Vector =>
     vertices[1].y - vertices[0].y,
     vertices[1].z - vertices[0].z,
   ]);
+
+export const wait = async (duration: number) =>
+  new Promise<void>((resolve) => {
+    window.setTimeout(() => {
+      resolve();
+    }, duration);
+  });

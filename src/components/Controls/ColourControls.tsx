@@ -1,4 +1,11 @@
-import React, { useState, useEffect, FC, MouseEvent, ChangeEvent } from 'react';
+import React, {
+  useState,
+  useEffect,
+  FC,
+  MouseEvent,
+  ChangeEvent,
+  useContext,
+} from 'react';
 
 import styled, { css } from 'styled-components';
 import * as colour from '../../utils/colour';
@@ -10,6 +17,8 @@ import RangeInput from '../ui/RangeInput';
 import ControlGroup from './ControlGroup';
 import Button from '../ui/Button';
 import { HSLColour } from '../../utils/types';
+import useDispatch from '../../hooks/useDispatch';
+import StateContext from '../../context/StateContext';
 
 const SmallButton = styled(Button)`
   display: inline-block;
@@ -46,10 +55,8 @@ const ColourGroupInner = styled.div`
   display: flex;
 `;
 
-const ColourControls: FC<{
-  settings: any;
-  setColours: (x: any[]) => void;
-}> = ({ settings, setColours }) => {
+const ColourControls: FC = () => {
+  const { colour: settings } = useContext(StateContext).settings;
   const [state, setState] = useState({
     maxColours: 12,
     active: 0,
@@ -57,6 +64,7 @@ const ColourControls: FC<{
   });
 
   const { active } = state;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const newState = { ...state };
@@ -78,7 +86,8 @@ const ColourControls: FC<{
     if (s.length < state.maxColours) {
       s.push(colour.hexToHsl(colour.getRandomHex(true)));
       setState({ ...state, settings: s });
-      setColours(s);
+
+      dispatch({ type: 'SET_COLOURS', payload: s });
     }
   };
 
@@ -97,7 +106,7 @@ const ColourControls: FC<{
         setState({ ...state, settings: s });
       }
 
-      setColours(s);
+      dispatch({ type: 'SET_COLOURS', payload: s });
     }
   };
 
@@ -132,7 +141,8 @@ const ColourControls: FC<{
    */
   const handleMouseUp = () => {
     const colours = [...state.settings];
-    setColours(colours);
+
+    dispatch({ type: 'SET_COLOURS', payload: colours });
   };
 
   if (settings) {

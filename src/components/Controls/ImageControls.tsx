@@ -1,4 +1,4 @@
-import React, { ChangeEvent, DragEvent, FC, useState } from 'react';
+import React, { ChangeEvent, DragEvent, FC, useContext, useState } from 'react';
 import styled from 'styled-components';
 import ControlGroup from './ControlGroup';
 import { Checkbox, Label } from '../../styles/fields';
@@ -6,7 +6,8 @@ import { colours } from '../../data/theme';
 import Button from '../ui/Button';
 import { Row, Column } from '../../styles/mixins';
 import { SettingsState } from '../../data/defaults';
-import { Dimensions } from '../../utils/types';
+import useDispatch from '../../hooks/useDispatch';
+import StateContext from '../../context/StateContext';
 
 const PreviewWrap = styled.div`
   display: flex;
@@ -69,18 +70,14 @@ const Thumbnail = styled.img`
   max-height: 200px;
 `;
 
-const ImageControls: FC<{
-  settings: SettingsState['image'];
-  useImage: boolean;
-  setImage: (x: SettingsState['image']) => void;
-  setUseImage: (x: boolean) => void;
-  setDimensions: (x: Dimensions) => void;
-}> = ({ settings, useImage, setImage, setUseImage, setDimensions }) => {
+const ImageControls: FC = () => {
+  const { image: settings, useImage } = useContext(StateContext).settings;
   const [state, setState] = useState({
     settings,
     useImage,
     value: '',
   });
+  const dispatch = useDispatch();
 
   const loadImage = (target: HTMLInputElement | DataTransfer) => {
     if (target.files && target.files[0]) {
@@ -99,8 +96,8 @@ const ImageControls: FC<{
             width,
             height,
           }))(img);
-          setImage(newImage);
-          setState({ ...state, settings: newImage, useImage: true });
+          dispatch({ type: 'SET_IMAGE', payload: newImage });
+          setState({ ...state, settings: newImage });
         };
 
         img.src = f.target.result as string;
@@ -127,12 +124,12 @@ const ImageControls: FC<{
 
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     setState({ ...state, useImage: e.target.checked });
-    setUseImage(e.target.checked);
+    dispatch({ type: 'SET_USE_IMAGE', payload: e.target.checked });
   };
 
   const handleResizeCanvas = () => {
     const { width, height } = state.settings;
-    setDimensions({ width, height });
+    dispatch({ type: 'SET_DIMENSIONS', payload: { width, height } });
   };
 
   const { value } = state;
@@ -162,7 +159,7 @@ const ImageControls: FC<{
         <Column>
           <Checkbox
             id="use-image-checkbox"
-            checked={useImage}
+            checked={settings.useImage}
             onChange={handleCheckboxChange}
           />
           <Label htmlFor="use-image-checkbox">Use image</Label>

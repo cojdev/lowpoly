@@ -119,7 +119,7 @@ const ControlGroup: FC<{ className?: string; title: string }> = ({
 
   return (
     <StyledControlGroup className={className}>
-      <Heading onClick={toggleOpen.bind(this)} open={open}>
+      <Heading onClick={toggleOpen} open={open}>
         {title}
         <Arrow open={open} />
       </Heading>

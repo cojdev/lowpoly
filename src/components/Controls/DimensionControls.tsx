@@ -1,28 +1,34 @@
-import React, { ChangeEvent, FC, MouseEvent, useState } from 'react';
+import React, {
+  ChangeEvent,
+  FC,
+  MouseEvent,
+  useContext,
+  useState,
+} from 'react';
 import styled from 'styled-components';
 import ControlGroup from './ControlGroup';
 import Button from '../ui/Button';
 import { Row, Column } from '../../styles/mixins';
 import SingleInput from '../ui/SingleInput';
 import SelectInput from '../ui/SelectInput';
-import { Dimensions } from '../../utils/types';
-import { SettingsPresets } from '../../data/presets';
+import presets, { SettingsPresets } from '../../data/presets';
+import useDispatch from '../../hooks/useDispatch';
+import StateContext from '../../context/StateContext';
 
 const SetButton = styled(Button)``;
 
-const DimensionControls: FC<{
-  presets: SettingsPresets['dimensions'];
-  settings: Dimensions;
-  setDimensions: (x: Dimensions) => void;
-}> = ({ presets, settings, setDimensions }) => {
+const DimensionControls: FC = () => {
+  const { dimensions: settings } = useContext(StateContext).settings;
   const [height, setHeight] = useState(settings.height);
   const [width, setWidth] = useState(settings.width);
 
+  const dispatch = useDispatch();
+
   const handlePreset = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value !== 'null') {
-      const p = Object.values(presets).find(
-        (item) => item[e.target.value] !== undefined
-      )[e.target.value];
+      const p = Object.values(
+        presets.dimensions as SettingsPresets['dimensions']
+      ).find((item) => item[e.target.value] !== undefined)[e.target.value];
 
       setWidth(p.width);
       setHeight(p.height);
@@ -39,7 +45,8 @@ const DimensionControls: FC<{
 
   const handleSubmit = (e: MouseEvent) => {
     e.preventDefault();
-    setDimensions({ width, height });
+
+    dispatch({ type: 'SET_DIMENSIONS', payload: { width, height } });
   };
 
   return (
@@ -51,7 +58,7 @@ const DimensionControls: FC<{
             name="presets"
             label="Presets"
             onChange={handlePreset}
-            options={presets}
+            options={presets.dimensions}
           />
         </Column>
 

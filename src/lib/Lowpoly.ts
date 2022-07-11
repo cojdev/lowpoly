@@ -1,5 +1,5 @@
 import { dot } from 'mathjs';
-import { drawImageProp } from '../utils/helpers';
+import { drawImageProp, normalise, wait } from '../utils/helpers';
 import { hslToCss } from '../utils/colour';
 import Triangle from './Triangle';
 import { SettingsState } from '../data/defaults';
@@ -178,6 +178,7 @@ export default class Lowpoly {
     const pixel =
       (Math.floor(centre.x) + Math.floor(centre.y) * element.width) * 4;
 
+    // values 0-255
     const [red, green, blue, alpha] = [
       this.imageData[pixel],
       this.imageData[pixel + 1],
@@ -187,14 +188,20 @@ export default class Lowpoly {
 
     // shadows and highlights
     const normal = tri.getNormal();
-    // const shadow = dot(this.light.coords, normal.coords) / 2 + 0.5;
-    const specular = 1 - (dot(this.light.coords, normal.coords) / 2 + 0.5);
+    const shadow = Math.min(
+      1.1 * normalise(dot(this.light.coords, normal.coords), 1, -1),
+      1
+    );
+    const specular = Math.max(
+      1 - 1.5 * normalise(dot(this.light.coords, normal.coords), 1, -1),
+      0
+    );
 
-    const r = 1 - (1 - red / 255) * (1 - specular);
-    const g = 1 - (1 - green / 255) * (1 - specular);
-    const b = 1 - (1 - blue / 255) * (1 - specular);
+    const r = (1 - (1 - normalise(red, 255)) * (1 - specular)) * shadow;
+    const g = (1 - (1 - normalise(green, 255)) * (1 - specular)) * shadow;
+    const b = (1 - (1 - normalise(blue, 255)) * (1 - specular)) * shadow;
 
-    console.log(r);
+    // console.log(shadow);
 
     ctx.fillStyle = `rgba(
       ${Math.round(r * 255)},
@@ -218,9 +225,9 @@ export default class Lowpoly {
     // )`;
 
     // ctx.fillStyle = `rgba(
-    //   ${Math.round(shadow)},
-    //   ${Math.round(shadow)},
-    //   ${Math.round(shadow)},
+    //   ${Math.round(shadow * 255)},
+    //   ${Math.round(shadow * 255)},
+    //   ${Math.round(shadow * 255)},
     //   ${alpha / 255}
     // )`;
 
@@ -307,6 +314,7 @@ export default class Lowpoly {
     useImage: boolean;
     seed: number;
   }) {
+    await wait(0);
     Object.assign(this, options);
 
     this.PRNG.reset(this.seed);

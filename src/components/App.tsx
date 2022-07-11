@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useReducer } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
 // Components
@@ -6,10 +6,10 @@ import Display from './Display';
 import Controls from './Controls';
 
 // Helpers
-import presets from '../data/presets';
 import theme from '../data/theme';
 import defaults, { SettingsState } from '../data/defaults';
-import { Dimensions, HSLColour } from '../utils/types';
+import StateContext from '../context/StateContext';
+import DispatchContext from '../context/DispatchContext';
 
 const GlobalStyles = createGlobalStyle`
     *,*::before,*::after {
@@ -50,117 +50,110 @@ const GlobalStyles = createGlobalStyle`
 const Container = styled.div``;
 
 const App: FC = () => {
-  const [state, setState] = useState({
-    // default controls values
-    settings: { ...defaults },
-    output: '',
-    controlsOpen: false,
-  });
+  const [state, dispatch] = useReducer(
+    (
+      state2: {
+        settings: SettingsState;
+        output: string;
+        controlsOpen: boolean;
+      },
+      action: { type: string; payload?: any }
+    ) => {
+      switch (action.type) {
+        case 'TOGGLE_CONTROLS':
+          return { ...state2, controlsOpen: !state2.controlsOpen };
+        case 'SET_DIMENSIONS':
+          return {
+            ...state2,
+            settings: {
+              ...state2.settings,
+              dimensions: action.payload,
+            },
+          };
+        case 'SET_COLOURS':
+          return {
+            ...state2,
+            settings: {
+              ...state2.settings,
+              colour: action.payload,
+            },
+          };
+        case 'SET_GEOMETRY':
+          return {
+            ...state2,
+            settings: {
+              ...state2.settings,
+              geometry: {
+                ...state2.settings.geometry,
+                [action.payload.option]: action.payload.value,
+              },
+            },
+          };
+        case 'SET_IMAGE':
+          return {
+            ...state2,
+            settings: {
+              ...state2.settings,
+              image: action.payload,
+              useImage: true,
+            },
+          };
+        case 'SET_USE_IMAGE':
+          return {
+            ...state2,
+            settings: {
+              ...state2.settings,
+              useImage: action.payload,
+            },
+          };
+        case 'UPDATE_OUTPUT':
+          return {
+            ...state2,
+            output: action.payload,
+          };
+        case 'NEW_SEED':
+          return {
+            ...state2,
+            settings: {
+              ...state2.settings,
+              seed: action.payload,
+            },
+          };
+        default:
+          return state2;
+      }
+    },
+    {
+      settings: { ...defaults },
+      output: '',
+      controlsOpen: false,
+    }
+  );
 
   const { settings, output } = state;
-
-  /**
-   * Open and close the controls on mobile devices
-   */
-  const toggleControls = () => {
-    setState({ ...state, controlsOpen: !state.controlsOpen });
-  };
-
-  /**
-   * set dimensions of the image in pixels
-   * @param {object} obj
-   */
-  const setDimensions = (obj: Dimensions) => {
-    const s = { ...state.settings };
-    s.dimensions = obj;
-    setState({ ...state, settings: s });
-  };
-
-  /**
-   * sets the colours in the palette
-   * @param {array} arr array of colour hex values
-   */
-  const setColours = (colours: HSLColour[]) => {
-    const s = { ...state.settings };
-    // console.log(arr);
-    s.colour = colours;
-    setState({ ...state, settings: s });
-  };
-
-  /**
-   * set geometry
-   * @param {string} option attribute being set
-   * @param {number} value value
-   */
-  const setGeometry = (
-    option: keyof SettingsState['geometry'],
-    value: number
-  ) => {
-    const s = { ...state.settings };
-    s.geometry[option] = value;
-    setState({ ...state, settings: s });
-  };
-
-  /**
-   * Sets the selected image
-   * @param {string} image url for specified image
-   */
-  const setImage = (image: SettingsState['image']) => {
-    const s = { ...state.settings };
-    s.image = image;
-    s.useImage = true;
-    setState({ ...state, settings: s });
-  };
-
-  /**
-   * Toggle using uploaded image in generated picture
-   * @param {boolean} boolean
-   */
-  const setUseImage = (boolean: boolean) => {
-    const s = { ...state.settings };
-    s.useImage = boolean;
-    setState({ ...state, settings: s });
-  };
 
   /**
    * Updates the output dataURI in state
    * @param {string} value The data URL for the generated canvas
    */
   const updateOutput = (value: string) => {
-    setState({ ...state, output: value });
-  };
-
-  const newSeed = () => {
-    const s = { ...state.settings };
-
-    s.seed = Math.random();
-
-    setState({ ...state, settings: s });
-  };
-
-  // methods for setting application state
-  const setters = {
-    setDimensions,
-    setColours,
-    setGeometry,
-    setImage,
-    setUseImage,
-    newSeed,
+    dispatch({ type: 'UPDATE_OUTPUT', payload: value });
   };
 
   return (
-    <Container>
-      <GlobalStyles />
-      <Display settings={settings} updateOutput={updateOutput} />
-      <Controls
-        settings={settings}
-        presets={presets.dimensions}
-        output={output}
-        open={state.controlsOpen}
-        toggleControls={toggleControls}
-        {...setters}
-      />
-    </Container>
+    <StateContext.Provider value={state}>
+      <DispatchContext.Provider value={dispatch}>
+        <Container>
+          <GlobalStyles />
+          {state.settings ? (
+            <>
+              <Display settings={settings} updateOutput={updateOutput} />
+              <Controls output={output} open={state.controlsOpen} />
+            </>
+          ) : null}
+        </Container>
+      </DispatchContext.Provider>
+    </StateContext.Provider>
   );
 };
 

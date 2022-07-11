@@ -1,17 +1,23 @@
-import React, { ChangeEvent, FC, FocusEvent, useState } from 'react';
+import React, {
+  ChangeEvent,
+  FC,
+  FocusEvent,
+  useContext,
+  useState,
+} from 'react';
 import ControlGroup from './ControlGroup';
 import { Label } from '../../styles/fields';
 import { capitalise } from '../../utils/helpers';
 import RangeInput from '../ui/RangeInput';
 import { SettingsState } from '../../data/defaults';
 import Button from '../ui/Button';
+import useDispatch from '../../hooks/useDispatch';
+import StateContext from '../../context/StateContext';
 
-const GeometryControls: FC<{
-  settings: SettingsState['geometry'];
-  setGeometry: (option: keyof SettingsState['geometry'], value: number) => void;
-  newSeed: () => void;
-}> = ({ settings, setGeometry, newSeed }) => {
+const GeometryControls: FC = () => {
+  const { geometry: settings } = useContext(StateContext).settings;
   const [state, setState] = useState({ ...settings });
+  const dispatch = useDispatch();
 
   /**
    * Update the local state
@@ -34,7 +40,10 @@ const GeometryControls: FC<{
     option: keyof SettingsState['geometry'],
     e: FocusEvent<HTMLInputElement>
   ) => {
-    setGeometry(option, parseInt(e.target.value, 10));
+    dispatch({
+      type: 'SET_GEOMETRY',
+      payload: { option, value: parseInt(e.target.value, 10) },
+    });
   };
 
   const options = Object.keys(state).map(
@@ -58,7 +67,12 @@ const GeometryControls: FC<{
   return (
     <ControlGroup title="Geometry">
       {options}
-      <Button onClick={newSeed}>New Random seed</Button>
+      <Button
+        onClick={() => {
+          dispatch({ type: 'NEW_SEED', payload: Math.random() });
+        }}>
+        New Random seed
+      </Button>
     </ControlGroup>
   );
 };

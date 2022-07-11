@@ -1,14 +1,30 @@
+import { rgba } from 'polished';
 import React, { FC } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const StyledLoader = styled.div`
-  height: 100vh;
-  width: 100vw;
-  max-width: 100%;
-  max-height: 100%;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-const Spinner = styled.div``;
+const spin = keyframes`
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+const Spinner = styled.div`
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 100px;
+  border: 8px solid transparent;
+  border-left-color: ${rgba('white', 0.4)};
+  animation: ${spin} 600ms linear infinite;
+`;
 
 const Loader: FC = () => (
   <StyledLoader>

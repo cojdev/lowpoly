@@ -5,16 +5,24 @@ import ColourPalette from '../ColourPalette';
 import ControlGroup from './ControlGroup';
 
 import presets from '../../data/presets';
-import { HSLColour } from '../../utils/types';
+import useDispatch from '../../hooks/useDispatch';
 
-const PaletteControls: FC<{ setColours: (x: HSLColour[]) => void }> = ({
-  setColours,
-}) => (
-  <ControlGroup title="Palettes">
-    {presets.palettes.map((item, index) => (
-      <ColourPalette key={index} colours={item} handleSetPalette={setColours} />
-    ))}
-  </ControlGroup>
-);
+const PaletteControls: FC = () => {
+  const dispatch = useDispatch();
+
+  return (
+    <ControlGroup title="Palettes">
+      {presets.palettes.map((item, index) => (
+        <ColourPalette
+          key={index}
+          colours={item}
+          handleSetPalette={(a) => {
+            dispatch({ type: 'SET_COLOURS', payload: a });
+          }}
+        />
+      ))}
+    </ControlGroup>
+  );
+};
 
 export default PaletteControls;
