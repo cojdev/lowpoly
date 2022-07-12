@@ -59,8 +59,6 @@ const Display: FC<{
     updateOutput(dataURL);
   };
 
-  console.log('LOADING:', loading);
-
   useEffect(() => {
     lowpoly.current = new Lowpoly(canvas.current);
   }, []);
