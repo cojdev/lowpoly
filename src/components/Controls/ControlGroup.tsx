@@ -1,7 +1,7 @@
 import React, { FC, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
-import Animate from '../../lib/Animate';
 import { colours } from '../../data/theme';
+import { slideDown, slideUp } from '../../services/animate';
 
 const StyledControlGroup = styled.section``;
 
@@ -110,9 +110,9 @@ const ControlGroup: FC<{ className?: string; title: string }> = ({
 
   const toggleOpen = () => {
     if (open) {
-      Animate.slideUp(content.current);
+      slideUp(content.current);
     } else {
-      Animate.slideDown(content.current);
+      slideDown(content.current);
     }
     setOpen(!open);
   };

@@ -1,4 +1,4 @@
-import { HSLColour } from './types';
+import { HSLColour } from '../utils/types';
 
 /**
  * Convert hsl to rgb

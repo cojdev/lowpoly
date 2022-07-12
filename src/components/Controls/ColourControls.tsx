@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 
 import styled, { css } from 'styled-components';
-import * as colour from '../../utils/colour';
+import * as colour from '../../services/colour';
 
 // widgets
 import ColourInput from '../ui/ColourInput';

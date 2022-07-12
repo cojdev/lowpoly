@@ -1,6 +1,6 @@
 import { dot } from 'mathjs';
 import { drawImageProp, normalise, wait } from '../utils/helpers';
-import { hslToCss } from '../utils/colour';
+import { hslToCss } from '../services/colour';
 import Triangle from './Triangle';
 import { SettingsState } from '../data/defaults';
 import { HSLColour } from '../utils/types';
