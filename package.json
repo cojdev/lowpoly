@@ -31,6 +31,7 @@
     "watch": "webpack --mode development --progress --watch"
   },
   "dependencies": {
+    "@cojdev/colour": "file:../colour",
     "@types/prop-types": "^15.7.5",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.13",

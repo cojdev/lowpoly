@@ -8,15 +8,15 @@ import React, {
 } from 'react';
 
 import styled, { css } from 'styled-components';
-import * as colour from '../../services/colour';
+import * as colour from '@cojdev/colour';
 
 // widgets
+import { HSLColour } from '@cojdev/colour';
 import ColourInput from '../ui/ColourInput';
 import { Label } from '../../styles/fields';
 import RangeInput from '../ui/RangeInput';
 import ControlGroup from './ControlGroup';
 import Button from '../ui/Button';
-import { HSLColour } from '../../utils/types';
 import useDispatch from '../../hooks/useDispatch';
 import StateContext from '../../context/StateContext';
 

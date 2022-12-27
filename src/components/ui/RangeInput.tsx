@@ -11,7 +11,7 @@ import { RangeSlider } from '../../styles/fields';
 const Wrapper = styled.div`
   height: 20px;
   width: 100%;
-  margin: 0;
+  margin: 0 0 0.5em;
   padding: 0;
   position: relative;
 `;

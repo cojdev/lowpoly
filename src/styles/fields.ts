@@ -34,7 +34,7 @@ export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
   display: none;
 
   + label {
-    padding-left: 2rem;
+    padding-left: 1.5rem;
     position: relative;
     cursor: pointer;
 
@@ -47,19 +47,20 @@ export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
 
     &:before {
       left: 0;
-      height: 1.5rem;
-      width: 1.5rem;
+      height: 1.2rem;
+      width: 1.2rem;
       border: 2px solid #eee;
+      background-color: #fff;
       border-radius: 3px;
     }
 
     &:after {
-      left: 0.3rem;
-      right: 0.3rem;
-      top: 0.5rem;
-      width: 0.9rem;
+      left: 0.2rem;
+      right: 0.2rem;
+      top: 0.35rem;
+      width: 0.8rem;
       height: 0.5rem;
-      border: 4px solid ${colours.primary};
+      border: 3px solid ${colours.primary};
       border-top: none;
       border-right: none;
       transform: translateY(-2px) rotate(-45deg);

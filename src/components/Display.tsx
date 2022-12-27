@@ -2,7 +2,7 @@ import React, { useRef, useEffect, FC, useState } from 'react';
 import styled from 'styled-components';
 import { rgba } from 'polished';
 import theme from '../data/theme';
-import Lowpoly from '../lib/Lowpoly';
+import Lowpoly from '../libraries/Lowpoly';
 import { SettingsState } from '../data/defaults';
 import Loader from './Loader';
 

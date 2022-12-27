@@ -30,7 +30,10 @@ const Header: FC = () => (
       Create lowpoly images free to use in personal and commercial projects.
     </p>
 
-    <a href="https://ko-fi.com/Y8Y829JJM" target="_blank">
+    <a
+      href="https://ko-fi.com/Y8Y829JJM"
+      target="_blank"
+      rel="noopener noreferrer">
       <img
         height="36"
         style={{ border: '0px', height: '36px' }}

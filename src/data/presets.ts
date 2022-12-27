@@ -1,4 +1,5 @@
-import { Dimensions, HSLColour } from '../utils/types';
+import { HSLColour } from '@cojdev/colour';
+import { Dimensions } from '../utils/types';
 
 export type SettingsPresets = {
   palettes: HSLColour[];
