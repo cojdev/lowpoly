@@ -1,7 +1,8 @@
 import React, { FC, useContext } from 'react';
 import styled, { css } from 'styled-components';
-import theme from '../../data/theme';
+import * as Icon from 'react-feather';
 
+import theme from '../../data/theme';
 import DimensionControls from './DimensionControls';
 import GeometryControls from './GeometryControls';
 import ColourControls from './ColourControls';
@@ -22,40 +23,35 @@ const Container = styled.section`
   }
 `;
 
-const ButtonWrap = styled.div`
-  width: 5rem;
-  padding: 1rem;
+const ToggleButton = styled.button<{ open: boolean }>`
   display: flex;
-  align-items: flex-end;
-  @media screen and (min-width: 800px) {
-    display: none;
-  }
-`;
-
-const ToggleButton = styled.button`
-  display: block;
-  height: 3rem;
-  width: 3rem;
-  padding: 0rem;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  height: 4rem;
+  width: 4rem;
+  padding: 0;
   margin: 0;
   border: none;
   border-radius: 100px;
   box-shadow: ${theme.shadow};
   background-color: #fff;
+  color: #444;
   cursor: pointer;
   transition: ${theme.controls.transition};
-
-  img {
-    width: 1rem;
-    vertical-align: middle;
-    height: auto;
-  }
 
   ${(props: { open: boolean }) =>
     props.open &&
     css`
-      transform: translateX(62%);
+      transform: translateX(-${theme.controls.width});
     `}
+
+  @media screen and (min-width: 800px) {
+    /* transform: translateX(-${theme.controls.width}); */
+    display: none;
+  }
 `;
 
 const StyledControls = styled.section<{ open: boolean }>`
@@ -79,7 +75,7 @@ const StyledControls = styled.section<{ open: boolean }>`
     top: 0;
     right: 0;
     bottom: 0;
-    transform: translateX(calc(100% - 5rem));
+    transform: translateX(100%);
     transition: transform ${theme.controls.transition};
 
     ${(props) =>
@@ -151,31 +147,34 @@ const Controls: FC<{
 
   return (
     <Container className={className}>
-      <ButtonWrap>
-        <ToggleButton
-          onClick={() => {
-            dispatch({ type: 'TOGGLE_CONTROLS' });
-          }}
-          open={open}>
-          <img src={open ? 'assets/x.svg' : 'assets/menu.svg'} />
-        </ToggleButton>
-      </ButtonWrap>
+      <ToggleButton
+        onClick={() => {
+          dispatch({ type: 'TOGGLE_CONTROLS' });
+        }}
+        open={open}>
+        {((size: number) =>
+          open ? <Icon.X size={size} /> : <Icon.Settings size={size} />)(32)}
+      </ToggleButton>
+
       <StyledControls open={open}>
         <Header />
+
         <DimensionControls />
         <ImageControls />
         <GeometryControls />
         <ColourControls />
         <PaletteControls />
+
         <ControlGroup title="Export">
           <DownloadButton href={output} download="lowpoly.png">
             Download PNG
           </DownloadButton>
           <FileMetadata>
-            {getFileSize()} &bull; {settings.dimensions.width}&times;
+            {getFileSize()} &bull; {settings.dimensions.width} &times;
             {settings.dimensions.height}
           </FileMetadata>
         </ControlGroup>
+
         <Footer>
           by{' '}
           <a href="https://cojdev.github.io" target="_top">

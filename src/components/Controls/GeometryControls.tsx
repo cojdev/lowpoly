@@ -5,6 +5,8 @@ import React, {
   useContext,
   useState,
 } from 'react';
+import styled from 'styled-components';
+
 import ControlGroup from './ControlGroup';
 import { Label } from '../../styles/fields';
 import { capitalise } from '../../utils/helpers';
@@ -13,6 +15,10 @@ import { SettingsState } from '../../data/defaults';
 import Button from '../ui/Button';
 import useDispatch from '../../hooks/useDispatch';
 import StateContext from '../../context/StateContext';
+
+const StyledButton = styled(Button)`
+  margin-top: 1rem;
+`;
 
 const GeometryControls: FC = () => {
   const { geometry: settings } = useContext(StateContext).settings;
@@ -67,12 +73,12 @@ const GeometryControls: FC = () => {
   return (
     <ControlGroup title="Geometry">
       {options}
-      <Button
+      <StyledButton
         onClick={() => {
           dispatch({ type: 'NEW_SEED', payload: Math.random() });
         }}>
         New Random seed
-      </Button>
+      </StyledButton>
     </ControlGroup>
   );
 };
