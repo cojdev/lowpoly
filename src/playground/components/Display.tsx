@@ -50,7 +50,7 @@ const Display: FC<{
       cellSize: geometry.cellSize,
       depth: geometry.depth,
       dither: geometry.dither,
-      image,
+      imageSrc: image.src,
       colours: colour,
       useImage,
       seed,

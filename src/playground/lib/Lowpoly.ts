@@ -1,8 +1,7 @@
 import { dot } from 'mathjs';
 import { drawImageProp, normalise, wait } from '../utils/helpers';
-import { hslToCss } from '../services/colour';
+import { hslToCss } from '../libraries/colour';
 import Triangle from './Triangle';
-import { SettingsState } from '../data/defaults';
 import { HSLColour } from '../utils/types';
 import PRNG from './PRNG';
 import Tracker from './Tracker';
@@ -14,21 +13,23 @@ export default class Lowpoly {
 
   ctx: CanvasRenderingContext2D;
 
-  points: Vertex[];
+  points: Vertex[] = [];
 
-  triangles: Triangle[];
+  triangles: Triangle[] = [];
 
-  variance: number;
+  variance: number = 4;
 
-  cellSize: number;
+  cellSize: number = 50;
 
-  depth: number;
+  depth: number = 0;
 
-  image: SettingsState['image'];
+  dither: number = 0;
 
-  useImage: boolean;
+  imageSrc: string = null;
 
-  colours: HSLColour[];
+  useImage: boolean = false;
+
+  colours: HSLColour[] = [];
 
   gridWidth: number;
 
@@ -42,8 +43,6 @@ export default class Lowpoly {
 
   dataUrl: string;
 
-  dither: number;
-
   light: Vector;
 
   seed: number;
@@ -53,19 +52,6 @@ export default class Lowpoly {
   constructor(element: HTMLCanvasElement) {
     this.element = element;
     this.ctx = this.element.getContext('2d');
-    this.points = [];
-    this.triangles = [];
-
-    // options
-    this.variance = 4;
-    this.cellSize = 50;
-    this.depth = 0;
-    this.dither = 0;
-
-    this.image = null;
-    this.useImage = false;
-
-    this.colours = [];
 
     this.gridWidth = 0;
     this.gridHeight = 0;
@@ -93,16 +79,16 @@ export default class Lowpoly {
     ctx.fill();
   }
 
-  drawBackground() {
+  async drawBackground() {
     const { ctx, element, colours } = this;
 
     ctx.clearRect(0, 0, element.width, element.height);
 
     // using an image
-    if (this.image.src && this.useImage) {
+    if (this.imageSrc && this.useImage) {
       const baseImage = new Image();
       baseImage.crossOrigin = 'Anonymous';
-      baseImage.src = this.image.src;
+      baseImage.src = this.imageSrc;
 
       return new Promise<void>((resolve) => {
         baseImage.onload = () => {
@@ -129,7 +115,7 @@ export default class Lowpoly {
           i / (colours.length - 1),
           hslToCss(...colours[i])
         );
-        // draw gradient on element
+        // draw gradient on elementa
         ctx.fillStyle = gradient;
       } else {
         // use a single colour
@@ -329,33 +315,49 @@ export default class Lowpoly {
     this.columnCount = Math.ceil(this.gridWidth / this.cellSize) + 2;
     this.rowCount = Math.ceil(this.gridHeight / (this.cellSize * 0.865));
 
-    tracker.test(() => this.generatePoints(), 'generatePoints');
-    tracker.test(() => this.generateTriangles(), 'generateTriangles');
+    tracker.test({
+      func: () => this.generatePoints(),
+      label: 'generatePoints',
+    });
+    tracker.test({
+      func: () => this.generateTriangles(),
+      label: 'generateTriangles',
+    });
 
     const { element, ctx, triangles } = this;
 
     ctx.clearRect(0, 0, element.width, element.height);
 
     // draw gradient/image on canvas and get image data
-    await tracker.test(() => this.drawBackground(), 'drawBackground', true);
+    await tracker.test({
+      func: () => this.drawBackground(),
+      label: 'drawBackground',
+      async: true,
+    });
 
-    tracker.test(() => {
-      this.imageData = ctx.getImageData(
-        0,
-        0,
-        element.width,
-        element.height
-      ).data;
-    }, 'getImageData');
+    tracker.test({
+      func: () => {
+        this.imageData = ctx.getImageData(
+          0,
+          0,
+          element.width,
+          element.height
+        ).data;
+      },
+      label: 'getImageData',
+    });
 
-    // draw polys on main canvas
-    tracker.test(() => {
-      for (let i = 0; i < triangles.length; i++) {
-        this.drawPoly(triangles[i]);
-      }
-    }, 'drawPoly');
+    // draw triangles on main canvas
+    tracker.test({
+      func: () => {
+        for (let i = 0; i < triangles.length; i++) {
+          this.drawPoly(triangles[i]);
+        }
+      },
+      label: 'drawPoly',
+    });
 
-    // tracker.log();
+    tracker.log();
 
     // generate data url of image
     this.dataUrl = element.toDataURL();

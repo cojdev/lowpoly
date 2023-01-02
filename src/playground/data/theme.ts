@@ -1,6 +1,6 @@
 const theme = {
   fonts: {
-    base: '"Readex Pro", sans-serif',
+    base: '"Outfit", sans-serif',
   },
   colours: {
     primary: '#e14',

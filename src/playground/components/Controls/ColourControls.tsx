@@ -8,7 +8,8 @@ import React, {
 } from 'react';
 
 import styled, { css } from 'styled-components';
-import * as colour from '../../services/colour';
+import * as Icon from 'react-feather';
+import * as colour from '../../libraries/colour';
 
 // widgets
 import ColourInput from '../ui/ColourInput';
@@ -21,7 +22,9 @@ import useDispatch from '../../hooks/useDispatch';
 import StateContext from '../../context/StateContext';
 
 const SmallButton = styled(Button)`
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 0.5ch 0.5rem;
   margin: 0 0.5ch;
   width: auto;
@@ -190,12 +193,12 @@ const ColourControls: FC = () => {
         <SmallButton
           onClick={handleAddColour}
           disabled={!(settings.length < state.maxColours)}>
-          Add
+          <Icon.Plus />
         </SmallButton>
         <SmallButton
           onClick={handleRemoveColour}
           disabled={!(settings.length > 1)}>
-          Remove
+          <Icon.Minus />
         </SmallButton>
 
         <ColourGroup>

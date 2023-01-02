@@ -1,7 +1,7 @@
 import React, { FC, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { colours } from '../../data/theme';
-import { slideDown, slideUp } from '../../services/animate';
+import { slideDown, slideUp } from '../../libraries/animate';
 
 const StyledControlGroup = styled.section``;
 

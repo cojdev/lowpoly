@@ -1,4 +1,4 @@
-import { HSLColour, Dimensions } from '../utils/types';
+import { HSLColour, Dimensions, Image } from '../utils/types';
 import presets from './presets';
 
 export type SettingsState = {
@@ -10,11 +10,7 @@ export type SettingsState = {
     dither: number;
   };
   colour: HSLColour[];
-  image:
-    | ({
-        src: string;
-      } & Dimensions)
-    | null;
+  image: Image | null;
   useImage: boolean;
   seed: number;
 };

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { HSLColour } from '../utils/types';
-import { hslToCss } from '../services/colour';
+import { hslToCss } from '../libraries/colour';
 
 const Palette = styled.div`
   display: flex;

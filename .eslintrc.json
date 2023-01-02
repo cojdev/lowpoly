@@ -21,7 +21,8 @@
   },
   "ignorePatterns": [
     "node_modules/**/*.js",
-    "public/**/*.js"
+    "docs/**/*.js",
+    "webpack.config.js"
   ],
   "plugins": [
     "@typescript-eslint",
