@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { HSLColour } from '../utils/types';
-import { hslToCss } from '../libraries/colour';
+import { HSLColour, hslToCss } from '@cojdev/colour';
 
 const Palette = styled.div`
   display: flex;

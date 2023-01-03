@@ -9,7 +9,7 @@ import styled from 'styled-components';
 
 import ControlGroup from './ControlGroup';
 import { Label } from '../../styles/fields';
-import { capitalise } from '../../utils/helpers';
+import { capitalise } from '../../../helpers';
 import RangeInput from '../ui/RangeInput';
 import { SettingsState } from '../../data/defaults';
 import Button from '../ui/Button';

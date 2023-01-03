@@ -2,9 +2,9 @@ import React, { useRef, useEffect, FC, useState } from 'react';
 import styled from 'styled-components';
 import { rgba } from 'polished';
 import theme from '../data/theme';
-import Lowpoly from '../lib/Lowpoly';
 import { SettingsState } from '../data/defaults';
 import Loader from './Loader';
+import Lowpoly from '../../Lowpoly';
 
 const StyledDisplay = styled.div`
   text-align: center;

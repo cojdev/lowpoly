@@ -1,7 +1,6 @@
 import React, { FC, MouseEvent } from 'react';
 import styled, { css } from 'styled-components';
-import { HSLColour } from '../../utils/types';
-import { hslToCss } from '../../libraries/colour';
+import { HSLColour, hslToCss } from '@cojdev/colour';
 
 const StyledColourInput = styled.div.attrs<{ colour: HSLColour }>(
   ({ colour }) => ({

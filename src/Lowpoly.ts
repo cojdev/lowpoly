@@ -1,8 +1,7 @@
 import { dot } from 'mathjs';
-import { drawImageProp, normalise, wait } from '../utils/helpers';
-import { hslToCss } from '../libraries/colour';
+import { HSLColour, hslToCss } from '@cojdev/colour';
+import { drawImageProp, normalise, wait } from './helpers';
 import Triangle from './Triangle';
-import { HSLColour } from '../utils/types';
 import PRNG from './PRNG';
 import Tracker from './Tracker';
 import Vector from './Vector';
@@ -357,7 +356,7 @@ export default class Lowpoly {
       label: 'drawPoly',
     });
 
-    tracker.log();
+    // tracker.log();
 
     // generate data url of image
     this.dataUrl = element.toDataURL();

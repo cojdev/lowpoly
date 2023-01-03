@@ -1,4 +1,5 @@
-import { HSLColour, Dimensions, Image } from '../utils/types';
+import { HSLColour } from '@cojdev/colour';
+import { Dimensions, Image } from '../utils/types';
 import presets from './presets';
 
 export type SettingsState = {

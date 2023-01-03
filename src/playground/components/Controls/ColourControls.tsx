@@ -9,15 +9,15 @@ import React, {
 
 import styled, { css } from 'styled-components';
 import * as Icon from 'react-feather';
-import * as colour from '../../libraries/colour';
+import * as colour from '@cojdev/colour';
 
 // widgets
+import { HSLColour } from '@cojdev/colour';
 import ColourInput from '../ui/ColourInput';
 import { Label } from '../../styles/fields';
 import RangeInput from '../ui/RangeInput';
 import ControlGroup from './ControlGroup';
 import Button from '../ui/Button';
-import { HSLColour } from '../../utils/types';
 import useDispatch from '../../hooks/useDispatch';
 import StateContext from '../../context/StateContext';
 
@@ -87,7 +87,9 @@ const ColourControls: FC = () => {
     const s = [...state.settings];
 
     if (s.length < state.maxColours) {
-      s.push(colour.hexToHsl(colour.getRandomHex(true)));
+      const randHex = colour.getRandomHex(true);
+      // console.log(randHex);
+      s.push(colour.hexToHsl(randHex));
       setState({ ...state, settings: s });
 
       dispatch({ type: 'SET_COLOURS', payload: s });
