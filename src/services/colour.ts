@@ -24,6 +24,10 @@ export const hslToRgb = (
     l = lum;
   }
 
+  h /= 360;
+  s /= 100;
+  l /= 100;
+
   let rgb = [];
   let c = 0;
   let x = 0;
@@ -31,7 +35,7 @@ export const hslToRgb = (
 
   c = (1 - Math.abs(2 * l - 1)) * s;
 
-  const h1 = h / 60;
+  const h1 = h * 6;
 
   x = c * (1 - Math.abs((h1 % 2) - 1));
 
@@ -61,29 +65,31 @@ export const hslToRgb = (
 
 /**
  * Convert rgb to hexadecimal
- * @param {array<number>|number} r red, green and blue array or red component
- * @param {number} g green component
- * @param {number} b blue component
- * @returns {string}
  */
-// export const rgbToHex = (r, g, b) => {
-//   if (Array.isArray(r)) {
-//     g = r[1];
-//     b = r[2];
-//     r = r[0];
-//   }
+export const rgbToHex = (
+  red: number | number[],
+  green: number,
+  blue: number
+) => {
+  let r;
+  let g;
+  let b;
 
-//   let ret = '#';
-//   const components = rgb.map((item) => {
-//     let ret = item.toString(16);
-//     if (ret.length === 1) {
-//       ret = `0${ret}`;
-//     }
-//     return ret;
-//   });
-//   ret += components.join('');
-//   return ret;
-// };
+  if (Array.isArray(red)) {
+    [r, g, b] = red;
+  } else {
+    r = red;
+    g = green;
+    b = blue;
+  }
+
+  const toHex = (x: number) => {
+    const hex = x.toString(16);
+    return hex.length === 1 ? `0${hex}` : hex;
+  };
+
+  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+};
 
 /**
  * Convert hexadecimal colour to RGB
@@ -199,35 +205,9 @@ export const hslToHex = (
     l = lum;
   }
 
-  h /= 360;
-  s /= 100;
-  l /= 100;
+  const [r, g, b] = hslToRgb(h, s, l);
 
-  let r = l;
-  let g = l;
-  let b = l;
-
-  if (s !== 0) {
-    const hue2rgb = (p: number, q: number, t: number) => {
-      let t2 = t;
-      if (t < 0) t2 += 1;
-      if (t > 1) t2 -= 1;
-      if (t < 1 / 6) return p + (q - p) * 6 * t2;
-      if (t < 1 / 2) return q;
-      if (t < 2 / 3) return p + (q - p) * (2 / 3 - t2) * 6;
-      return p;
-    };
-    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-    const p = 2 * l - q;
-    r = hue2rgb(p, q, h + 1 / 3);
-    g = hue2rgb(p, q, h);
-    b = hue2rgb(p, q, h - 1 / 3);
-  }
-  const toHex = (x: number) => {
-    const hex = Math.round(x * 255).toString(16);
-    return hex.length === 1 ? `0${hex}` : hex;
-  };
-  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+  return rgbToHex(r, g, b);
 };
 
 export const hslToCss = (h: number, s: number, l: number) =>
