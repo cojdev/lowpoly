@@ -1,6 +1,6 @@
 import { dot } from 'mathjs';
 import { HSLColour, hslToCss } from '@cojdev/colour';
-import { drawImageProp, normalise, wait } from './helpers';
+import { drawImageProp, normalise, wait } from '../helpers';
 import Triangle from './Triangle';
 import PRNG from './PRNG';
 import Tracker from './Tracker';

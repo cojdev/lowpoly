@@ -1,5 +1,5 @@
-import Vector from './Vector';
-import Vertex from './Vertex';
+import Vector from './classes/Vector';
+import Vertex from './classes/Vertex';
 
 /**
  * generate a unique ID of specified length

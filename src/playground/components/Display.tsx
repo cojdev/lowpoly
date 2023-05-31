@@ -4,7 +4,7 @@ import { rgba } from 'polished';
 import theme from '../data/theme';
 import { SettingsState } from '../data/defaults';
 import Loader from './Loader';
-import Lowpoly from '../../Lowpoly';
+import Lowpoly from '../..';
 
 const StyledDisplay = styled.div`
   text-align: center;

@@ -1,5 +1,5 @@
 import { cross } from 'mathjs';
-import { vectorFromVertices } from './helpers';
+import { vectorFromVertices } from '../helpers';
 import Vector from './Vector';
 import Vertex from './Vertex';
 
